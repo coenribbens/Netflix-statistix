@@ -1,0 +1,212 @@
+/*
+
+To change this license header, choose License Headers in Project Properties.
+
+To change this template file, choose Tools | Templates
+
+and open the template in the editor.
+
+*/
+
+/*
+
+    Created on : Aug 20, 2017, 8:04:53 PM
+
+    Author     : coen
+
+*/
+
+body {
+
+  background-color: #FAEBD7;
+
+}
+
+.titleIcon img {
+
+  position: relative;
+
+  margin: 0px auto;
+
+  margin-left: 590px;
+
+  background-repeat: no-repeat;
+
+}
+
+.carousel slide {
+
+  border: 1px solid #DC143C;
+
+  position: relative;
+
+  margin: 0px auto;
+
+  margin-left: 590px;
+
+  background-repeat: no-repeat;
+
+}
+
+.navbar-default {
+
+  background-color: #ce3627 !important;
+
+  border-color: #c0392b;
+
+}
+
+.navbar-default .navbar-brand {
+
+  color: #ecf0f1;
+
+}
+
+.navbar-default .navbar-brand:hover,
+
+.navbar-default .navbar-brand:focus {
+
+  color: #000000;
+
+}
+
+.navbar-default .navbar-text {
+
+  color: #000000;
+
+}
+
+.navbar-default .navbar-nav > li > a {
+
+  color: #ecf0f1;
+
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+
+.navbar-default .navbar-nav > li > a:focus {
+
+  color: #ffbbbc;
+
+}
+
+.navbar-default .navbar-nav > .active > a,
+
+.navbar-default .navbar-nav > .active > a:hover,
+
+.navbar-default .navbar-nav > .active > a:focus {
+
+  color: #ffbbbc;
+
+  background-color: #c0392b;
+
+}
+
+.navbar-default .navbar-nav > .open > a,
+
+.navbar-default .navbar-nav > .open > a:hover,
+
+.navbar-default .navbar-nav > .open > a:focus {
+
+  color: #ffbbbc;
+
+  background-color: #c0392b;
+
+}
+
+.navbar-default .navbar-toggle {
+
+  border-color: #c0392b;
+
+}
+
+.navbar-default .navbar-toggle:hover,
+
+.navbar-default .navbar-toggle:focus {
+
+  background-color: #c0392b;
+
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+
+  background-color: #ecf0f1;
+
+}
+
+.navbar-default .navbar-collapse,
+
+.navbar-default .navbar-form {
+
+  border-color: #ecf0f1;
+
+    text-align: center;
+
+}
+
+.navbar-default .navbar-link {
+
+  color: #ecf0f1;
+
+}
+
+.navbar-default .navbar-link:hover {
+
+  color: #ffbbbc;
+
+}
+
+@media (max-width: 767px) {
+
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+
+    color: #ecf0f1;
+
+  }
+
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+
+    color: #ffbbbc;
+
+  }
+
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+
+    color: #ffbbbc;
+
+    background-color: #c0392b;
+
+  }
+
+}
+
+.blue {
+
+  background-color: grey;
+
+}
+
+.otherblue {
+
+  background-color: lightblue;
+
+}
+
+.fb_page{
+
+border: 1px solid #DC143C;
+
+}
+
+.footer{
+
+  background-color: #DC143C;
+
+}
+

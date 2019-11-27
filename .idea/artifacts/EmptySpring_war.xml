@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="EmptySpring:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>EmptySpring</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="EmptySpring-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="EmptySpring:war exploded" />
+    </root>
+  </artifact>
+</component>
