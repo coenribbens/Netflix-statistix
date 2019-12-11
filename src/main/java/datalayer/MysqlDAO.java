@@ -9,9 +9,9 @@ import java.util.logging.Logger;
 public class MysqlDAO {
 
     private static MysqlDAO instance;
-    private String dbname = "bandplanner";
-    private String user = "bandplanner";
-    private String pass = "iZzpgiWoxPnt8jQ4X";
+    private String dbname = "netflixStatistix";
+    private String user = "root";
+    private String pass = "root";
 
     private MysqlDAO() {
 
