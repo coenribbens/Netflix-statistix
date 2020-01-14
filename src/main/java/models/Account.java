@@ -6,20 +6,33 @@ import java.util.UUID;
 public class Account {
     private UUID accountId;
     private String accountName;
-    private String profilePicture;
-    private ArrayList<AccountProfiles> profiles;
-    private String accountPassword;
+    private String streetName;
+    private String zipcode;
 
-
-    //Start of constructor
-    public Account(String accountName, String profilePicture, ArrayList<AccountProfiles> profiles) {
-        this.accountName = accountName;
-        this.profilePicture = profilePicture;
-        this.profiles = profiles;
+    public Account() {
     }
 
+    public Account(UUID accountId, String accountName, String streetName, String zipcode) {
+        this.accountId = accountId;
+        this.accountName = accountName;
+        this.streetName = streetName;
+        this.zipcode = zipcode;
+    }
 
-    //Getters and setter for the class
+    public Account(String accountName, String streetName, String zipcode) {
+        this.accountName = accountName;
+        this.streetName = streetName;
+        this.zipcode = zipcode;
+    }
+
+    public UUID getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(UUID accountId) {
+        this.accountId = accountId;
+    }
+
     public String getAccountName() {
         return accountName;
     }
@@ -28,19 +41,19 @@ public class Account {
         this.accountName = accountName;
     }
 
-    public String getProfilePicture() {
-        return profilePicture;
+    public String getStreetName() {
+        return streetName;
     }
 
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
     }
 
-    public ArrayList<AccountProfiles> getProfiles() {
-        return profiles;
+    public String getZipcode() {
+        return zipcode;
     }
 
-    public void setProfiles(ArrayList<AccountProfiles> profiles) {
-        this.profiles = profiles;
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
     }
 }

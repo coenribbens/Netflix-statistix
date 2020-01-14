@@ -11,7 +11,7 @@
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="EmptySpring" />
+          <element id="module-output" name="Netflix_Statistix" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
@@ -32,7 +32,7 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/EmptySpring-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
-      <element id="javaee-facet-resources" facet="EmptySpring/web/Web" />
+      <element id="javaee-facet-resources" facet="Netflix_Statistix/web/Web" />
     </root>
   </artifact>
 </component>

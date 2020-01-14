@@ -2,44 +2,47 @@ package models;
 
 import java.util.Date;
 
-public class Program {
-    private String programName;
-    private int runTimeInMinutes;
-    private Date releasedIn;
+public abstract class Program {
 
-    //Full constructor
-    public Program(String programName, int runTimeInMinutes, Date releasedIn) {
-        this.programName = programName;
-        this.runTimeInMinutes = runTimeInMinutes;
-        this.releasedIn = releasedIn;
-    }
-    //Extra constructor in case relase date isn't known.
-    public Program(String programName, int runTimeInMinutes) {
-        this.programName = programName;
-        this.runTimeInMinutes = runTimeInMinutes;
+    private int programId;
+    private String title;
+    private String duration;
+
+    public Program() {
     }
 
-    public String getProgramName() {
-        return programName;
+    public Program(String title, String duration) {
+        this.title = title;
+        this.duration = duration;
     }
 
-    public void setProgramName(String programName) {
-        this.programName = programName;
+    public Program(int programId, String title, String duration) {
+        this.programId = programId;
+        this.title = title;
+        this.duration = duration;
     }
 
-    public int getRunTimeInMinutes() {
-        return runTimeInMinutes;
+    public int getProgramId() {
+        return programId;
     }
 
-    public void setRunTimeInMinutes(int runTimeInMinutes) {
-        this.runTimeInMinutes = runTimeInMinutes;
+    public void setProgramId(int programId) {
+        this.programId = programId;
     }
 
-    public Date getReleasedIn() {
-        return releasedIn;
+    public String getTitle() {
+        return title;
     }
 
-    public void setReleasedIn(Date releasedIn) {
-        this.releasedIn = releasedIn;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 }

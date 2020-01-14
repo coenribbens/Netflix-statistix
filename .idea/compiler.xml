@@ -6,16 +6,16 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="EmptySpring" />
+        <module name="Netflix_Statistix" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="EmptySpring" target="1.7" />
+      <module name="Netflix_Statistix" target="1.7" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="EmptySpring" options="-endorseddirs C:\Users\Coen-PC\Downloads\EmptySpring-master\target/endorsed" />
+      <module name="Netflix_Statistix" options="-endorseddirs &quot;C:\Avans\Period 2\Programmeren 2\NSTX\Netflix-statistix\target/endorsed&quot;" />
     </option>
   </component>
 </project>
