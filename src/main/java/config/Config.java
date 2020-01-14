@@ -10,7 +10,7 @@ import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 @Configuration
-@ComponentScan({"config", "controller", "datalayer", "model", "utils"})
+@ComponentScan({"config", "view", "datalayer", "model", "utils"})
 @EnableWebMvc
 public class Config extends WebMvcConfigurerAdapter {
 
