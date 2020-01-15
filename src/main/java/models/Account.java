@@ -4,32 +4,35 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Account {
-    private UUID accountId;
+    private int accountId;
     private String accountName;
     private String streetName;
+    private String houseNumber;
     private String zipcode;
 
     public Account() {
     }
 
-    public Account(UUID accountId, String accountName, String streetName, String zipcode) {
+    public Account(int accountId, String accountName, String streetName, String houseNumber, String zipcode) {
         this.accountId = accountId;
         this.accountName = accountName;
         this.streetName = streetName;
+        this.houseNumber = houseNumber;
         this.zipcode = zipcode;
     }
 
-    public Account(String accountName, String streetName, String zipcode) {
+    public Account(String accountName, String streetName, String houseNumber, String zipcode) {
         this.accountName = accountName;
         this.streetName = streetName;
+        this.houseNumber = houseNumber;
         this.zipcode = zipcode;
     }
 
-    public UUID getAccountId() {
+    public int getAccountId() {
         return accountId;
     }
 
-    public void setAccountId(UUID accountId) {
+    public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
 
@@ -56,4 +59,13 @@ public class Account {
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
+
+    public String getHouseNumber() {
+        return houseNumber;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
 }

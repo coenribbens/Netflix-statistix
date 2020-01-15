@@ -7,7 +7,7 @@ public interface IAccount {
 
      List getAllAccounts();
 
-     Account getAccountById(Account a);
+     Account getAccountById(int Id);
 
      void createAccount(Account a);
 
