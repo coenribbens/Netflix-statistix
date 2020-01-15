@@ -82,6 +82,26 @@ public class MovieDAO implements IMovie {
 
     @Override
     public List getMoviesWatchedByProfile(Profile p) {
-        return null;
+        ArrayList<Movie> allMoviesWatched = new ArrayList<Movie>();
+        Connection conn = null;
+        try{
+            conn = MysqlDAO.getInstance().connect();
+            //tabelnaam zal waarschijnlijk nog veranderd moeten worden. Voor nu is het "movie_profile"
+            PreparedStatement getMoviesWatchedByProfile = conn.prepareStatement("SELECT * FROM movie_profile WHERE profileId = ?");
+            getMoviesWatchedByProfile.setInt(1, p.getProfileId());
+            ResultSet resultSet = getMoviesWatchedByProfile.executeQuery();
+
+            while(resultSet.next()){
+                int movieID = resultSet.getInt("movieID");
+
+                allMoviesWatched.add(this.getMovieById(movieID));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            MysqlDAO.getInstance().closeConnection(conn);
+        }
+
+        return allMoviesWatched;
     }
 }
