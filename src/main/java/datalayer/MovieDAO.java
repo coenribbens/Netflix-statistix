@@ -49,7 +49,35 @@ public class MovieDAO implements IMovie {
 
     @Override
     public Movie getMovieById(int id) {
-        return null;
+        Connection conn = null;
+        Movie m = null;
+
+        try {
+            conn = MysqlDAO.getInstance().connect();
+            PreparedStatement getMovieById = conn.prepareStatement("SELECT * FROM movie WHERE movieId = ?");
+            getMovieById.setInt(1, id);
+            ResultSet resultSet = getMovieById.executeQuery();
+
+            while(resultSet.next()){
+
+                //Deze moeten nog aangepast worden voor de uiteindelijke column namen
+                int movieID = resultSet.getInt("movieID");
+                String movieTitle = resultSet.getString("movieTitle");
+                String movieDuration = resultSet.getString("movieDuration");
+                String movieGenre = resultSet.getString("movieGenre");
+                String movieLanguage = resultSet.getString("movieLanguage");
+                int movieAge = resultSet.getInt("movieAge");
+
+                m = new Movie(movieID, movieTitle, movieDuration, movieGenre, movieLanguage, movieAge);
+
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            MysqlDAO.getInstance().closeConnection(conn);
+        }
+
+        return m;
     }
 
     @Override
