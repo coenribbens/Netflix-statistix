@@ -17,12 +17,12 @@ public class LogInApplication extends Application {
 
 
         stage.setScene(logInScene(stage));
-        stage.setTitle("Log In");
         stage.show();
 
     }
 
     public static Scene logInScene(Stage stage){
+        stage.setTitle("Log In");
         Label label = new Label("Log In");
         TextField nameInput = new TextField();
             nameInput.setPromptText("Account Name");
@@ -47,6 +47,7 @@ public class LogInApplication extends Application {
     }
 
     public static Scene registerScene(Stage stage){
+        stage.setTitle("Register");
         Label label = new Label("Register");
         TextField nameInput = new TextField();
             nameInput.setPromptText("Account Name*");

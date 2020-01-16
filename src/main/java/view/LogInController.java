@@ -50,7 +50,6 @@ public class LogInController implements EventHandler<ActionEvent> {
 
             }
             else if(btn.getText().equalsIgnoreCase("Register a new account")){
-                this.stage.setTitle("Register");
                 this.stage.setScene(LogInApplication.registerScene(this.stage));
             }
         }
@@ -68,12 +67,11 @@ public class LogInController implements EventHandler<ActionEvent> {
                     }
                 }
                 else{
-                    this.infoLabel.setText("Passwords don't match aren't filled out");
+                    this.infoLabel.setText("Passwords don't match or aren't filled out");
                 }
 
             }
             else if(btn.getText().contains("Log in")){
-                this.stage.setTitle("Log In");
                 this.stage.setScene(LogInApplication.logInScene(this.stage));
             }
 
