@@ -67,6 +67,10 @@ public class LogInController implements EventHandler<ActionEvent> {
                 }
 
             }
+            else if(btn.getText().contains("Log in")){
+                this.stage.setTitle("Log In");
+                this.stage.setScene(LogInApplication.logInScene(this.stage));
+            }
 
         }
     }
