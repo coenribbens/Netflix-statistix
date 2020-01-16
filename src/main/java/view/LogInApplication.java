@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -18,6 +17,7 @@ public class LogInApplication extends Application {
 
 
         stage.setScene(logInScene(stage));
+        stage.setTitle("Log In");
         stage.show();
 
     }
@@ -28,19 +28,21 @@ public class LogInApplication extends Application {
             nameInput.setPromptText("Account Name");
         PasswordField passInput = new PasswordField();
             passInput.setPromptText("Password");
+
+        Label infoLabel = new Label();
+
+        LogInController controller = new LogInController(label, stage, nameInput, passInput, infoLabel);
+
         Button logInButton = new Button("Log In");
+            logInButton.setOnAction(controller);
         Button registerButton = new Button("Register a new account");
-        LogInController controller = new LogInController(label, stage, nameInput);
-        logInButton.setOnAction(controller);
-        registerButton.setOnAction(controller);
+            registerButton.setOnAction(controller);
 
         HBox hBox = new HBox();
             hBox.getChildren().addAll(logInButton, registerButton);
         VBox vBox = new VBox();
-            vBox.getChildren().addAll(label, nameInput, passInput, hBox);
-        BorderPane borderPane = new BorderPane();
-        borderPane.setCenter(vBox);
-        Scene scene = new Scene(borderPane);
+            vBox.getChildren().addAll(label, nameInput, passInput, infoLabel, hBox);
+        Scene scene = new Scene(vBox);
         return scene;
     }
 
@@ -53,19 +55,32 @@ public class LogInApplication extends Application {
             passInput.setPromptText("Password");
 
         PasswordField passInputRepeat = new PasswordField();
-        Button logInButton = new Button("Log In");
-        Button registerButton = new Button("Register");
+            passInputRepeat.setPromptText("Repeat Password");
 
-        LogInController controller = new LogInController(label, stage, nameInput);
-        logInButton.setOnAction(controller);
+        TextField streetInput = new TextField();
+            streetInput.setPromptText("Street name");
+
+        TextField houseNumberInput = new TextField();
+            houseNumberInput.setPromptText("House number");
+
+        TextField zipCodeInput = new TextField();
+            zipCodeInput.setPromptText("Zipcode");
+
+        Label infoLabel = new Label();
+
+        LogInController controller = new LogInController(label, stage, nameInput, passInput, passInputRepeat, streetInput, houseNumberInput, zipCodeInput, infoLabel);
+
+        Button registerButton = new Button("Register");
+            registerButton.setOnAction(controller);
+        Button logInScreenButton = new Button("Log in with existing account");
+            logInScreenButton.setOnAction(controller);
+
 
         HBox hBox = new HBox();
-        hBox.getChildren().addAll(logInButton, registerButton);
+        hBox.getChildren().addAll(registerButton, logInScreenButton);
         VBox vBox = new VBox();
-        vBox.getChildren().addAll(label, nameInput, passInput, passInputRepeat, hBox);
-        BorderPane borderPane = new BorderPane();
-        borderPane.setCenter(vBox);
-        Scene scene = new Scene(borderPane);
+        vBox.getChildren().addAll(label, nameInput, passInput, passInputRepeat, streetInput, houseNumberInput, zipCodeInput, infoLabel, hBox);
+        Scene scene = new Scene(vBox);
         return scene;
 
     }
