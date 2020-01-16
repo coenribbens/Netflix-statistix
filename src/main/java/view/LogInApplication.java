@@ -23,6 +23,9 @@ public class LogInApplication extends Application {
 
     public static Scene logInScene(Stage stage){
         stage.setTitle("Log In");
+        stage.setMinWidth(250);
+        stage.setMinHeight(150);
+
         Label label = new Label("Log In");
         TextField nameInput = new TextField();
             nameInput.setPromptText("Account Name");
@@ -48,6 +51,9 @@ public class LogInApplication extends Application {
 
     public static Scene registerScene(Stage stage){
         stage.setTitle("Register");
+        stage.setMinWidth(250);
+        stage.setMinHeight(250);
+
         Label label = new Label("Register");
         TextField nameInput = new TextField();
             nameInput.setPromptText("Account Name*");

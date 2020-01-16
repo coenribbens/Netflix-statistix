@@ -47,9 +47,14 @@ public class LogInController implements EventHandler<ActionEvent> {
         Button btn = (Button)actionEvent.getTarget();
         if(this.label.getText().equalsIgnoreCase("Log In")){
             if(btn.getText().equalsIgnoreCase("Log in")){
-
+                AccountDAO accountDAO = new AccountDAO();
+//                Deze methode moet nog veranderd worden naar "getAccountByName" sinds we via name gaan zoeken naar accounts.
+//                Account a = accountDAO.getAccountById(this.nameInput);
+//                if(a.getPassword.equals(this.passInput.getText())){
+//                    this.stage.setScene();
+//                }
             }
-            else if(btn.getText().equalsIgnoreCase("Register a new account")){
+            else if(btn.getText().contains("Register")){
                 this.stage.setScene(LogInApplication.registerScene(this.stage));
             }
         }
