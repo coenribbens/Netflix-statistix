@@ -53,7 +53,31 @@ public class SerieDAO implements ISerie {
 
     @Override
     public Serie getSerieById(int Id) {
-        return null;
+        Serie s = null;
+        Connection conn = null;
+        try{
+            conn = MysqlDAO.getInstance().connect();
+            PreparedStatement getSeriesById = conn.prepareStatement("SELECT * FROM serie WHERE serieId = ?");
+            getSeriesById.setInt(1, Id);
+            ResultSet resultSet = getSeriesById.executeQuery();
+
+            while(resultSet.next()) {
+                //Deze moeten nog aangepast worden voor de uiteindelijke column namen
+                int serieID = resultSet.getInt("serieID");
+                String serieTitle = resultSet.getString("serieTitle");
+                int serieAge = resultSet.getInt("serieAge");
+                String serieLanguage = resultSet.getString("serieLanguage");
+                String serieGenre = resultSet.getString("serieGenre");
+                String serieSuggestions = resultSet.getString("serieSuggestions");
+
+                s = new Serie(serieID, serieTitle, serieAge, serieLanguage, serieGenre, serieSuggestions);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }finally {
+            MysqlDAO.getInstance().closeConnection(conn);
+        }
+        return s;
     }
 
     @Override
