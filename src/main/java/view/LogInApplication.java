@@ -1,6 +1,7 @@
 package view;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -43,8 +44,10 @@ public class LogInApplication extends Application {
 
         HBox hBox = new HBox();
             hBox.getChildren().addAll(logInButton, registerButton);
+            hBox.setAlignment(Pos.CENTER);
         VBox vBox = new VBox();
             vBox.getChildren().addAll(label, nameInput, passInput, infoLabel, hBox);
+            vBox.setAlignment(Pos.CENTER);
         Scene scene = new Scene(vBox);
         return scene;
     }
@@ -84,9 +87,11 @@ public class LogInApplication extends Application {
 
 
         HBox hBox = new HBox();
-        hBox.getChildren().addAll(registerButton, logInScreenButton);
+            hBox.getChildren().addAll(registerButton, logInScreenButton);
+            hBox.setAlignment(Pos.CENTER);
         VBox vBox = new VBox();
-        vBox.getChildren().addAll(label, nameInput, passInput, passInputRepeat, streetInput, houseNumberInput, zipCodeInput, infoLabel, hBox);
+            vBox.getChildren().addAll(label, nameInput, passInput, passInputRepeat, streetInput, houseNumberInput, zipCodeInput, infoLabel, hBox);
+            vBox.setAlignment(Pos.CENTER);
         Scene scene = new Scene(vBox);
         return scene;
 

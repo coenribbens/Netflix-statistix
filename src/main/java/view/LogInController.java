@@ -46,7 +46,8 @@ public class LogInController implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
         Button btn = (Button)actionEvent.getTarget();
         if(this.label.getText().equalsIgnoreCase("Log In")){
-            if(btn.getText().equalsIgnoreCase("Log in")){
+            if(btn.getText().equalsIgnoreCase("Log in") && !this.nameInput.getText().isEmpty() && !this.passInput.getText().isEmpty()){
+                this.infoLabel.setText("Logging in...");
                 AccountDAO accountDAO = new AccountDAO();
 //                Deze methode moet nog veranderd worden naar "getAccountByName" sinds we via name gaan zoeken naar accounts.
 //                Account a = accountDAO.getAccountById(this.nameInput);
@@ -56,6 +57,9 @@ public class LogInController implements EventHandler<ActionEvent> {
             }
             else if(btn.getText().contains("Register")){
                 this.stage.setScene(LogInApplication.registerScene(this.stage));
+            }
+            else {
+                this.infoLabel.setText("Please fill out both fields");
             }
         }
         else if(this.label.getText().equalsIgnoreCase("Register")){
