@@ -56,14 +56,19 @@ public class LogInController implements EventHandler<ActionEvent> {
         }
         else if(this.label.getText().equalsIgnoreCase("Register")){
             if(btn.getText().equalsIgnoreCase("Register")){
-                if(this.passInput.getText().equals(this.passInputRepeat.getText())){
-                    Account a = new Account(this.nameInput.getText(), this.streetInput.getText(), this.houseNumberInput.getText(), this.zipCodeInput.getText());
-                    AccountDAO aDAO = new AccountDAO();
-                    aDAO.createAccount(a);
-
+                if(this.passInput.getText().equals(this.passInputRepeat.getText()) && !this.passInput.getText().isEmpty()){
+                    if(!this.nameInput.getText().isEmpty()){
+                        Account a = new Account(this.nameInput.getText(), this.streetInput.getText(), this.houseNumberInput.getText(), this.zipCodeInput.getText());
+                        AccountDAO aDAO = new AccountDAO();
+                        aDAO.createAccount(a);
+                        this.infoLabel.setText("Account creation successful");
+                    }
+                    else {
+                        this.infoLabel.setText("Name field is empty");
+                    }
                 }
                 else{
-                    this.infoLabel.setText("Passwords don't match");
+                    this.infoLabel.setText("Passwords don't match aren't filled out");
                 }
 
             }

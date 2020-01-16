@@ -49,13 +49,13 @@ public class LogInApplication extends Application {
     public static Scene registerScene(Stage stage){
         Label label = new Label("Register");
         TextField nameInput = new TextField();
-            nameInput.setPromptText("Account Name");
+            nameInput.setPromptText("Account Name*");
 
         PasswordField passInput = new PasswordField();
-            passInput.setPromptText("Password");
+            passInput.setPromptText("Password*");
 
         PasswordField passInputRepeat = new PasswordField();
-            passInputRepeat.setPromptText("Repeat Password");
+            passInputRepeat.setPromptText("Repeat Password*");
 
         TextField streetInput = new TextField();
             streetInput.setPromptText("Street name");
@@ -66,7 +66,7 @@ public class LogInApplication extends Application {
         TextField zipCodeInput = new TextField();
             zipCodeInput.setPromptText("Zipcode");
 
-        Label infoLabel = new Label();
+        Label infoLabel = new Label("Fields with a '*' are required.");
 
         LogInController controller = new LogInController(label, stage, nameInput, passInput, passInputRepeat, streetInput, houseNumberInput, zipCodeInput, infoLabel);
 
