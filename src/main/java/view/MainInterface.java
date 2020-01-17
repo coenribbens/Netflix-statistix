@@ -74,7 +74,27 @@ public class MainInterface extends Application {
     }
 
     public static VBox profielVbox(Stage stage){
-        return null;
+        //Objecten toolBar
+        ChoiceBox<String> choiceBoxNaam = new ChoiceBox<>();
+        Button buttonToevoegen = new Button("Toevoegen");
+        Button buttonBewerken = new Button("Bewerken");
+        Button buttonVerwijderen = new Button("Verwijderen");
+
+        //Objecten voor de listView
+        ListView<String> profielNaam = new ListView<String>();
+        profielNaam.getItems().add("Naam");
+        ListView<String> profielGeboorteDatum = new ListView<String>();
+        profielGeboorteDatum.getItems().add("Geboortedatum");
+
+        ToolBar toolBar = new ToolBar();
+        toolBar.getItems().addAll(choiceBoxNaam, buttonToevoegen, buttonBewerken, buttonVerwijderen);
+        HBox listView = new HBox();
+        listView.getChildren().addAll(profielNaam, profielGeboorteDatum);
+
+        VBox resultingVbox = new VBox();
+        resultingVbox.getChildren().addAll(toolBar, listView);
+
+        return resultingVbox;
     }
 
     public static VBox filmVbox(Stage stage){
