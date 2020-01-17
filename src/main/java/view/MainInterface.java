@@ -36,10 +36,15 @@ public class MainInterface extends Application {
     }
 
     public static VBox accountVbox(Stage stage){
+        AccountController controller = new AccountController();
+
         //Objecten toolBar
         Button buttonToevoegen = new Button("Toevoegen");
+            buttonToevoegen.setOnAction(controller);
         Button buttonBewerken = new Button("Bewerken");
+            buttonBewerken.setOnAction(controller);
         Button buttonVerwijderen = new Button("Verwijderen");
+            buttonVerwijderen.setOnAction(controller);
 
         //Objecten voor de listView
         ListView<String> accountNaam = new ListView<String>();
