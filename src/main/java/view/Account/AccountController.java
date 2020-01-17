@@ -1,4 +1,4 @@
-package view;
+package view.Account;
 
 import datalayer.AccountDAO;
 import javafx.collections.ObservableList;
@@ -6,7 +6,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 import models.Account;
+import view.LogInApplication;
 
 public class AccountController implements EventHandler<ActionEvent> {
     private TableView tableView;
@@ -19,7 +21,10 @@ public class AccountController implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
         Button btn = (Button)actionEvent.getTarget();
         if(btn.getText().equalsIgnoreCase("toevoegen")){
-            System.out.println("OK!");
+            Stage addStage = new Stage();
+            addStage.setScene(AccountInterfaces.addInterface(addStage));
+            addStage.show();
+
 
         }
         else if(btn.getText().equalsIgnoreCase("bewerken")){

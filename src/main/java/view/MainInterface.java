@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.Account;
+import view.Account.AccountController;
 
 public class MainInterface extends Application {
     @Override
