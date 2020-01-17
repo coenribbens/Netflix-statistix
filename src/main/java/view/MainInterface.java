@@ -1,12 +1,9 @@
 package view;
 
 import javafx.application.Application;
-import javafx.geometry.Pos;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -14,12 +11,35 @@ import javafx.stage.Stage;
 public class MainInterface extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        stage.setScene(accountScene(stage));
+        stage.setScene(mainScene(stage));
         stage.show();
     }
 
-    public static Scene accountScene(Stage stage){
-        stage.setTitle("Netflix Statistics - Account");
+    public static Scene mainScene(Stage stage){
+        stage.setTitle("Netflix Statistics");
+
+        Tab tabAccount = new Tab("Account", accountVbox(stage));
+            tabAccount.setClosable(false);
+        Tab tabProfiel = new Tab("Profiel", profielVbox(stage));
+            tabProfiel.setClosable(false);
+        Tab tabFilm = new Tab("Film", filmVbox(stage));
+            tabFilm.setClosable(false);
+        Tab tabSerie = new Tab("Serie", serieVbox(stage));
+            tabSerie.setClosable(false);
+        TabPane mainTP = new TabPane();
+            mainTP.getTabs().addAll(tabAccount, tabProfiel, tabFilm, tabSerie);
+            mainTP.setSide(Side.LEFT);
+
+
+        Scene scene = new Scene(mainTP);
+        return scene;
+    }
+
+    public static VBox accountVbox(Stage stage){
+        //Objecten toolBar
+        Button buttonToevoegen = new Button("Toevoegen");
+        Button buttonBewerken = new Button("Bewerken");
+        Button buttonVerwijderen = new Button("Verwijderen");
 
         //Objecten voor de listView
         ListView<String> accountNaam = new ListView<String>();
@@ -37,41 +57,31 @@ public class MainInterface extends Application {
         TextArea detailFilmsBekeken = new TextArea("Bekeken films:\n\n");
             detailFilmsBekeken.setEditable(false);
         TextArea detailSeriesBekeken = new TextArea("Bekeken series:\n\n");
-        detailSeriesBekeken.setEditable(false);
-
-        //Objecten leftPanel
-        Button buttonAccount = new Button("Account");
-            buttonAccount.setDisable(true);
-        Button buttonProfiel = new Button("Profiel");
-        Button buttonFilm = new Button("Film");
-        Button buttonSerie = new Button("Serie");
-
-        //Objecten toolBar
-        Button buttonToevoegen = new Button("Toevoegen");
-        Button buttonBewerken = new Button("Bewerken");
-        Button buttonVerwijderen = new Button("Verwijderen");
+            detailSeriesBekeken.setEditable(false);
 
 
-
-        VBox leftPanel = new VBox();
-            leftPanel.getChildren().addAll(buttonAccount, buttonProfiel, buttonFilm, buttonSerie);
+        ToolBar toolBar = new ToolBar();
+            toolBar.getItems().addAll(buttonToevoegen, buttonBewerken, buttonVerwijderen);
         HBox listView = new HBox();
             listView.getChildren().addAll(accountNaam, accountStraat, accountHuisNummer, accountPostcode, accountWoonplaats);
         HBox detailBox = new HBox();
             detailBox.getChildren().addAll(detailFilmsBekeken, detailSeriesBekeken);
-        VBox centerView = new VBox();
-            centerView.getChildren().addAll(listView, detailBox);
-        HBox toolBar = new HBox();
-            toolBar.getChildren().addAll(buttonToevoegen, buttonBewerken, buttonVerwijderen);
-            toolBar.setAlignment(Pos.CENTER_RIGHT);
 
-        BorderPane mainBP = new BorderPane();
-            mainBP.setCenter(centerView);
-            mainBP.setLeft(leftPanel);
-            mainBP.setTop(toolBar);
+        VBox resultingVbox = new VBox();
+            resultingVbox.getChildren().addAll(toolBar, listView, detailBox);
 
+        return resultingVbox;
+    }
 
-        Scene scene = new Scene(mainBP);
-        return scene;
+    public static VBox profielVbox(Stage stage){
+        return null;
+    }
+
+    public static VBox filmVbox(Stage stage){
+        return null;
+    }
+
+    public static VBox serieVbox(Stage stage){
+        return null;
     }
 }
