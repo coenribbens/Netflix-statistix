@@ -7,12 +7,12 @@ public class Episode extends Program {
     public Episode() {
     }
 
-    public Episode(String title, String duration, int season) {
+    public Episode(String title, int duration, int season) {
         super(title, duration);
         this.season = season;
     }
 
-    public Episode(int programId, String title, String duration, int season) {
+    public Episode(int programId, String title, int duration, int season) {
         super(programId, title, duration);
         this.season = season;
     }
