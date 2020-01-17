@@ -4,9 +4,11 @@ import javafx.application.Application;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import models.Serie;
 
 public class MainInterface extends Application {
     @Override
@@ -82,6 +84,61 @@ public class MainInterface extends Application {
     }
 
     public static VBox serieVbox(Stage stage){
-        return null;
+        ChoiceBox<String> choiceBox = new ChoiceBox<String>();
+        choiceBox.setMinWidth(500);
+
+
+
+
+        TextArea Gemiddeldekijtijd = new TextArea("Gemiddelde kijktijd\n\n");
+        Gemiddeldekijtijd.setEditable(false);
+
+        TextArea Bekekendoor = new TextArea("Gemiddeld aantal bekeken afleveringen");
+        Bekekendoor.setEditable(false);
+        Bekekendoor.setMinSize(600,50);
+        Gemiddeldekijtijd.setMinSize(600,50);
+
+
+
+        HBox textgebieden = new HBox();
+        textgebieden.setSpacing(10);
+        textgebieden.getChildren().addAll(Gemiddeldekijtijd,Bekekendoor);
+
+//
+        TableView tableView = new TableView();
+        tableView.setMinWidth(1300);
+
+
+        TableColumn<String, Serie> kolumnSerietitel = new TableColumn<>("Titel");
+        kolumnSerietitel.setCellValueFactory(new PropertyValueFactory<String, Serie>("name"));
+
+        TableColumn<Integer, Serie> kolumnSeriesuggestions = new TableColumn<>("Suggesties");
+        kolumnSeriesuggestions.setCellValueFactory(new PropertyValueFactory<Integer, Serie>("suggestions"));
+
+        TableColumn<String, Serie> kolumnSerieSeizoen = new TableColumn<>("Seizoen");
+        kolumnSerieSeizoen.setCellValueFactory(new PropertyValueFactory<String, Serie>("genre"));
+
+        TableColumn<String, Serie> kolumnSerieTaal = new TableColumn<>("Genre");
+        kolumnSerieTaal.setCellValueFactory(new PropertyValueFactory<String, Serie>("language"));
+
+        TableColumn<Integer, Serie> kolumnFilmAgerating = new TableColumn<>("FilmAgeRating");
+        kolumnFilmAgerating.setCellValueFactory(new PropertyValueFactory<Integer, Serie>("ageRating"));
+
+
+        tableView.getColumns().addAll(kolumnSerietitel,kolumnSerieSeizoen, kolumnSerieTaal, kolumnFilmAgerating);
+        tableView.setMaxSize(500,900);
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        Serie xx = new Serie("De smurfen", 30, "Frans", "Kinder", "Lalala");
+        tableView.getItems().add(xx);
+
+
+        HBox choiceBoxhbox = new HBox();
+        choiceBoxhbox.getChildren().add(choiceBox);
+        VBox vbox = new VBox();
+        vbox.setSpacing(10);
+        vbox.getChildren().addAll(choiceBoxhbox,tableView,textgebieden);
+        return vbox;
+
     }
 }
