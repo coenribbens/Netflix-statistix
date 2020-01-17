@@ -38,15 +38,11 @@ public class MainInterface extends Application {
     }
 
     public static VBox accountVbox(Stage stage){
-        AccountController controller = new AccountController();
 
         //Objecten toolBar
         Button buttonToevoegen = new Button("Toevoegen");
-            buttonToevoegen.setOnAction(controller);
         Button buttonBewerken = new Button("Bewerken");
-            buttonBewerken.setOnAction(controller);
         Button buttonVerwijderen = new Button("Verwijderen");
-            buttonVerwijderen.setOnAction(controller);
 
         //Objecten voor Tableview
         TableView tableView = new TableView();
@@ -67,6 +63,12 @@ public class MainInterface extends Application {
         TextArea detailSeriesBekeken = new TextArea("Bekeken series:\n\n");
             detailSeriesBekeken.setEditable(false);
 
+
+        //Controller object aanmaken
+        AccountController controller = new AccountController(tableView);
+        buttonToevoegen.setOnAction(controller);
+        buttonBewerken.setOnAction(controller);
+        buttonVerwijderen.setOnAction(controller);
 
         ToolBar toolBar = new ToolBar();
             toolBar.getItems().addAll(buttonToevoegen, buttonBewerken, buttonVerwijderen);
