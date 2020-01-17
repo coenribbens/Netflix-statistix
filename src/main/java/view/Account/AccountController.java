@@ -1,14 +1,15 @@
-package view.Account;
+package view.account;
 
 import datalayer.AccountDAO;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import models.Account;
-import view.LogInApplication;
+import view.account.sub.AccountInterfaces;
+
+import java.util.List;
 
 public class AccountController implements EventHandler<ActionEvent> {
     private TableView tableView;
@@ -28,7 +29,9 @@ public class AccountController implements EventHandler<ActionEvent> {
 
         }
         else if(btn.getText().equalsIgnoreCase("bewerken")){
-            System.out.println("OK!");
+            Stage editStage = new Stage();
+            editStage.setScene(AccountInterfaces.editInterface(editStage, (Account)this.tableView.getSelectionModel().getSelectedItem()));
+            editStage.show();
 
         }
         else if(btn.getText().equalsIgnoreCase("verwijderen")){
@@ -36,7 +39,14 @@ public class AccountController implements EventHandler<ActionEvent> {
             AccountDAO accountDAO = new AccountDAO();
             accountDAO.deleteAccount(selectedItem);
             this.tableView.getItems().remove(selectedItem);
-
+        }
+        else if(btn.getText().equalsIgnoreCase("vernieuwen")){
+            this.tableView.getItems().clear();
+            AccountDAO accountDAO = new AccountDAO();
+            List<Account> accounts = accountDAO.getAllAccounts();
+            for(Account item : accounts){
+                this.tableView.getItems().add(item);
+            }
         }
 
     }
