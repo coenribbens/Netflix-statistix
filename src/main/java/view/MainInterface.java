@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.Account;
+import view.account.AccountController;
 
 public class MainInterface extends Application {
     @Override
@@ -20,7 +21,7 @@ public class MainInterface extends Application {
     public static Scene mainScene(Stage stage){
         stage.setTitle("Netflix Statistics");
 
-        Tab tabAccount = new Tab("Account", accountVbox(stage));
+        Tab tabAccount = new Tab("account", accountVbox(stage));
             tabAccount.setClosable(false);
         Tab tabProfiel = new Tab("Profiel", profielVbox(stage));
             tabProfiel.setClosable(false);
@@ -38,10 +39,12 @@ public class MainInterface extends Application {
     }
 
     public static VBox accountVbox(Stage stage){
+
         //Objecten toolBar
         Button buttonToevoegen = new Button("Toevoegen");
         Button buttonBewerken = new Button("Bewerken");
         Button buttonVerwijderen = new Button("Verwijderen");
+        Button buttonVernieuwen = new Button("Vernieuwen");
 
         //Objecten voor Tableview
         TableView tableView = new TableView();
@@ -63,8 +66,15 @@ public class MainInterface extends Application {
             detailSeriesBekeken.setEditable(false);
 
 
+        //Controller object aanmaken
+        AccountController controller = new AccountController(tableView);
+        buttonToevoegen.setOnAction(controller);
+        buttonBewerken.setOnAction(controller);
+        buttonVerwijderen.setOnAction(controller);
+        buttonVernieuwen.setOnAction(controller);
+
         ToolBar toolBar = new ToolBar();
-            toolBar.getItems().addAll(buttonToevoegen, buttonBewerken, buttonVerwijderen);
+            toolBar.getItems().addAll(buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonVernieuwen);
         HBox mainContent = new HBox();
             mainContent.getChildren().addAll(tableView);
         HBox detailBox = new HBox();
