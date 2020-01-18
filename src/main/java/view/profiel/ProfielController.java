@@ -36,12 +36,12 @@ public class ProfielController implements EventHandler<ActionEvent> {
         Button btn = (Button)actionEvent.getTarget();
         if(btn.getText().equalsIgnoreCase("toevoegen")){
             Stage addStage = new Stage();
-            addStage.setScene(ProfielInterfaces.addInterface(addStage));
+            addStage.setScene(ProfielInterfaces.addInterface(addStage, this.choiceBoxAccounts.getValue()));
             addStage.show();
         }
         else if(btn.getText().equalsIgnoreCase("bewerken")){
             Stage editStage = new Stage();
-//            editStage.setScene(ProfielInterfaces.editInterface(editStage, (Account)this.tableView.getSelectionModel().getSelectedItem()));
+            editStage.setScene(ProfielInterfaces.editInterface(editStage, (Profile)this.tableView.getSelectionModel().getSelectedItem()));
             editStage.show();
 
         }
