@@ -11,67 +11,66 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.Account;
 import models.Profile;
-import view.account.sub.AddController;
-import view.account.sub.EditController;
 
 
 public class ProfielInterfaces {
-    public static Scene addInterface (Stage stage){
+    public static Scene addInterface (Stage stage, Account account){
 
         stage.setTitle("Toevoegen");
         stage.setMinWidth(250);
-        stage.setMinHeight(250);
+        stage.setMinHeight(150);
 
+        TextField accountInput = new TextField(account.getAccountName());
+            accountInput.setDisable(true);
         TextField nameInput = new TextField();
             nameInput.setPromptText("Profiel Name");
         DatePicker datePicker = new DatePicker();
+            datePicker.setPromptText("Geboortedatum");
 
         Label infoLabel = new Label();
 
-//        AddController controller = new AddController(stage, nameInput, streetInput, houseNumberInput, zipCodeInput, infoLabel);
+        AddController controller = new AddController(stage, account, nameInput, datePicker, infoLabel);
 
         Button aanmakenButton = new Button("Toevoegen");
-//        aanmakenButton.setOnAction(controller);
+        aanmakenButton.setOnAction(controller);
 
 
         HBox hBox = new HBox();
         hBox.getChildren().addAll(aanmakenButton);
         hBox.setAlignment(Pos.CENTER);
         VBox vBox = new VBox();
-//        vBox.getChildren().addAll(nameInput, streetInput, houseNumberInput, zipCodeInput, infoLabel, hBox);
+        vBox.getChildren().addAll(accountInput, nameInput, datePicker, infoLabel, hBox);
         vBox.setAlignment(Pos.CENTER);
         Scene scene = new Scene(vBox);
         return scene;
     }
 
-    public static Scene editInterface (Stage stage, Profile profile){
+    public static Scene editInterface (Stage stage,Account account, Profile profile){
 
         stage.setTitle("Bewerken");
         stage.setMinWidth(250);
-        stage.setMinHeight(250);
+        stage.setMinHeight(150);
 
+        TextField accountInput = new TextField(profile.getProfileName());
+            accountInput.setDisable(true);
         TextField nameInput = new TextField();
-        nameInput.setPromptText("account Name");
-        TextField streetInput = new TextField();
-        streetInput.setPromptText("Street name");
-        TextField houseNumberInput = new TextField();
-        houseNumberInput.setPromptText("House number");
-        TextField zipCodeInput = new TextField();
-        zipCodeInput.setPromptText("Zipcode");
+            nameInput.setPromptText("Profiel Name");
+        DatePicker datePicker = new DatePicker();
+            datePicker.setPromptText("Geboortedatum");
 
         Label infoLabel = new Label();
 
-//        EditController controller = new EditController(stage, nameInput, streetInput, houseNumberInput, zipCodeInput, infoLabel, account);
+        EditController controller = new EditController(stage, nameInput, datePicker, infoLabel, profile);
 
         Button aanmakenButton = new Button("Bewerken");
-//        aanmakenButton.setOnAction(controller);
+        aanmakenButton.setOnAction(controller);
 
 
         HBox hBox = new HBox();
         hBox.getChildren().addAll(aanmakenButton);
         hBox.setAlignment(Pos.CENTER);
         VBox vBox = new VBox();
-        vBox.getChildren().addAll(nameInput, streetInput, houseNumberInput, zipCodeInput, infoLabel, hBox);
+        vBox.getChildren().addAll(accountInput, nameInput, datePicker, infoLabel, hBox);
         vBox.setAlignment(Pos.CENTER);
         Scene scene = new Scene(vBox);
         return scene;
