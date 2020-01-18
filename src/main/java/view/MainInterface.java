@@ -9,7 +9,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.Account;
+import models.Profile;
 import view.account.AccountController;
+
+import java.sql.Date;
 
 public class MainInterface extends Application {
     @Override
@@ -92,20 +95,23 @@ public class MainInterface extends Application {
         Button buttonToevoegen = new Button("Toevoegen");
         Button buttonBewerken = new Button("Bewerken");
         Button buttonVerwijderen = new Button("Verwijderen");
+        Button buttonVernieuwen = new Button("Vernieuwen");
 
-        //Objecten voor de listView
-        ListView<String> profielNaam = new ListView<String>();
-        profielNaam.getItems().add("Naam");
-        ListView<String> profielGeboorteDatum = new ListView<String>();
-        profielGeboorteDatum.getItems().add("Geboortedatum");
+        //Objecten voor de tableView
+        TableView tableView = new TableView();
+        TableColumn<String, Profile> columnNaam = new TableColumn<>("Naam");
+        columnNaam.setCellValueFactory(new PropertyValueFactory<String, Profile>("profileName"));
+        TableColumn<Date, Profile> columnDateOfBirth = new TableColumn<>("Geboortedatum");
+        columnDateOfBirth.setCellValueFactory(new PropertyValueFactory<Date, Profile>("dateOfBirth"));
+        tableView.getColumns().addAll(columnNaam, columnDateOfBirth);
 
         ToolBar toolBar = new ToolBar();
-        toolBar.getItems().addAll(choiceBoxNaam, buttonToevoegen, buttonBewerken, buttonVerwijderen);
-        HBox listView = new HBox();
-        listView.getChildren().addAll(profielNaam, profielGeboorteDatum);
+        toolBar.getItems().addAll(choiceBoxNaam, buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonVernieuwen);
+        HBox mainContent = new HBox();
+        mainContent.getChildren().addAll(tableView);
 
         VBox resultingVbox = new VBox();
-        resultingVbox.getChildren().addAll(toolBar, listView);
+        resultingVbox.getChildren().addAll(toolBar, mainContent);
 
         return resultingVbox;
     }
