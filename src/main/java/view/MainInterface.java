@@ -84,11 +84,15 @@ public class MainInterface extends Application {
     public static VBox profielVbox(Stage stage){
         //Objecten toolBar
         ChoiceBox<Account> choiceBoxNaam = new ChoiceBox<>();
+            choiceBoxNaam.setTooltip(new Tooltip("Selecteer een account"));
         Button buttonZoek = new Button("Zoek");
+            buttonZoek.setTooltip(new Tooltip("Zoek alle profielen van de geselecteerde account"));
         Button buttonToevoegen = new Button("Toevoegen");
         Button buttonBewerken = new Button("Bewerken");
         Button buttonVerwijderen = new Button("Verwijderen");
         Button buttonVernieuwen = new Button("Vernieuwen");
+        Button buttonProfielInfo = new Button("Profiel Info");
+            buttonProfielInfo.setTooltip(new Tooltip("Geeft info over de geselecteerde profiel"));
 
         //Objecten voor de tableView
         TableView tableView = new TableView();
@@ -97,7 +101,6 @@ public class MainInterface extends Application {
         TableColumn<Date, Profile> columnDateOfBirth = new TableColumn<>("Geboortedatum");
         columnDateOfBirth.setCellValueFactory(new PropertyValueFactory<Date, Profile>("dateOfBirth"));
         tableView.getColumns().addAll(columnNaam, columnDateOfBirth);
-        tableView.getItems().add(new Profile("Pipo", new Date(1)));
 
         //Objecten detailBox
         TextArea detailFilmsBekeken = new TextArea("Bekeken films:\n\n");
@@ -105,17 +108,17 @@ public class MainInterface extends Application {
         TextArea detailSeriesBekeken = new TextArea("Bekeken series:\n\n");
         detailSeriesBekeken.setEditable(false);
 
-        //Controller object aanmaken
-        ProfielController controller = new ProfielController(tableView, choiceBoxNaam);
-        buttonToevoegen.setOnAction(controller);
-        buttonBewerken.setOnAction(controller);
-        buttonVerwijderen.setOnAction(controller);
-        buttonVernieuwen.setOnAction(controller);
-        buttonZoek.setOnAction(controller);
+        //Controllers object aanmaken
+        ProfielController controller = new ProfielController(tableView, choiceBoxNaam, detailFilmsBekeken, detailSeriesBekeken);
+            buttonToevoegen.setOnAction(controller);
+            buttonBewerken.setOnAction(controller);
+            buttonVerwijderen.setOnAction(controller);
+            buttonVernieuwen.setOnAction(controller);
+            buttonZoek.setOnAction(controller);
 
 
         ToolBar toolBar = new ToolBar();
-            toolBar.getItems().addAll(choiceBoxNaam, buttonZoek, buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonVernieuwen);
+            toolBar.getItems().addAll(choiceBoxNaam, buttonZoek, buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonVernieuwen, buttonProfielInfo);
         HBox mainContent = new HBox();
             mainContent.getChildren().addAll(tableView);
         HBox detailBox = new HBox();

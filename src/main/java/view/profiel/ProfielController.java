@@ -1,15 +1,20 @@
 package view.profiel;
 
 import datalayer.AccountDAO;
+import datalayer.MovieDAO;
 import datalayer.ProfileDAO;
+import datalayer.SerieDAO;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import models.Account;
+import models.Movie;
 import models.Profile;
+import models.Serie;
 import view.profiel.sub.ProfielInterfaces;
 
 import java.util.List;
@@ -17,15 +22,19 @@ import java.util.List;
 public class ProfielController implements EventHandler<ActionEvent> {
     private TableView tableView;
     private ChoiceBox<Account> choiceBoxAccounts;
+    private TextArea detailFilmsBekeken;
+    private TextArea detailSeriesBekeken;
 
-    public ProfielController(TableView tableView, ChoiceBox choiceBoxAccounts){
+    public ProfielController(TableView tableView, ChoiceBox choiceBoxAccounts, TextArea detailFilmsBekeken, TextArea detailSeriesBekeken){
         this.tableView = tableView;
         this.choiceBoxAccounts = choiceBoxAccounts;
-//        AccountDAO accountDAO = new AccountDAO();
-//        List<Account> accounts = accountDAO.getAllAccounts();
-//        for(Account item : accounts){
-//            this.choiceBoxAccounts.getItems().addAll(item);
-//        }
+        this.detailFilmsBekeken = detailFilmsBekeken;
+        this.detailSeriesBekeken = detailSeriesBekeken;
+        AccountDAO accountDAO = new AccountDAO();
+        List<Account> accounts = accountDAO.getAllAccounts();
+        for(Account item : accounts){
+            this.choiceBoxAccounts.getItems().addAll(item);
+        }
     }
 
     @Override
@@ -64,6 +73,25 @@ public class ProfielController implements EventHandler<ActionEvent> {
             for(Profile item : profiles){
                 this.tableView.getItems().add(item);
             }
+
+        }
+        else if(btn.getText().equalsIgnoreCase("profiel info")){
+            Profile selectedItem = (Profile)this.tableView.getSelectionModel().getSelectedItem();
+            MovieDAO movieDAO = MovieDAO.getInstance();
+            SerieDAO serieDAO = SerieDAO.getInstance();
+
+            List<Movie> moviesWatched = movieDAO.getMoviesWatchedByProfile(selectedItem);
+            String movieText = "Bekeken films van " + selectedItem.getProfileName() + ":\n";
+            List<Serie> seriesWatched = serieDAO.getWatchedSeriesByProfile(selectedItem);
+            String serieText = "Bekeken series van " + selectedItem.getProfileName() + ":\n";
+            for(Movie item : moviesWatched){
+                movieText += "\n" + item.getTitle();
+            }
+            for(Serie item : seriesWatched){
+                serieText += "\n" + item.getName();
+            }
+            this.detailFilmsBekeken.setText(movieText);
+            this.detailSeriesBekeken.setText(serieText);
         }
 
     }
