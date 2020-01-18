@@ -62,13 +62,6 @@ public class MainInterface extends Application {
         tableView.getColumns().addAll(columnNaam, columnStraat, columnHuisNummer, columnPostcode);
 
 
-        //Objecten detailBox
-        TextArea detailFilmsBekeken = new TextArea("Bekeken films:\n\n");
-            detailFilmsBekeken.setEditable(false);
-        TextArea detailSeriesBekeken = new TextArea("Bekeken series:\n\n");
-            detailSeriesBekeken.setEditable(false);
-
-
         //Controller object aanmaken
         AccountController controller = new AccountController(tableView);
         buttonToevoegen.setOnAction(controller);
@@ -80,11 +73,9 @@ public class MainInterface extends Application {
             toolBar.getItems().addAll(buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonVernieuwen);
         HBox mainContent = new HBox();
             mainContent.getChildren().addAll(tableView);
-        HBox detailBox = new HBox();
-            detailBox.getChildren().addAll(detailFilmsBekeken, detailSeriesBekeken);
 
         VBox resultingVbox = new VBox();
-            resultingVbox.getChildren().addAll(toolBar, mainContent, detailBox);
+            resultingVbox.getChildren().addAll(toolBar, mainContent);
 
         return resultingVbox;
     }
@@ -105,13 +96,21 @@ public class MainInterface extends Application {
         columnDateOfBirth.setCellValueFactory(new PropertyValueFactory<Date, Profile>("dateOfBirth"));
         tableView.getColumns().addAll(columnNaam, columnDateOfBirth);
 
+        //Objecten detailBox
+        TextArea detailFilmsBekeken = new TextArea("Bekeken films:\n\n");
+        detailFilmsBekeken.setEditable(false);
+        TextArea detailSeriesBekeken = new TextArea("Bekeken series:\n\n");
+        detailSeriesBekeken.setEditable(false);
+
         ToolBar toolBar = new ToolBar();
-        toolBar.getItems().addAll(choiceBoxNaam, buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonVernieuwen);
+            toolBar.getItems().addAll(choiceBoxNaam, buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonVernieuwen);
         HBox mainContent = new HBox();
-        mainContent.getChildren().addAll(tableView);
+            mainContent.getChildren().addAll(tableView);
+        HBox detailBox = new HBox();
+            detailBox.getChildren().addAll(detailFilmsBekeken, detailSeriesBekeken);
 
         VBox resultingVbox = new VBox();
-        resultingVbox.getChildren().addAll(toolBar, mainContent);
+        resultingVbox.getChildren().addAll(toolBar, mainContent, detailBox);
 
         return resultingVbox;
     }
