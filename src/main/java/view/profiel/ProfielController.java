@@ -1,9 +1,6 @@
 package view.profiel;
 
-import datalayer.AccountDAO;
-import datalayer.MovieDAO;
-import datalayer.ProfileDAO;
-import datalayer.SerieDAO;
+import datalayer.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -11,10 +8,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-import models.Account;
-import models.Movie;
-import models.Profile;
-import models.Serie;
+import models.*;
 import view.profiel.sub.ProfielInterfaces;
 
 import java.util.List;
