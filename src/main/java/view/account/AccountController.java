@@ -36,13 +36,13 @@ public class AccountController implements EventHandler<ActionEvent> {
         }
         else if(btn.getText().equalsIgnoreCase("verwijderen")){
             Account selectedItem = (Account)this.tableView.getSelectionModel().getSelectedItem();
-            AccountDAO accountDAO = new AccountDAO();
+            AccountDAO accountDAO = AccountDAO.getInstance();
             accountDAO.deleteAccount(selectedItem);
             this.tableView.getItems().remove(selectedItem);
         }
         else if(btn.getText().equalsIgnoreCase("vernieuwen")){
             this.tableView.getItems().clear();
-            AccountDAO accountDAO = new AccountDAO();
+            AccountDAO accountDAO = AccountDAO.getInstance();
             List<Account> accounts = accountDAO.getAllAccounts();
             for(Account item : accounts){
                 this.tableView.getItems().add(item);

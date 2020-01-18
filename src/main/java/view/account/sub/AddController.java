@@ -32,7 +32,7 @@ public class AddController implements EventHandler<ActionEvent> {
         if(btn.getText().equalsIgnoreCase("Toevoegen")){
             if(!this.nameInput.getText().isEmpty() && !this.streetInput.getText().isEmpty() && !this.houseNumberInput.getText().isEmpty() && !this.zipCodeInput.getText().isEmpty()){
                 Account a = new Account(this.nameInput.getText(), this.streetInput.getText(), this.houseNumberInput.getText(), this.zipCodeInput.getText());
-                AccountDAO aDAO = new AccountDAO();
+                AccountDAO aDAO = AccountDAO.getInstance();
                 aDAO.createAccount(a);
                 this.stage.close();
             }
