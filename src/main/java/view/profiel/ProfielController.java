@@ -24,7 +24,7 @@ public class ProfielController implements EventHandler<ActionEvent> {
         this.choiceBoxAccounts = choiceBoxAccounts;
         this.detailFilmsBekeken = detailFilmsBekeken;
         this.detailSeriesBekeken = detailSeriesBekeken;
-        AccountDAO accountDAO = new AccountDAO();
+        AccountDAO accountDAO = AccountDAO.getInstance();
         try{
             List<Account> accounts = accountDAO.getAllAccounts();
             for(Account item : accounts){
@@ -52,14 +52,14 @@ public class ProfielController implements EventHandler<ActionEvent> {
         }
         else if(btn.getText().equalsIgnoreCase("verwijderen")){
             Profile selectedItem = (Profile)this.tableView.getSelectionModel().getSelectedItem();
-            ProfileDAO profileDAO = new ProfileDAO();
+            ProfileDAO profileDAO = ProfileDAO.getInstance();
             profileDAO.deleteProfile(selectedItem);
             this.tableView.getItems().remove(selectedItem);
         }
         else if(btn.getText().equalsIgnoreCase("vernieuwen")){
             this.tableView.getItems().clear();
             this.choiceBoxAccounts.getItems().clear();
-            AccountDAO accountDAO = new AccountDAO();
+            AccountDAO accountDAO = AccountDAO.getInstance();
             List<Account> accounts = accountDAO.getAllAccounts();
             for(Account item : accounts){
                 this.choiceBoxAccounts.getItems().addAll(item);
@@ -67,7 +67,7 @@ public class ProfielController implements EventHandler<ActionEvent> {
         }
         else if(btn.getText().equalsIgnoreCase("zoek")){
             this.tableView.getItems().clear();
-            ProfileDAO profileDAO = new ProfileDAO();
+            ProfileDAO profileDAO = ProfileDAO.getInstance();
             List<Profile> profiles = profileDAO.getProfilesOfAccount(this.choiceBoxAccounts.getValue());
             for(Profile item : profiles){
                 this.tableView.getItems().add(item);
