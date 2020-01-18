@@ -68,4 +68,8 @@ public class Account {
         this.houseNumber = houseNumber;
     }
 
+    public String toString(){
+        return getAccountName();
+    }
+
 }
