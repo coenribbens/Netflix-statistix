@@ -19,6 +19,8 @@ public class MainInterface extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setScene(mainScene(stage));
+        stage.setMinHeight(400);
+        stage.setMinWidth(700);
         stage.show();
     }
 
