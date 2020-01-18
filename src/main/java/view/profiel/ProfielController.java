@@ -25,9 +25,14 @@ public class ProfielController implements EventHandler<ActionEvent> {
         this.detailFilmsBekeken = detailFilmsBekeken;
         this.detailSeriesBekeken = detailSeriesBekeken;
         AccountDAO accountDAO = new AccountDAO();
-        List<Account> accounts = accountDAO.getAllAccounts();
-        for(Account item : accounts){
-            this.choiceBoxAccounts.getItems().addAll(item);
+        try{
+            List<Account> accounts = accountDAO.getAllAccounts();
+            for(Account item : accounts){
+                this.choiceBoxAccounts.getItems().addAll(item);
+            }
+        }
+        catch (Exception e){
+            System.out.println("Kon geen connectie maken met de SQL Database");
         }
     }
 

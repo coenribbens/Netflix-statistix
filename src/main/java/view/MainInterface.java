@@ -85,6 +85,7 @@ public class MainInterface extends Application {
 
     public static VBox profielVbox(Stage stage){
         //Objecten toolBar
+        Label choiceBoxLabel = new Label("Account:");
         ChoiceBox<Account> choiceBoxNaam = new ChoiceBox<>();
             choiceBoxNaam.setTooltip(new Tooltip("Selecteer een account"));
         Button buttonZoek = new Button("Zoek");
@@ -93,6 +94,7 @@ public class MainInterface extends Application {
         Button buttonBewerken = new Button("Bewerken");
         Button buttonVerwijderen = new Button("Verwijderen");
         Button buttonVernieuwen = new Button("Vernieuwen");
+            buttonVernieuwen.setTooltip(new Tooltip("Vernieuw de account lijst"));
         Button buttonProfielInfo = new Button("Profiel Info");
             buttonProfielInfo.setTooltip(new Tooltip("Geeft info over de geselecteerde profiel"));
 
@@ -120,7 +122,7 @@ public class MainInterface extends Application {
 
 
         ToolBar toolBar = new ToolBar();
-            toolBar.getItems().addAll(choiceBoxNaam, buttonZoek, buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonVernieuwen, buttonProfielInfo);
+            toolBar.getItems().addAll(choiceBoxLabel, choiceBoxNaam, buttonZoek, buttonVernieuwen, buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonProfielInfo);
         HBox mainContent = new HBox();
             mainContent.getChildren().addAll(tableView);
         HBox detailBox = new HBox();
