@@ -58,5 +58,6 @@
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:5.1.6" level="project" />
     <orderEntry type="library" name="lib" level="project" />
     <orderEntry type="library" name="mssql-jdbc-7.4.1.jre12" level="project" />
+    <orderEntry type="library" name="lib_javaFX1" level="project" />
   </component>
 </module>

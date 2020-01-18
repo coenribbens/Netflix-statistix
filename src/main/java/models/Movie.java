@@ -9,14 +9,14 @@ public class Movie extends Program {
     public Movie() {
     }
 
-    public Movie(String title, String duration, String genre, String language, int ageRating) {
+    public Movie(String title, int duration, String genre, String language, int ageRating) {
         super(title, duration);
         this.genre = genre;
         this.language = language;
         this.ageRating = ageRating;
     }
 
-    public Movie(int programId, String title, String duration, String genre, String language, int ageRating) {
+    public Movie(int programId, String title, int duration, String genre, String language, int ageRating) {
         super(programId, title, duration);
         this.genre = genre;
         this.language = language;
