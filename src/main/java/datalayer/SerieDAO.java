@@ -60,7 +60,7 @@ public class SerieDAO implements ISerie {
         try {
             conn = MysqlDAO.getInstance().connect();
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM serie WHERE serieId = ?");
-            statement.setInt(1, s);
+            statement.setInt(1, Id);
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
