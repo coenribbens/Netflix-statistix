@@ -41,7 +41,7 @@ public class ProfielController implements EventHandler<ActionEvent> {
         }
         else if(btn.getText().equalsIgnoreCase("bewerken")){
             Stage editStage = new Stage();
-            editStage.setScene(ProfielInterfaces.editInterface(editStage, (Profile)this.tableView.getSelectionModel().getSelectedItem()));
+            editStage.setScene(ProfielInterfaces.editInterface(editStage, this.choiceBoxAccounts.getValue(), (Profile)this.tableView.getSelectionModel().getSelectedItem()));
             editStage.show();
 
         }
