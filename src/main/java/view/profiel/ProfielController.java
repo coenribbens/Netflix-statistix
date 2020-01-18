@@ -50,16 +50,20 @@ public class ProfielController implements EventHandler<ActionEvent> {
         }
         else if(btn.getText().equalsIgnoreCase("vernieuwen")){
             this.tableView.getItems().clear();
-            ProfileDAO profileDAO = new ProfileDAO();
-            List<Profile> profiles = profileDAO.getAllProfiles();
-            for(Profile item : profiles){
-                this.tableView.getItems().add(item);
+            this.choiceBoxAccounts.getItems().clear();
+            AccountDAO accountDAO = new AccountDAO();
+            List<Account> accounts = accountDAO.getAllAccounts();
+            for(Account item : accounts){
+                this.choiceBoxAccounts.getItems().addAll(item);
             }
         }
         else if(btn.getText().equalsIgnoreCase("zoek")){
             this.tableView.getItems().clear();
             ProfileDAO profileDAO = new ProfileDAO();
             List<Profile> profiles = profileDAO.getProfilesOfAccount(this.choiceBoxAccounts.getValue());
+            for(Profile item : profiles){
+                this.tableView.getItems().add(item);
+            }
         }
 
     }
