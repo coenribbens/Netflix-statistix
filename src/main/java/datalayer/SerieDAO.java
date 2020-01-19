@@ -123,6 +123,7 @@ public class SerieDAO implements ISerie {
             PreparedStatement statement = conn.prepareStatement("SELECT AVG(watchedTime) AS avgPercentage FROM watched\n" +
                     "INNER JOIN episode ON episode.programId = watched.programId\n" +
                     "WHERE SerieId = ?");
+
             statement.setInt(1, s.getSerieId());
             ResultSet resultSet = statement.executeQuery();
 

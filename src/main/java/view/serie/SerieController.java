@@ -18,7 +18,7 @@ public class SerieController implements  EventHandler<ActionEvent>{
 
     private TableView tableView;
     private TextArea gemiddeldeKijkTijdSerie;
-
+  
     public SerieController(TableView tableView, TextArea gemiddeldekijktijdSerie ){
         this.tableView = tableView;
         this.gemiddeldeKijkTijdSerie = gemiddeldekijktijdSerie; }

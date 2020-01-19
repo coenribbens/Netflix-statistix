@@ -129,7 +129,7 @@ public class MainInterface extends Application {
         TextArea langsteOnder16 = new TextArea("Langste film onder 16 jaar is:\n\n");
         langsteOnder16.setEditable(false);
 
-        TextArea Bekekendoor = new TextArea("Bekeken door: " + " aantal personen");
+        TextArea Bekekendoor = new TextArea("Klik op een film voor het aantal weergaven");
         Bekekendoor.setEditable(false);
         Bekekendoor.setMinSize(600,50);
         langsteOnder16.setMinSize(600,50);
@@ -166,11 +166,13 @@ public class MainInterface extends Application {
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
 
+
         Movie xx = new Movie("De smurfen", "30", "horror", "Frans", 18);
         tableView.getItems().add(xx);
 
 
         HBox choiceBoxhbox = new HBox();
+
         choiceBoxhbox.getChildren().add(choiceBox);
         VBox vbox = new VBox();
         vbox.setSpacing(10);
@@ -244,7 +246,6 @@ public class MainInterface extends Application {
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.getChildren().addAll(choiceBoxhbox,tableView,gemiddeldbekeken);
-
         SerieController serieController = new SerieController(tableView, gemiddeldbekeken);
         choiceBox.setOnAction(serieController);
         SerieController2 serieController2 = new SerieController2(tableView, profileChoiceBox);
