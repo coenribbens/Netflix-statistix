@@ -220,5 +220,5 @@ public class EpisodeDAO implements IEpisode {
 
         return episodes;
     }
-
 }
+

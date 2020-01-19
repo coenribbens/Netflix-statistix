@@ -104,4 +104,70 @@ public class MovieDAO implements IMovie {
 
         return allMoviesWatched;
     }
+
+    public int getFullywatchedMovies(Movie movie){
+        int average;
+        Connection conn = null;
+        try{
+            conn = MysqlDAO.getInstance().connect();
+            //tabelnaam zal waarschijnlijk nog veranderd moeten worden. Voor nu is het "movie_profile"
+            PreparedStatement Getamountoffullywatched = conn.prepareStatement("select count (profileId)  as DoorHoeveelBekeken \n" +
+                    "from watched\n" +
+                    "\n" +
+                    "join Program on watched.programId = program.movieId\n" +
+                    "where program.movieId = ? and program.duration = watched.watchedTime");
+            Getamountoffullywatched.setInt(1, movie.getProgramId());
+            ResultSet resultSet = Getamountoffullywatched.executeQuery();
+
+
+                int DoorHoeveelbekeken = resultSet.getInt("DoorHoeveelBekeken");
+                return DoorHoeveelbekeken;
+
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            MysqlDAO.getInstance().closeConnection(conn);
+        }
+   return 0 ; }
+
+    public Movie getLongestMovieForAgeLowerThen16(){
+        Movie Longestunder16 = null;
+        Connection conn = null;
+        try{
+            conn = MysqlDAO.getInstance().connect();
+            //tabelnaam zal waarschijnlijk nog veranderd moeten worden. Voor nu is het "movie_profile"
+            PreparedStatement Getamountoffullywatched = conn.prepareStatement("select TOP 1*\n" +
+                            "from program\n" +
+                            "\n" +
+                            "join movie on program.movieid = movie.programid\n" +
+                            "where program.movieId IS NOT NULL and movie.ageRating < 16\n" +
+                            "ORDER BY DURATION DES");
+
+            ResultSet resultSet = Getamountoffullywatched.executeQuery();
+            int movieID = resultSet.getInt("movieID");
+            String movieTitle = resultSet.getString("movieTitle");
+            String movieDuration = resultSet.getString("movieDuration");
+            String movieGenre = resultSet.getString("movieGenre");
+            String movieLanguage = resultSet.getString("movieLanguage");
+            int movieAge = resultSet.getInt("movieAge");
+
+            Longestunder16 = new Movie(movieID, movieTitle, movieDuration, movieGenre, movieLanguage, movieAge);
+
+
+
+
+
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            MysqlDAO.getInstance().closeConnection(conn);
+        }
+        return Longestunder16; }
+
+
+
 }
