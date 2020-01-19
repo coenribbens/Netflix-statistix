@@ -4,9 +4,9 @@ import java.sql.Date;
 
 public class Profile {
 
+    private int profileId;
     private String profileName;
     private Date dateOfBirth;
-    private int profileId;
     private int accountId;
 
     public Profile() {
@@ -21,6 +21,13 @@ public class Profile {
         this.profileName = profileName;
         this.dateOfBirth = dateOfBirth;
         this.profileId = profileId;
+        this.accountId = accountId;
+    }
+
+    public Profile(int profileId, String profileName, Date dateOfBirth, int accountId) {
+        this.profileId = profileId;
+        this.profileName = profileName;
+        this.dateOfBirth = dateOfBirth;
         this.accountId = accountId;
     }
 
