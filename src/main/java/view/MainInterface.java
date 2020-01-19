@@ -165,7 +165,7 @@ public class MainInterface extends Application {
         tableView.setMaxSize(500,900);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        Movie xx = new Movie("De smurfen", 30, "horror", "Frans", 18);
+        Movie xx = new Movie("De smurfen", "30", "horror", "Frans", 18);
         tableView.getItems().add(xx);
 
 

@@ -6,17 +6,17 @@ public abstract class Program {
 
     private int programId;
     private String title;
-    private int duration;
+    private String duration;
 
     public Program() {
     }
 
-    public Program(String title, int duration) {
+    public Program(String title, String duration) {
         this.title = title;
         this.duration = duration;
     }
 
-    public Program(int programId, String title, int duration) {
+    public Program(int programId, String title, String duration) {
         this.programId = programId;
         this.title = title;
         this.duration = duration;
@@ -38,11 +38,11 @@ public abstract class Program {
         this.title = title;
     }
 
-    public int getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 }

@@ -1,7 +1,7 @@
 package datalayer;
 
 import datalayerinterface.ISerie;
-import models.Movie;
+import models.Episode;
 import models.Profile;
 import models.Serie;
 
@@ -15,8 +15,11 @@ import java.util.List;
 public class SerieDAO implements ISerie {
     private static SerieDAO instance;
 
-    public static SerieDAO getInstance(){
-        if(instance == null){
+    public SerieDAO() {
+    }
+
+    public static SerieDAO getInstance() {
+        if (instance == null) {
             instance = new SerieDAO();
         }
         return instance;
@@ -24,75 +27,166 @@ public class SerieDAO implements ISerie {
 
     @Override
     public List getAllSeries() {
-        ArrayList<Serie> allSeries = new ArrayList<Serie>();
-        allSeries.add(new Serie("ss",  3, "d","s","ff"));
-//        Connection conn = null;
-//        try{
-//            conn = MysqlDAO.getInstance().connect();
-//            PreparedStatement getAllSeries = conn.prepareStatement("SELECT * FROM serie");
-//            ResultSet resultSet = getAllSeries.executeQuery();
-//
-//            while(resultSet.next()) {
-//                //Deze moeten nog aangepast worden voor de uiteindelijke column namen
-//                int serieID = resultSet.getInt("serieID");
-//                String serieTitle = resultSet.getString("serieTitle");
-//                int serieAge = resultSet.getInt("serieAge");
-//                String serieLanguage = resultSet.getString("serieLanguage");
-//                String serieGenre = resultSet.getString("serieGenre");
-//                String serieSuggestions = resultSet.getString("serieSuggestions");
-//
-//                Serie s = new Serie(serieID, serieTitle, serieAge, serieLanguage, serieGenre, serieSuggestions);
-//                allSeries.add(s);
-//            }
-//        }catch(SQLException e){
-//            e.printStackTrace();
-//        }finally {
-//            MysqlDAO.getInstance().closeConnection(conn);
-//        }
-        return allSeries;
+        ArrayList<Serie> series = new ArrayList<>();
+        Connection conn = null;
+        try {
+            conn = MysqlDAO.getInstance().connect();
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM serie");
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("serieId");
+                String name = resultSet.getString("serieName");
+                int ageRating = resultSet.getInt("ageRating");
+                String language = resultSet.getString("language");
+                String genre = resultSet.getString("genre");
+                String suggestion = resultSet.getString("suggestion");
+
+                Serie s = new Serie(id, name, ageRating, language, genre, suggestion);
+                series.add(s);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            MysqlDAO.getInstance().closeConnection(conn);
+        }
+        return series;
     }
 
     @Override
     public Serie getSerieById(int Id) {
-        Serie s = null;
         Connection conn = null;
-        try{
+        Serie serie = null;
+        try {
             conn = MysqlDAO.getInstance().connect();
-            PreparedStatement getSeriesById = conn.prepareStatement("SELECT * FROM serie WHERE serieId = ?");
-            getSeriesById.setInt(1, Id);
-            ResultSet resultSet = getSeriesById.executeQuery();
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM serie WHERE serieId = ?");
+            statement.setInt(1, Id);
+            ResultSet resultSet = statement.executeQuery();
 
-            while(resultSet.next()) {
-                //Deze moeten nog aangepast worden voor de uiteindelijke column namen
-                int serieID = resultSet.getInt("serieID");
-                String serieTitle = resultSet.getString("serieTitle");
-                int serieAge = resultSet.getInt("serieAge");
-                String serieLanguage = resultSet.getString("serieLanguage");
-                String serieGenre = resultSet.getString("serieGenre");
-                String serieSuggestions = resultSet.getString("serieSuggestions");
+            while (resultSet.next()) {
 
-                s = new Serie(serieID, serieTitle, serieAge, serieLanguage, serieGenre, serieSuggestions);
+                int id = resultSet.getInt("serieId");
+                String name = resultSet.getString("serieName");
+                int ageRating = resultSet.getInt("ageClassification");
+                String language = resultSet.getString("language");
+                String genre = resultSet.getString("genre");
+                String suggestion = resultSet.getString("suggestion");
+
+                serie = new Serie(id, name, ageRating, language, genre, suggestion);
+
             }
-        }catch(SQLException e){
+
+        } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             MysqlDAO.getInstance().closeConnection(conn);
         }
-        return s;
+        return serie;
     }
 
     @Override
     public List getAllEpisodesBySerie(Serie s) {
-        return null;
+        ArrayList<Episode> episodes = new ArrayList<>();
+        Connection conn = null;
+        Serie serie = null;
+        Episode episode = null;
+        try {
+            conn = MysqlDAO.getInstance().connect();
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM serie\n" +
+                    "INNER JOIN episode ON episode.serieID = serie.serieID\n" +
+                    "INNER JOIN program ON program.programId = episode.programId\n" +
+                    "WHERE serie.serieId = ?");
+            statement.setInt(1, s.getSerieId());
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("episodeID");
+                String title = resultSet.getString("videoTitle");
+                String duration = resultSet.getString("durage");
+                int season = resultSet.getInt("season");
+
+                Episode e = new Episode(id, title, duration, season);
+                episodes.add(e);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return episodes;
     }
 
     @Override
     public int getAverageWatchTime(Serie s) {
-        return 0;
+        Connection conn = null;
+        int averageWatchTime = 0;
+        try {
+            conn = MysqlDAO.getInstance().connect();
+            PreparedStatement statement = conn.prepareStatement("SELECT AVG(percentage) AS avgPercentage FROM watched\n" +
+                    "INNER JOIN episode ON episode.programId = watched.programId\n" +
+                    "WHERE SerieId = ?");
+            statement.setInt(1, s.getSerieId());
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                averageWatchTime = resultSet.getInt("avgPercentage");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            MysqlDAO.getInstance().closeConnection(conn);
+        }
+        return averageWatchTime;
     }
 
     @Override
     public List getWatchedSeriesByProfile(Profile p) {
-        return null;
+        ArrayList<Serie> series = new ArrayList<>();
+        Connection conn = null;
+        try {
+            conn = MysqlDAO.getInstance().connect();
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM serie \n" +
+                    "INNER JOIN episode ON episode.programId = serie.serieId \n" +
+                    "INNER JOIN watched ON watched.programId = episode.programId \n" +
+                    "INNER JOIN profile ON profile.profileId = watched.profileId \n " +
+                    "WHERE profile.profileId = ?");
+            statement.setInt(1, p.getProfileId());
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("serieId");
+                String name = resultSet.getString("serieName");
+                int ageRating = resultSet.getInt("ageRating");
+                String language = resultSet.getString("language");
+                String genre = resultSet.getString("genre");
+                String suggestion = resultSet.getString("suggestion");
+
+                Serie s = new Serie(id, name, ageRating, language, genre, suggestion);
+                series.add(s);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            MysqlDAO.getInstance().closeConnection(conn);
+        }
+
+        return series;
     }
+
+
+    public void updateSerie(Serie s) {
+        Connection conn = null;
+        try {
+            conn = MysqlDAO.getInstance().connect();
+            PreparedStatement statement = conn.prepareStatement("UPDATE `serie` SET `serieName` = ?," +
+                    " WHERE `serieId` = ?");
+            statement.setString(1, s.getName());
+            statement.setInt(2,s.getSerieId());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            MysqlDAO.getInstance().closeConnection(conn);
+        }
+    }
+
 }

@@ -32,7 +32,7 @@ public class MovieDAO implements IMovie {
                 //Deze moeten nog aangepast worden voor de uiteindelijke column namen
                 int movieID = resultSet.getInt("movieID");
                 String movieTitle = resultSet.getString("movieTitle");
-                int movieDuration = resultSet.getInt("movieDuration");
+               String movieDuration = resultSet.getString("movieDuration");
                 String movieGenre = resultSet.getString("movieGenre");
                 String movieLanguage = resultSet.getString("movieLanguage");
                 int movieAge = resultSet.getInt("movieAge");
@@ -64,7 +64,7 @@ public class MovieDAO implements IMovie {
                 //Deze moeten nog aangepast worden voor de uiteindelijke column namen
                 int movieID = resultSet.getInt("movieID");
                 String movieTitle = resultSet.getString("movieTitle");
-               int movieDuration = resultSet.getInt("movieDuration");
+               String movieDuration = resultSet.getString("movieDuration");
                 String movieGenre = resultSet.getString("movieGenre");
                 String movieLanguage = resultSet.getString("movieLanguage");
                 int movieAge = resultSet.getInt("movieAge");
@@ -149,7 +149,7 @@ public class MovieDAO implements IMovie {
             ResultSet resultSet = Getamountoffullywatched.executeQuery();
             int movieID = resultSet.getInt("movieID");
             String movieTitle = resultSet.getString("movieTitle");
-            int movieDuration = resultSet.getInt("movieDuration");
+            String movieDuration = resultSet.getString("movieDuration");
             String movieGenre = resultSet.getString("movieGenre");
             String movieLanguage = resultSet.getString("movieLanguage");
             int movieAge = resultSet.getInt("movieAge");
