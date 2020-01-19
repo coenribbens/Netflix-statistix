@@ -11,6 +11,10 @@ import javafx.stage.Stage;
 import models.Account;
 import models.Movie;
 import view.account.AccountController;
+import view.movie.MovieController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainInterface extends Application {
     @Override
@@ -94,6 +98,8 @@ public class MainInterface extends Application {
     public static VBox filmVbox(Stage stage){
         ChoiceBox<String> choiceBox = new ChoiceBox<String>();
         choiceBox.setMinWidth(500);
+        List movies = new ArrayList();
+
 
 
 //        ListView<String> filmTitel = new ListView<String>();
@@ -153,6 +159,9 @@ public class MainInterface extends Application {
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.getChildren().addAll(choiceBoxhbox,tableView,textgebieden);
+
+        MovieController filmcontroller = new MovieController(tableView);
+        choiceBox.setOnAction(filmcontroller);
 
         return vbox;
     }
