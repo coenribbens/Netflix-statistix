@@ -111,6 +111,7 @@ public class MainInterface extends Application {
 
 
 
+
 //        ListView<String> filmTitel = new ListView<String>();
 //        filmTitel.getItems().add("titel");
 //        ListView<String> filmDuratie = new ListView<String>();
@@ -120,19 +121,19 @@ public class MainInterface extends Application {
 //        ListView<String> filmGenre = new ListView<String>();
 //        filmGenre.getItems().add("genre");
 
-        TextArea Gemiddeldekijtijd = new TextArea("Gemiddelde kijktijd\n\n");
-        Gemiddeldekijtijd.setEditable(false);
+        TextArea langsteOnder16 = new TextArea("Langste film onder 16 jaar is:\n\n");
+        langsteOnder16.setEditable(false);
 
         TextArea Bekekendoor = new TextArea("Bekeken door: " + " aantal personen");
         Bekekendoor.setEditable(false);
         Bekekendoor.setMinSize(600,50);
-        Gemiddeldekijtijd.setMinSize(600,50);
+        langsteOnder16.setMinSize(600,50);
 
 
 //
         HBox textgebieden = new HBox();
         textgebieden.setSpacing(10);
-        textgebieden.getChildren().addAll(Gemiddeldekijtijd,Bekekendoor);
+        textgebieden.getChildren().addAll(langsteOnder16,Bekekendoor);
 
 //
         TableView tableView = new TableView();
@@ -168,7 +169,7 @@ public class MainInterface extends Application {
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.getChildren().addAll(choiceBoxhbox,tableView,textgebieden);
-        MovieController filmcontroller = new MovieController(tableView, Bekekendoor);
+        MovieController filmcontroller = new MovieController(tableView, Bekekendoor, langsteOnder16);
         choiceBox.setOnAction(filmcontroller);
 
 

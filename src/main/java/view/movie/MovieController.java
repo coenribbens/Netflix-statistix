@@ -18,11 +18,11 @@ import java.util.List;
 
 public class MovieController implements EventHandler<ActionEvent> {
     private TableView tableView;
-    private TextArea Gemiddeldekijtijd;
+    private TextArea Langstefilmonder16;
     private TextArea aantalbeken;
 
-    public MovieController(TableView tableView, TextArea aantalbeken){
-        this.tableView = tableView; this.aantalbeken = aantalbeken;
+    public MovieController(TableView tableView, TextArea aantalbeken, TextArea Langstefilmmonder16){
+        this.tableView = tableView; this.aantalbeken = aantalbeken; this.Langstefilmonder16 = Langstefilmmonder16;
 
     }
 
@@ -33,13 +33,16 @@ public class MovieController implements EventHandler<ActionEvent> {
         if (!tableView.getItems().contains(xx)) {
             tableView.getItems().add(xx);
         }
-        // Het aantal volledige bekeken films
+        // Het aantal keer dat een film volledig bekeken is
         Movie x = (Movie) tableView.getSelectionModel().getSelectedItem();
         MovieDAO movieDAO = new MovieDAO();
         int xs = movieDAO.getFullywatchedMovies(x);
-        aantalbeken.setText("Deze film is" + xs + "maal volledig bekeken");
 
-     ;
+        // Geeft de film die het langst is voor < 16
+        String ax = movieDAO.getLongestMovieForAgeLowerThen16().getTitle();
+        aantalbeken.setText("De langste film voor onder de 16 is: " + ax );
+
+
 
 
 
