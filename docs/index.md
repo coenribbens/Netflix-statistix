@@ -59,5 +59,8 @@ Het schrijven van de documentatie viel iets meer tegen aangezien ik in een redel
 lange tijd geen handleidingen had geschreven, en al zeker niet in markup.
 Een interessant project met een redelijk goede uitkomst.
 
+####Reflectie Marcello Haddeman
+Dit is de eerste keer dat ik mee heb gedaan aan een software project. Ik moet zeggen dat het samenwerken toch wel veel moeilijker is dan gedacht. Ervoor zorgen dat iedereen op de hetzelfde spoor zit van gedachtengang is toch wel een klus. Toch vind ik dat we er nog wat van hebben kunnen maken. Ik vind wel dat we voor de volgende keer wat eerder mogen beginnen. We hadden wel wat tijd tekort.
+
 #Samenwerkingscontract
 Het samenwerkingscontract is verder te vinden in de Docs map
