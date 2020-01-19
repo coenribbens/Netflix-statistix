@@ -4,7 +4,6 @@ import datalayerinterface.IMovie;
 import models.Movie;
 import models.Profile;
 
-import javax.print.DocFlavor;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +43,9 @@ public class MovieDAO implements IMovie {
             e.printStackTrace();
         }finally {
             MysqlDAO.getInstance().closeConnection(conn);
-
+        }
         return allMovies;
-    }}
+    }
 
     @Override
     public Movie getMovieById(int id) {
