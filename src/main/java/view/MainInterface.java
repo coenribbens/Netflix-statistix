@@ -20,17 +20,27 @@ import view.serie.SerieController2;
 
 import java.util.ArrayList;
 import java.util.List;
+import models.Account;
+import view.account.AccountController;
+import models.Profile;
+import view.account.AccountController;
+import view.profiel.ProfielController;
+
+import java.sql.Date;
 
 public class MainInterface extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setScene(mainScene(stage));
-
+        stage.setMinHeight(500);
+        stage.setHeight(500);
+        stage.setMinWidth(700);
+        stage.setWidth(700);
         stage.show();
     }
 
     public static Scene mainScene(Stage stage){
-        stage.setTitle("Netflix Statistics, Gemaakt door : Coen Ribbens () ");
+        stage.setTitle("Netflix Statistics - Marcello Haddeman 2152991, Thomas Meeusen 2151718, Coen Ribbens 2151482");
 
         Tab tabAccount = new Tab("account", accountVbox(stage));
             tabAccount.setClosable(false);
@@ -52,6 +62,12 @@ public class MainInterface extends Application {
     public static VBox accountVbox(Stage stage){
 
         //Objecten toolBar
+        Label filterLabel = new Label("Filter:");
+        ChoiceBox<String> choiceBoxFilter = new ChoiceBox<>();
+            choiceBoxFilter.getItems().addAll("", "Accounts met 1 profiel");
+            choiceBoxFilter.getSelectionModel().selectFirst();
+        Button buttonZoek = new Button("Zoek");
+            buttonZoek.setTooltip(new Tooltip("Zoek voor accounts met de filter"));
         Button buttonToevoegen = new Button("Toevoegen");
         Button buttonBewerken = new Button("Bewerken");
         Button buttonVerwijderen = new Button("Verwijderen");
@@ -59,6 +75,7 @@ public class MainInterface extends Application {
 
         //Objecten voor Tableview
         TableView tableView = new TableView();
+            tableView.setMinWidth(650);
         TableColumn<String, Account> columnNaam = new TableColumn<>("Naam");
             columnNaam.setCellValueFactory(new PropertyValueFactory<String, Account>("accountName"));
         TableColumn<String, Account> columnStraat = new TableColumn<>("Straat");
@@ -69,16 +86,9 @@ public class MainInterface extends Application {
             columnPostcode.setCellValueFactory(new PropertyValueFactory<String, Account>("zipcode"));
         tableView.getColumns().addAll(columnNaam, columnStraat, columnHuisNummer, columnPostcode);
 
-
-        //Objecten detailBox
-        TextArea detailFilmsBekeken = new TextArea("Bekeken films:\n\n");
-            detailFilmsBekeken.setEditable(false);
-        TextArea detailSeriesBekeken = new TextArea("Bekeken series:\n\n");
-            detailSeriesBekeken.setEditable(false);
-
-
         //Controller object aanmaken
-        AccountController controller = new AccountController(tableView);
+        AccountController controller = new AccountController(tableView, choiceBoxFilter);
+        buttonZoek.setOnAction(controller);
         buttonToevoegen.setOnAction(controller);
         buttonBewerken.setOnAction(controller);
         buttonVerwijderen.setOnAction(controller);
@@ -93,14 +103,70 @@ public class MainInterface extends Application {
 
         VBox resultingVbox = new VBox();
             resultingVbox.getChildren().addAll(toolBar, mainContent, detailBox);
+            toolBar.getItems().addAll(filterLabel, choiceBoxFilter, buttonZoek, buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonVernieuwen);
+        HBox mainContent = new HBox();
+            mainContent.getChildren().addAll(tableView);
+
+        VBox resultingVbox = new VBox();
+            resultingVbox.getChildren().addAll(toolBar, mainContent);
 
         return resultingVbox;
     }
 
     public static VBox profielVbox(Stage stage){
-        return null;
-    }
+              //Objecten toolBar
+        Label choiceBoxLabel = new Label("Account:");
+        ChoiceBox<Account> choiceBoxNaam = new ChoiceBox<>();
+            choiceBoxNaam.setTooltip(new Tooltip("Selecteer een account"));
+        Button buttonZoek = new Button("Zoek");
+            buttonZoek.setTooltip(new Tooltip("Zoek alle profielen van de geselecteerde account"));
+        Button buttonToevoegen = new Button("Toevoegen");
+        Button buttonBewerken = new Button("Bewerken");
+        Button buttonVerwijderen = new Button("Verwijderen");
+        Button buttonVernieuwen = new Button("Vernieuwen");
+            buttonVernieuwen.setTooltip(new Tooltip("Vernieuw de account lijst"));
+        Button buttonProfielInfo = new Button("Profiel Info");
+            buttonProfielInfo.setTooltip(new Tooltip("Geeft info over de geselecteerde profiel"));
 
+        //Objecten voor de tableView
+        TableView tableView = new TableView();
+            tableView.setMinWidth(650);
+        TableColumn<String, Profile> columnNaam = new TableColumn<>("Naam");
+        columnNaam.setCellValueFactory(new PropertyValueFactory<String, Profile>("profileName"));
+        TableColumn<Date, Profile> columnDateOfBirth = new TableColumn<>("Geboortedatum");
+        columnDateOfBirth.setCellValueFactory(new PropertyValueFactory<Date, Profile>("dateOfBirth"));
+        tableView.getColumns().addAll(columnNaam, columnDateOfBirth);
+
+        //Objecten detailBox
+        TextArea detailFilmsBekeken = new TextArea("Bekeken films:\n\n");
+        detailFilmsBekeken.setEditable(false);
+        detailFilmsBekeken.setPrefWidth(325);
+        TextArea detailSeriesBekeken = new TextArea("Bekeken series:\n\n");
+        detailSeriesBekeken.setEditable(false);
+        detailSeriesBekeken.setPrefWidth(325);
+
+        //Controllers object aanmaken
+        ProfielController controller = new ProfielController(tableView, choiceBoxNaam, detailFilmsBekeken, detailSeriesBekeken);
+            buttonToevoegen.setOnAction(controller);
+            buttonBewerken.setOnAction(controller);
+            buttonVerwijderen.setOnAction(controller);
+            buttonVernieuwen.setOnAction(controller);
+            buttonZoek.setOnAction(controller);
+
+
+        ToolBar toolBar = new ToolBar();
+            toolBar.getItems().addAll(choiceBoxLabel, choiceBoxNaam, buttonZoek, buttonVernieuwen, buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonProfielInfo);
+        HBox mainContent = new HBox();
+            mainContent.getChildren().addAll(tableView);
+        HBox detailBox = new HBox();
+            detailBox.getChildren().addAll(detailFilmsBekeken, detailSeriesBekeken);
+
+        VBox resultingVbox = new VBox();
+        resultingVbox.getChildren().addAll(toolBar, mainContent, detailBox);
+
+        return resultingVbox;
+    }
+  
     public static VBox filmVbox(Stage stage){
 
         // Het toevoegen van Films aan de ChoiceBox!

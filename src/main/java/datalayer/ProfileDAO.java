@@ -86,7 +86,7 @@ public class ProfileDAO implements IProfile {
         try {
             conn = MysqlDAO.getInstance().connect();
             PreparedStatement statement = conn.prepareStatement(""
-                    + "INSERT INTO `profile` (`profileName`,`dateOfbirth`,`accountId`) "
+                    + "INSERT INTO profile (profileName, dateOfbirth, accountId) "
                     + "VALUES (?, ?, ?)");
             statement.setString(1, p.getProfileName());
             statement.setDate(2, p.getDateOfBirth());
@@ -105,7 +105,7 @@ public class ProfileDAO implements IProfile {
         try {
             conn = MysqlDAO.getInstance().connect();
             PreparedStatement statement = conn.prepareStatement(""
-                    + "UPDATE `profile` SET `profileName` = ?,`dateOfBirth` = ?,`accountId` = ? WHERE profileId = ?");
+                    + "UPDATE profile SET profileName = ?, dateOfBirth = ?, accountId = ? WHERE profileId = ?");
             statement.setString(1, p.getProfileName());
             statement.setDate(2, p.getDateOfBirth());
             statement.setInt(3, p.getAccountId());
@@ -143,9 +143,9 @@ public class ProfileDAO implements IProfile {
         try{
             conn = MysqlDAO.getInstance().connect();
             PreparedStatement getAllProfiles = conn.prepareStatement("SELECT * FROM profile WHERE accountId = ?");
-            ResultSet resultSet = getAllProfiles.executeQuery();
 
             getAllProfiles.setInt(1, a.getAccountId());
+            ResultSet resultSet = getAllProfiles.executeQuery();
 
             while(resultSet.next()) {
                 int profileId = resultSet.getInt("profileId");
