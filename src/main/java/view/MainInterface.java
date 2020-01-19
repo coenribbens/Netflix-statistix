@@ -16,6 +16,7 @@ import models.Movie;
 import models.Serie;
 import view.account.AccountController;
 import view.movie.MovieController;
+import view.movie.MovieController2;
 import view.serie.SerieController;
 
 import java.util.ArrayList;
@@ -165,6 +166,7 @@ public class MainInterface extends Application {
         tableView.setMaxSize(500,900);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
+
         Movie xx = new Movie("De smurfen", "30", "horror", "Frans", 18);
         tableView.getItems().add(xx);
 
@@ -174,8 +176,15 @@ public class MainInterface extends Application {
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.getChildren().addAll(choiceBoxhbox,tableView,textgebieden);
-        MovieController filmcontroller = new MovieController(tableView, Bekekendoor, langsteOnder16);
+        MovieController filmcontroller = new MovieController(tableView,  langsteOnder16);
+        MovieController2 filmcontroller2 = new MovieController2(tableView,Bekekendoor);
         choiceBox.setOnAction(filmcontroller);
+        tableView.setOnMouseClicked(filmcontroller2);
+
+        MovieDAO movieDAO1 = new MovieDAO();
+
+        String ax = movieDAO1.getLongestMovieForAgeLowerThen16().getTitle();
+        langsteOnder16.setText("De langste film voor onder de 16 is: " + ax );
 
 
 
@@ -226,6 +235,8 @@ public class MainInterface extends Application {
 
         SerieController SerieController = new SerieController(tableView, gemiddeldbekeken);
         choiceBox.setOnAction(SerieController);
+
+
 
 
 //        TableColumn<String, Episode> kolumnEpisodeTaal = new TableColumn<>("FilmTaal");
