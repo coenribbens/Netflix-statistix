@@ -79,39 +79,6 @@ public class AccountDAO implements IAccount {
         return a;
     }
 
-    public List<Account> getAccountsWithOneProfile() {
-        Connection conn = null;
-        ArrayList<Account> accounts = new ArrayList<>();
-        try {
-            conn = MysqlDAO.getInstance().connect();
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM account\n" +
-                    "JOIN (\n" +
-                    "\tSELECT accountID\n" +
-                    "\tFROM profile\n" +
-                    "\tGROUP BY accountID\n" +
-                    "\tHAVING COUNT(1) = 1\n" +
-                    ") AS profileAccounts\n" +
-                    "ON profileAccounts.accountID = account.accountID");
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                int accountID = resultSet.getInt("accountId");
-                String accountName = resultSet.getString("accountName");
-                String streetName = resultSet.getString("streetName");
-                String houseNumber = resultSet.getString("houseNumber");
-                String zipCode = resultSet.getString("zipcode");
-
-                Account acc = new Account(accountID, accountName, streetName, houseNumber, zipCode);
-                accounts.add(acc);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            MysqlDAO.getInstance().closeConnection(conn);
-        }
-        return accounts;
-    }
-
     @Override
     public void createAccount(Account a) {
         Connection conn = null;

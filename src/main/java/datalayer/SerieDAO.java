@@ -15,7 +15,7 @@ import java.util.List;
 public class SerieDAO implements ISerie {
     private static SerieDAO instance;
 
-    private SerieDAO() {
+    public SerieDAO() {
     }
 
     public static SerieDAO getInstance() {
@@ -101,8 +101,8 @@ public class SerieDAO implements ISerie {
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("episodeID");
-                String title = resultSet.getString("title");
-                String duration = resultSet.getString("duration");
+                String title = resultSet.getString("videoTitle");
+                String duration = resultSet.getString("durage");
                 int season = resultSet.getInt("season");
 
                 Episode e = new Episode(id, title, duration, season);
