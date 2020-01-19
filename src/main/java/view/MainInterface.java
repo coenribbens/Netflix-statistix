@@ -33,9 +33,9 @@ public class MainInterface extends Application {
     public void start(Stage stage) throws Exception {
         stage.setScene(mainScene(stage));
         stage.setMinHeight(500);
-        stage.setHeight(500);
+        stage.setHeight(700);
         stage.setMinWidth(700);
-        stage.setWidth(700);
+        stage.setWidth(1400);
         stage.show();
     }
 
@@ -95,20 +95,13 @@ public class MainInterface extends Application {
         buttonVernieuwen.setOnAction(controller);
 
         ToolBar toolBar = new ToolBar();
-            toolBar.getItems().addAll(buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonVernieuwen);
-        HBox mainContent = new HBox();
-            mainContent.getChildren().addAll(tableView);
-        HBox detailBox = new HBox();
-            detailBox.getChildren().addAll(detailFilmsBekeken, detailSeriesBekeken);
-
-        VBox resultingVbox = new VBox();
-            resultingVbox.getChildren().addAll(toolBar, mainContent, detailBox);
-            toolBar.getItems().addAll(filterLabel, choiceBoxFilter, buttonZoek, buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonVernieuwen);
+        toolBar.getItems().addAll(filterLabel, choiceBoxFilter, buttonZoek, buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonVernieuwen);
         HBox mainContent = new HBox();
             mainContent.getChildren().addAll(tableView);
 
         VBox resultingVbox = new VBox();
             resultingVbox.getChildren().addAll(toolBar, mainContent);
+
 
         return resultingVbox;
     }
