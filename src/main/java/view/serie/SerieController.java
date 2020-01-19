@@ -17,45 +17,27 @@ import java.util.List;
 public class SerieController implements  EventHandler<ActionEvent>{
 
     private TableView tableView;
-    private TextArea GemiddeldekijktijdSerie;
+    private TextArea gemiddeldeKijkTijdSerie;
 
-    public SerieController(TableView tableView, TextArea GemiddeldekijktijdSerie ){
-        this.tableView = tableView; this.GemiddeldekijktijdSerie = GemiddeldekijktijdSerie; }
+    public SerieController(TableView tableView, TextArea gemiddeldekijktijdSerie ){
+        this.tableView = tableView;
+        this.gemiddeldeKijkTijdSerie = gemiddeldekijktijdSerie; }
 
 
 
     @Override
     public void handle(ActionEvent actionEvent) {
         ChoiceBox btn = (ChoiceBox) actionEvent.getTarget();
-        Serie selectedserie = (Serie) btn.getSelectionModel().getSelectedItem();
-        int i = 0;
+        Serie selectedSerie = (Serie) btn.getSelectionModel().getSelectedItem();
+        SerieDAO serieDAO = SerieDAO.getInstance();
 
-        if (!tableView.getItems().contains(selectedserie)) {
-
-
-            List<Serie> Series = SerieDAO.getInstance().getAllSeries();
-            for (Serie serie : Series
-            ) {
-                btn.getItems().add(serie);
-
-            }
-
-            i++;
+        this.tableView.getItems().clear();
+        List<Episode> episodes = serieDAO.getAllEpisodesBySerie(selectedSerie);
+        for(Episode item : episodes){
+            this.tableView.getItems().add(item);
         }
 
+        this.gemiddeldeKijkTijdSerie.setText("Deze serie is gemiddeld " + serieDAO.getAverageWatchTime(selectedSerie) + " minuten bekeken.");
+    }
 
-        if (i == 2) {
-
-
-//            tableView.getItems().clear();
-//            SerieDAO serie = new SerieDAO();
-//            Series = serie.getAllEpisodesBySerie(selectedserie);
-//            tableView.getItems().add(Series);
-//            GemiddeldekijktijdSerie.setText("De gemiddelde kijktijd is:" + serie.getAverageWatchTime(selectedserie));
-//            i = 0;
-//            i++;
-
-
-        }
-
-    }}
+}

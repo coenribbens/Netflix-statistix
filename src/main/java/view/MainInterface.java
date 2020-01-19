@@ -1,6 +1,7 @@
 package view;
 
 import datalayer.MovieDAO;
+import datalayer.ProfileDAO;
 import datalayer.SerieDAO;
 import javafx.application.Application;
 import javafx.geometry.Side;
@@ -10,14 +11,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import models.Account;
-import models.Episode;
-import models.Movie;
-import models.Serie;
+import models.*;
 import view.account.AccountController;
 import view.movie.MovieController;
 import view.movie.MovieController2;
 import view.serie.SerieController;
+import view.serie.SerieController2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -183,8 +182,13 @@ public class MainInterface extends Application {
 
         MovieDAO movieDAO1 = new MovieDAO();
 
-        String ax = movieDAO1.getLongestMovieForAgeLowerThen16().getTitle();
-        langsteOnder16.setText("De langste film voor onder de 16 is: " + ax );
+        try{
+            String ax = movieDAO1.getLongestMovieForAgeLowerThen16().getTitle();
+            langsteOnder16.setText("De langste film voor onder de 16 is: " + ax );
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
 
 
@@ -194,12 +198,20 @@ public class MainInterface extends Application {
     public static VBox serieVbox(Stage stage){
         ChoiceBox<Serie> choiceBox = new ChoiceBox<Serie>();
         choiceBox.setMinWidth(500);
-        SerieDAO SerieDAO = new SerieDAO();
-        List<Serie> Series = SerieDAO.getAllSeries();
+        SerieDAO serieDAO = SerieDAO.getInstance();
+        List<Serie> Series = serieDAO.getAllSeries();
         for (Serie serie: Series
         ) {choiceBox.getItems().add(serie);
 
         }
+        ChoiceBox<Profile> profileChoiceBox = new ChoiceBox<>();
+        ProfileDAO profileDAO = ProfileDAO.getInstance();
+        List<Profile> profiles = profileDAO.getAllProfiles();
+        for(Profile item : profiles){
+            profileChoiceBox.getItems().add(item);
+        }
+            profileChoiceBox.getSelectionModel().selectFirst();
+        Button buttonWatched = new Button("Watched");
 
 
         TableView tableView = new TableView();
@@ -212,8 +224,8 @@ public class MainInterface extends Application {
         TableColumn<Integer, Episode> kolumnEpisodeSeason = new TableColumn<>("Season");
         kolumnEpisodeSeason.setCellValueFactory(new PropertyValueFactory<Integer, Episode>("season"));
 
-        TableColumn<Integer, Episode> kolumnEpisodeDuration = new TableColumn<>("duration");
-        kolumnEpisodeDuration.setCellValueFactory(new PropertyValueFactory<Integer, Episode>("duration"));
+        TableColumn<String, Episode> kolumnEpisodeDuration = new TableColumn<>("duration");
+        kolumnEpisodeDuration.setCellValueFactory(new PropertyValueFactory<String, Episode>("duration"));
 
 
 
@@ -228,13 +240,15 @@ public class MainInterface extends Application {
 
 
         HBox choiceBoxhbox = new HBox();
-        choiceBoxhbox.getChildren().add(choiceBox);
+        choiceBoxhbox.getChildren().addAll(choiceBox, profileChoiceBox, buttonWatched);
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.getChildren().addAll(choiceBoxhbox,tableView,gemiddeldbekeken);
 
-        SerieController SerieController = new SerieController(tableView, gemiddeldbekeken);
-        choiceBox.setOnAction(SerieController);
+        SerieController serieController = new SerieController(tableView, gemiddeldbekeken);
+        choiceBox.setOnAction(serieController);
+        SerieController2 serieController2 = new SerieController2(tableView, profileChoiceBox);
+        buttonWatched.setOnAction(serieController2);
 
 
 

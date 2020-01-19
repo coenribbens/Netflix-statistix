@@ -170,12 +170,12 @@ public class ProfileDAO implements IProfile {
         try {
             conn = MysqlDAO.getInstance().connect();
             PreparedStatement statement = conn.prepareStatement(""
-                    + "INSERT INTO `watched` (`programId`,`profileId`,`watchedTime`) "
+                    + "INSERT INTO watched (programId, profileId, watchedTime) "
                     + "VALUES (?, ?, ?)");
             statement.setInt(1, programId);
             statement.setInt(2, profileId);
             statement.setString(3, watchedTime);
-            statement.executeUpdate();
+            statement.executeQuery();
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
