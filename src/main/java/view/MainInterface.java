@@ -16,6 +16,7 @@ import models.Movie;
 import models.Serie;
 import view.account.AccountController;
 import view.movie.MovieController;
+import view.serie.SerieController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -205,8 +206,7 @@ public class MainInterface extends Application {
         TableColumn<Integer, Episode> kolumnEpisodeDuration = new TableColumn<>("duration");
         kolumnEpisodeDuration.setCellValueFactory(new PropertyValueFactory<Integer, Episode>("duration"));
 
-        TableColumn<Integer, Episode> kolumnEpisodeGemiddeldekijktijd = new TableColumn<>("Gemiddelde kijktijd percentage (episode");
-        kolumnEpisodeDuration.setCellValueFactory(new PropertyValueFactory<Integer, Episode>("duration"));
+
 
         tableView.getColumns().addAll(kolumnEpisodetitel,kolumnEpisodeSeason,kolumnEpisodeDuration);
         tableView.setMaxSize(500,900);
@@ -223,6 +223,10 @@ public class MainInterface extends Application {
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.getChildren().addAll(choiceBoxhbox,tableView,gemiddeldbekeken);
+
+        SerieController SerieController = new SerieController(tableView, gemiddeldbekeken);
+        choiceBox.setOnAction(SerieController);
+
 
 //        TableColumn<String, Episode> kolumnEpisodeTaal = new TableColumn<>("FilmTaal");
 //        kolumnFilmTaal.setCellValueFactory(new PropertyValueFactory<String, Episode>("language"));
