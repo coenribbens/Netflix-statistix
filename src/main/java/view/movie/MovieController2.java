@@ -1,5 +1,6 @@
 package view.movie;
 
+import datalayer.MovieDAO;
 import javafx.event.EventHandler;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -19,6 +20,8 @@ public MovieController2(TableView tableview, TextArea Aantalkeergekeken){
     public void handle(MouseEvent mouseEvent) {
         Movie h = (Movie) tableView.getSelectionModel().getSelectedItem();
        String x =  h.getTitle();
+        MovieDAO movieDAO = new MovieDAO();
+        movieDAO.getFullywatchedMovies(h);
         Aantalkeergekeken.setText("Aantal keer bekeken: ");
     }
 }

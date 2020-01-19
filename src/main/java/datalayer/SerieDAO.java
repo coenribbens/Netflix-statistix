@@ -36,7 +36,7 @@ public class SerieDAO implements ISerie {
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("serieId");
-                String name = resultSet.getString("serieName");
+                String name = resultSet.getString("name");
                 int ageRating = resultSet.getInt("ageRating");
                 String language = resultSet.getString("language");
                 String genre = resultSet.getString("genre");
@@ -102,7 +102,7 @@ public class SerieDAO implements ISerie {
             while (resultSet.next()) {
                 int id = resultSet.getInt("episodeID");
                 String title = resultSet.getString("videoTitle");
-                String duration = resultSet.getString("durage");
+                String duration = resultSet.getString("duration");
                 int season = resultSet.getInt("season");
 
                 Episode e = new Episode(id, title, duration, season);
