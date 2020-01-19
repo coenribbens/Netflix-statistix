@@ -18,44 +18,51 @@ public class SerieController implements  EventHandler<ActionEvent>{
 
     private TableView tableView;
     private TextArea GemiddeldekijktijdSerie;
+    private ChoiceBox choiceBox;
 
     public SerieController(TableView tableView, TextArea GemiddeldekijktijdSerie ){
-        this.tableView = tableView; this.GemiddeldekijktijdSerie = GemiddeldekijktijdSerie; }
+        this.tableView = tableView; this.GemiddeldekijktijdSerie = GemiddeldekijktijdSerie; ChoiceBox choiceBox; }
 
 
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        ChoiceBox btn = (ChoiceBox) actionEvent.getTarget();
-        Serie selectedserie = (Serie) btn.getSelectionModel().getSelectedItem();
-        int i = 0;
+        choiceBox.getSelectionModel().getSelectedItem();
 
-        if (!tableView.getItems().contains(selectedserie)) {
-
-
-            List<Serie> Series = SerieDAO.getInstance().getAllSeries();
-            for (Serie serie : Series
-            ) {
-                btn.getItems().add(serie);
-
-            }
-
-            i++;
-        }
-
-
-        if (i == 2) {
-
-
+//        Serie selectedserie = (Serie) .getSelectionModel().getSelectedItem();
+//        List<Episode> episodes = SerieDAO.getInstance().getAllEpisodesBySerie(selectedserie);
+//        int i = 0;
+//
+//        if (!tableView.getItems().contains(episodes)) {
+//
+//            for (Episode episode : episodes
+//            ) {
+//                tableView.getItems().add(episode);
+//
+//            }
+//
+//            i++;
+//        }
+//
+//
+//        if (i == 2) {
 //            tableView.getItems().clear();
-//            SerieDAO serie = new SerieDAO();
-//            Series = serie.getAllEpisodesBySerie(selectedserie);
-//            tableView.getItems().add(Series);
-//            GemiddeldekijktijdSerie.setText("De gemiddelde kijktijd is:" + serie.getAverageWatchTime(selectedserie));
+//
+//
+//
+//            for (Episode episode : episodes
+//            ) {
+//                tableView.getItems().add(episode);
+//
+//
+//
+//        }
 //            i = 0;
 //            i++;
-
-
-        }
-
-    }}
+//
+//    }
+//    Serie serie = (Serie) tableView.getSelectionModel().getSelectedItem();
+//        int x = SerieDAO.getInstance().getAverageWatchTime(serie);
+//        GemiddeldekijktijdSerie.setText("Deze serie is gemiddeld " + x + " procent bekeken");
+//
+//    }};

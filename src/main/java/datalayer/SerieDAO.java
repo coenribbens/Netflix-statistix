@@ -120,9 +120,11 @@ public class SerieDAO implements ISerie {
         int averageWatchTime = 0;
         try {
             conn = MysqlDAO.getInstance().connect();
-            PreparedStatement statement = conn.prepareStatement("SELECT AVG(percentage) AS avgPercentage FROM watched\n" +
-                    "INNER JOIN episode ON episode.programId = watched.programId\n" +
-                    "WHERE SerieId = ?");
+            PreparedStatement statement = conn.prepareStatement("SELECT AVG(watchedtime) AS avgPercentage FROM watched\n" +
+                    "INNER JOIN program ON program.programId = watched.programId\n" +
+                    "inner join episode on program.episodeid = episode.programid \n" +
+                    "inner join serie on episode.serieid = serie.serieid \n" +
+                    "WHERE Serie.SerieId = ?");
             statement.setInt(1, s.getSerieId());
             ResultSet resultSet = statement.executeQuery();
 
