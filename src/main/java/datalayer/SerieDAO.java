@@ -27,31 +27,31 @@ public class SerieDAO implements ISerie {
 
     @Override
     public List getAllSeries() {
-            ArrayList<Serie> series = new ArrayList<>();
-            Connection conn = null;
-            try {
-                conn = MysqlDAO.getInstance().connect();
-                PreparedStatement statement = conn.prepareStatement("SELECT * FROM serie");
-                ResultSet resultSet = statement.executeQuery();
+        ArrayList<Serie> series = new ArrayList<>();
+        Connection conn = null;
+        try {
+            conn = MysqlDAO.getInstance().connect();
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM serie");
+            ResultSet resultSet = statement.executeQuery();
 
-                while (resultSet.next()) {
-                    int id = resultSet.getInt("serieId");
-                    String name = resultSet.getString("serieName");
-                    int ageRating = resultSet.getInt("ageRating");
-                    String language = resultSet.getString("language");
-                    String genre = resultSet.getString("genre");
-                    String suggestion = resultSet.getString("suggestion");
+            while (resultSet.next()) {
+                int id = resultSet.getInt("serieId");
+                String name = resultSet.getString("serieName");
+                int ageRating = resultSet.getInt("ageRating");
+                String language = resultSet.getString("language");
+                String genre = resultSet.getString("genre");
+                String suggestion = resultSet.getString("suggestion");
 
-                    Serie s = new Serie(id, name, ageRating, language, genre, suggestion);
-                    series.add(s);
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                MysqlDAO.getInstance().closeConnection(conn);
+                Serie s = new Serie(id, name, ageRating, language, genre, suggestion);
+                series.add(s);
             }
-            return series;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            MysqlDAO.getInstance().closeConnection(conn);
         }
+        return series;
+    }
 
     @Override
     public Serie getSerieById(int Id) {
@@ -101,8 +101,8 @@ public class SerieDAO implements ISerie {
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("episodeID");
-                String title = resultSet.getString("videoTitle");
-                String duration = resultSet.getString("durage");
+                String title = resultSet.getString("title");
+                String duration = resultSet.getString("duration");
                 int season = resultSet.getInt("season");
 
                 Episode e = new Episode(id, title, duration, season);
