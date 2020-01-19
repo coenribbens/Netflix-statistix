@@ -15,7 +15,7 @@ import java.util.List;
 public class SerieDAO implements ISerie {
     private static SerieDAO instance;
 
-    private SerieDAO() {
+    public SerieDAO() {
     }
 
     public static SerieDAO getInstance() {
@@ -36,13 +36,13 @@ public class SerieDAO implements ISerie {
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("serieId");
-                String name = resultSet.getString("serieName");
+                String name = resultSet.getString("name");
                 int ageRating = resultSet.getInt("ageRating");
-                String language = resultSet.getString("language");
-                String genre = resultSet.getString("genre");
-                String suggestion = resultSet.getString("suggestion");
 
-                Serie s = new Serie(id, name, ageRating, language, genre, suggestion);
+                String genre = resultSet.getString("genre");
+                String suggestion = resultSet.getString("suggestions");
+
+                Serie s = new Serie(id, name, ageRating,  genre, suggestion);
                 series.add(s);
             }
         } catch (SQLException e) {
@@ -72,7 +72,7 @@ public class SerieDAO implements ISerie {
                 String genre = resultSet.getString("genre");
                 String suggestion = resultSet.getString("suggestion");
 
-                serie = new Serie(id, name, ageRating, language, genre, suggestion);
+                serie = new Serie(id, name, ageRating,  genre, suggestion);
 
             }
 
@@ -94,14 +94,14 @@ public class SerieDAO implements ISerie {
             conn = MysqlDAO.getInstance().connect();
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM serie\n" +
                     "INNER JOIN episode ON episode.serieID = serie.serieID\n" +
-                    "INNER JOIN program ON program.programId = episode.programId\n" +
+                    "INNER JOIN Program ON Program.episodeId = Episode.programId\n" +
                     "WHERE serie.serieId = ?");
             statement.setInt(1, s.getSerieId());
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("episodeID");
-                String title = resultSet.getString("title");
+                int id = resultSet.getInt("programID");
+                String title = resultSet.getString("name");
                 String duration = resultSet.getString("duration");
                 int season = resultSet.getInt("season");
 
@@ -120,9 +120,10 @@ public class SerieDAO implements ISerie {
         int averageWatchTime = 0;
         try {
             conn = MysqlDAO.getInstance().connect();
-            PreparedStatement statement = conn.prepareStatement("SELECT AVG(percentage) AS avgPercentage FROM watched\n" +
+            PreparedStatement statement = conn.prepareStatement("SELECT AVG(watchedTime) AS avgPercentage FROM watched\n" +
                     "INNER JOIN episode ON episode.programId = watched.programId\n" +
                     "WHERE SerieId = ?");
+
             statement.setInt(1, s.getSerieId());
             ResultSet resultSet = statement.executeQuery();
 
@@ -154,13 +155,13 @@ public class SerieDAO implements ISerie {
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("serieId");
-                String name = resultSet.getString("serieName");
+                String name = resultSet.getString("name");
                 int ageRating = resultSet.getInt("ageRating");
                 String language = resultSet.getString("language");
                 String genre = resultSet.getString("genre");
-                String suggestion = resultSet.getString("suggestion");
+                String suggestion = resultSet.getString("suggestions");
 
-                Serie s = new Serie(id, name, ageRating, language, genre, suggestion);
+                Serie s = new Serie(id, name, ageRating,  genre, suggestion);
                 series.add(s);
             }
         } catch (SQLException e) {

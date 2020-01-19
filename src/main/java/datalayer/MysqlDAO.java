@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class MysqlDAO {
 
     private static MysqlDAO instance;
-    private String dbname = "netflixStatistix";
+    private String dbname = "NetfflixStatistics";
     private String user = "root";
     private String pass = "root";
 
@@ -24,20 +24,19 @@ public class MysqlDAO {
             return instance;
         }
     }
-    
-    //Create connection object with MySQL JDBC driver
+
     public Connection connect() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection connection = DriverManager
-                    .getConnection("jdbc:mysql://localhost/" + dbname, user, pass);
+                    .getConnection("jdbc:sqlserver://localhost\\MSSQLSERVER;databaseName=NetfflixStatistics;integratedSecurity=true;");
             return connection;
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MysqlDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
-    
+
     //Close connection if connection exists
     public void closeConnection(Connection conn){
         if(conn != null){

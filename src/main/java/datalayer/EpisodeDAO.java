@@ -91,7 +91,7 @@ public class EpisodeDAO implements IEpisode {
         try {
             conn = MysqlDAO.getInstance().connect();
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM episode \n" +
-                    "INNER JOIN video ON episode.programId = program.programId \n" +
+                    "INNER JOIN program ON episode.programId = program.programId \n" +
                     "INNER JOIN watched ON watched.programId = episode.programId \n" +
                     "INNER JOIN profile ON profile.profileID = watched.profileID \n " +
                     "WHERE profile.profileID = ?");
@@ -220,5 +220,5 @@ public class EpisodeDAO implements IEpisode {
 
         return episodes;
     }
-
 }
+

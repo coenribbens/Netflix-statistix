@@ -1,5 +1,8 @@
 package view;
 
+import datalayer.MovieDAO;
+import datalayer.ProfileDAO;
+import datalayer.SerieDAO;
 import javafx.application.Application;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
@@ -8,6 +11,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import models.*;
+import view.account.AccountController;
+import view.movie.MovieController;
+import view.movie.MovieController2;
+import view.serie.SerieController;
+import view.serie.SerieController2;
+
+import java.util.ArrayList;
+import java.util.List;
 import models.Account;
 import view.account.AccountController;
 import models.Profile;
@@ -28,7 +40,7 @@ public class MainInterface extends Application {
     }
 
     public static Scene mainScene(Stage stage){
-        stage.setTitle("Netflix Statistics - Marcello Haddeman 2152991, Thomas Meeusen 2151718, Coen Ribbens");
+        stage.setTitle("Netflix Statistics - Marcello Haddeman 2152991, Thomas Meeusen 2151718, Coen Ribbens 2151482");
 
         Tab tabAccount = new Tab("account", accountVbox(stage));
             tabAccount.setClosable(false);
@@ -83,6 +95,14 @@ public class MainInterface extends Application {
         buttonVernieuwen.setOnAction(controller);
 
         ToolBar toolBar = new ToolBar();
+            toolBar.getItems().addAll(buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonVernieuwen);
+        HBox mainContent = new HBox();
+            mainContent.getChildren().addAll(tableView);
+        HBox detailBox = new HBox();
+            detailBox.getChildren().addAll(detailFilmsBekeken, detailSeriesBekeken);
+
+        VBox resultingVbox = new VBox();
+            resultingVbox.getChildren().addAll(toolBar, mainContent, detailBox);
             toolBar.getItems().addAll(filterLabel, choiceBoxFilter, buttonZoek, buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonVernieuwen);
         HBox mainContent = new HBox();
             mainContent.getChildren().addAll(tableView);
@@ -94,7 +114,7 @@ public class MainInterface extends Application {
     }
 
     public static VBox profielVbox(Stage stage){
-        //Objecten toolBar
+              //Objecten toolBar
         Label choiceBoxLabel = new Label("Account:");
         ChoiceBox<Account> choiceBoxNaam = new ChoiceBox<>();
             choiceBoxNaam.setTooltip(new Tooltip("Selecteer een account"));
@@ -146,12 +166,168 @@ public class MainInterface extends Application {
 
         return resultingVbox;
     }
-
+  
     public static VBox filmVbox(Stage stage){
-        return null;
+
+        // Het toevoegen van Films aan de ChoiceBox!
+        ChoiceBox<Movie> choiceBox = new ChoiceBox<Movie>();
+        choiceBox.setMinWidth(500);
+        MovieDAO movieDAO = new MovieDAO();
+        List<Movie> movies = movieDAO.getAllMovies();
+        for (Movie movie: movies
+             ) {choiceBox.getItems().add(movie);
+
+        }
+
+
+
+
+
+//        ListView<String> filmTitel = new ListView<String>();
+//        filmTitel.getItems().add("titel");
+//        ListView<String> filmDuratie = new ListView<String>();
+//        filmDuratie.getItems().add("Duratie");
+//        ListView<String> filmTaal = new ListView<String>();
+//        filmTaal.getItems().add("taal");
+//        ListView<String> filmGenre = new ListView<String>();
+//        filmGenre.getItems().add("genre");
+
+        TextArea langsteOnder16 = new TextArea("Langste film onder 16 jaar is:\n\n");
+        langsteOnder16.setEditable(false);
+
+        TextArea Bekekendoor = new TextArea("Klik op een film voor het aantal weergaven");
+        Bekekendoor.setEditable(false);
+        Bekekendoor.setMinSize(600,50);
+        langsteOnder16.setMinSize(600,50);
+
+
+//
+        HBox textgebieden = new HBox();
+        textgebieden.setSpacing(10);
+        textgebieden.getChildren().addAll(langsteOnder16,Bekekendoor);
+
+//
+        TableView tableView = new TableView();
+        tableView.setMinWidth(1300);
+
+
+        TableColumn<String, Movie> kolumnFilmtitel = new TableColumn<>("Filmtitel");
+        kolumnFilmtitel.setCellValueFactory(new PropertyValueFactory<String, Movie>("title"));
+
+        TableColumn<Integer, Movie> kolumnFilmDuratie = new TableColumn<>("FilmDuratie");
+        kolumnFilmDuratie.setCellValueFactory(new PropertyValueFactory<Integer, Movie>("duration"));
+
+        TableColumn<String, Movie> kolumnFilmGenre = new TableColumn<>("FilmGenre");
+        kolumnFilmGenre.setCellValueFactory(new PropertyValueFactory<String, Movie>("Genre"));
+
+        TableColumn<String, Movie> kolumnFilmTaal = new TableColumn<>("FilmTaal");
+        kolumnFilmTaal.setCellValueFactory(new PropertyValueFactory<String, Movie>("language"));
+
+        TableColumn<Integer, Movie> kolumnFilmAgerating = new TableColumn<>("FilmAgeRating");
+        kolumnFilmAgerating.setCellValueFactory(new PropertyValueFactory<Integer, Movie>("ageRating"));
+
+
+        tableView.getColumns().addAll(kolumnFilmtitel,kolumnFilmDuratie,kolumnFilmGenre, kolumnFilmTaal, kolumnFilmAgerating);
+        tableView.setMaxSize(500,900);
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+
+
+        Movie xx = new Movie("De smurfen", "30", "horror", "Frans", 18);
+        tableView.getItems().add(xx);
+
+
+        HBox choiceBoxhbox = new HBox();
+
+        choiceBoxhbox.getChildren().add(choiceBox);
+        VBox vbox = new VBox();
+        vbox.setSpacing(10);
+        vbox.getChildren().addAll(choiceBoxhbox,tableView,textgebieden);
+        MovieController filmcontroller = new MovieController(tableView,  langsteOnder16);
+        MovieController2 filmcontroller2 = new MovieController2(tableView,Bekekendoor);
+        choiceBox.setOnAction(filmcontroller);
+        tableView.setOnMouseClicked(filmcontroller2);
+
+        MovieDAO movieDAO1 = new MovieDAO();
+
+        try{
+            String ax = movieDAO1.getLongestMovieForAgeLowerThen16().getTitle();
+            langsteOnder16.setText("De langste film voor onder de 16 is: " + ax );
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+
+        return vbox;
     }
 
     public static VBox serieVbox(Stage stage){
-        return null;
+        ChoiceBox<Serie> choiceBox = new ChoiceBox<Serie>();
+        choiceBox.setMinWidth(500);
+        SerieDAO serieDAO = SerieDAO.getInstance();
+        List<Serie> Series = serieDAO.getAllSeries();
+        for (Serie serie: Series
+        ) {choiceBox.getItems().add(serie);
+
+        }
+        ChoiceBox<Profile> profileChoiceBox = new ChoiceBox<>();
+        ProfileDAO profileDAO = ProfileDAO.getInstance();
+        List<Profile> profiles = profileDAO.getAllProfiles();
+        for(Profile item : profiles){
+            profileChoiceBox.getItems().add(item);
+        }
+            profileChoiceBox.getSelectionModel().selectFirst();
+        Button buttonWatched = new Button("Watched");
+
+
+        TableView tableView = new TableView();
+        tableView.setMinWidth(1300);
+
+
+        TableColumn<String, Episode> kolumnEpisodetitel = new TableColumn<>("Episodetitel");
+        kolumnEpisodetitel.setCellValueFactory(new PropertyValueFactory<String,Episode>("title"));
+
+        TableColumn<Integer, Episode> kolumnEpisodeSeason = new TableColumn<>("Season");
+        kolumnEpisodeSeason.setCellValueFactory(new PropertyValueFactory<Integer, Episode>("season"));
+
+        TableColumn<String, Episode> kolumnEpisodeDuration = new TableColumn<>("duration");
+        kolumnEpisodeDuration.setCellValueFactory(new PropertyValueFactory<String, Episode>("duration"));
+
+
+
+        tableView.getColumns().addAll(kolumnEpisodetitel,kolumnEpisodeSeason,kolumnEpisodeDuration);
+        tableView.setMaxSize(500,900);
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        TextArea gemiddeldbekeken = new TextArea("Deze serie is gemiddeld");
+        gemiddeldbekeken.setEditable(false);
+        gemiddeldbekeken.setMinSize(600,50);
+
+
+
+        HBox choiceBoxhbox = new HBox();
+        choiceBoxhbox.getChildren().addAll(choiceBox, profileChoiceBox, buttonWatched);
+        VBox vbox = new VBox();
+        vbox.setSpacing(10);
+        vbox.getChildren().addAll(choiceBoxhbox,tableView,gemiddeldbekeken);
+        SerieController serieController = new SerieController(tableView, gemiddeldbekeken);
+        choiceBox.setOnAction(serieController);
+        SerieController2 serieController2 = new SerieController2(tableView, profileChoiceBox);
+        buttonWatched.setOnAction(serieController2);
+
+
+
+
+
+
+//        TableColumn<String, Episode> kolumnEpisodeTaal = new TableColumn<>("FilmTaal");
+//        kolumnFilmTaal.setCellValueFactory(new PropertyValueFactory<String, Episode>("language"));
+//
+//        TableColumn<Integer, Episode> kolumnEpisodeAgerating = new TableColumn<>("FilmAgeRating");
+//        kolumnFilmAgerating.setCellValueFactory(new PropertyValueFactory<Integer, Episode>("ageRating"));
+
+        return vbox;
     }
 }
