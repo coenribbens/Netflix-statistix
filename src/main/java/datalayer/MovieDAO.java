@@ -25,17 +25,17 @@ public class MovieDAO implements IMovie {
         Connection conn = null;
         try{
             conn = MysqlDAO.getInstance().connect();
-            PreparedStatement getAllMovies = conn.prepareStatement("SELECT * FROM movie");
+            PreparedStatement getAllMovies = conn.prepareStatement("SELECT * FROM movie join program on movie.programId = program.movieId ");
             ResultSet resultSet = getAllMovies.executeQuery();
 
             while(resultSet.next()) {
                 //Deze moeten nog aangepast worden voor de uiteindelijke column namen
-                int movieID = resultSet.getInt("movieID");
-                String movieTitle = resultSet.getString("movieTitle");
-               String movieDuration = resultSet.getString("movieDuration");
-                String movieGenre = resultSet.getString("movieGenre");
-                String movieLanguage = resultSet.getString("movieLanguage");
-                int movieAge = resultSet.getInt("movieAge");
+                int movieID = resultSet.getInt("programId");
+                String movieTitle = resultSet.getString("title");
+               String movieDuration = resultSet.getString("duration");
+                String movieGenre = resultSet.getString("genre");
+                String movieLanguage = resultSet.getString("language");
+                int movieAge = resultSet.getInt("ageRating");
 
                 Movie m = new Movie(movieID, movieTitle, movieDuration, movieGenre, movieLanguage, movieAge);
                 allMovies.add(m);
@@ -64,7 +64,7 @@ public class MovieDAO implements IMovie {
                 //Deze moeten nog aangepast worden voor de uiteindelijke column namen
                 int movieID = resultSet.getInt("movieID");
                 String movieTitle = resultSet.getString("movieTitle");
-               String movieDuration = resultSet.getString("movieDuration");
+                String movieDuration = resultSet.getString("movieDuration");
                 String movieGenre = resultSet.getString("movieGenre");
                 String movieLanguage = resultSet.getString("movieLanguage");
                 int movieAge = resultSet.getInt("movieAge");
@@ -139,20 +139,21 @@ public class MovieDAO implements IMovie {
         try{
             conn = MysqlDAO.getInstance().connect();
             //tabelnaam zal waarschijnlijk nog veranderd moeten worden. Voor nu is het "movie_profile"
-            PreparedStatement Getamountoffullywatched = conn.prepareStatement("select TOP 1*\n" +
-                            "from program\n" +
+            PreparedStatement Getamountoffullywatched = conn.prepareStatement("select TOP 1 *\n" +
+                            "from movie\n" +
                             "\n" +
-                            "join movie on program.movieid = movie.programid\n" +
+                            "join program on program.movieId = movie.programId\n" +
                             "where program.movieId IS NOT NULL and movie.ageRating < 16\n" +
-                            "ORDER BY DURATION DES");
+                            "ORDER BY DURATION DESC");
 
             ResultSet resultSet = Getamountoffullywatched.executeQuery();
-            int movieID = resultSet.getInt("movieID");
-            String movieTitle = resultSet.getString("movieTitle");
-            String movieDuration = resultSet.getString("movieDuration");
-            String movieGenre = resultSet.getString("movieGenre");
-            String movieLanguage = resultSet.getString("movieLanguage");
-            int movieAge = resultSet.getInt("movieAge");
+            int movieID = resultSet.getInt("programId");
+            String movieTitle = resultSet.getString("title");
+            String movieDuration = resultSet.getString("duration");
+            String movieGenre = resultSet.getString("genre");
+            String movieLanguage = resultSet.getString("language");
+            int movieAge = resultSet.getInt("ageRating");
+
 
             Longestunder16 = new Movie(movieID, movieTitle, movieDuration, movieGenre, movieLanguage, movieAge);
 
