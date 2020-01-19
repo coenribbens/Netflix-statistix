@@ -163,4 +163,23 @@ public class ProfileDAO implements IProfile {
         }
         return allProfiles;
     }
+
+    public void markSeriesAsWatched(int programId, int profileId, String watchedTime) {
+        Connection conn = null;
+
+        try {
+            conn = MysqlDAO.getInstance().connect();
+            PreparedStatement statement = conn.prepareStatement(""
+                    + "INSERT INTO `watched` (`programId`,`profileId`,`watchedTime`) "
+                    + "VALUES (?, ?, ?)");
+            statement.setInt(1, programId);
+            statement.setInt(2, profileId);
+            statement.setString(3, watchedTime);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            MysqlDAO.getInstance().closeConnection(conn);
+        }
+    }
 }
