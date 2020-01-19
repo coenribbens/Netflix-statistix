@@ -19,8 +19,12 @@ Relationeel Databaseontwerp
 ====
 ![RDB](img/RDD.jpeg)
 
+#Normalisatie
+![Normalisatie](img/Normalisatie%203e%20normaalvorm.png)
+
 
 #Handleiding opzetten applicatie
+
 
 ###Database
 Deze handleiding gaat uit van een paar dingen:
