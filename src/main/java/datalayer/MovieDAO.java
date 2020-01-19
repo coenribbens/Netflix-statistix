@@ -21,29 +21,30 @@ public class MovieDAO implements IMovie {
     @Override
     public List getAllMovies() {
         ArrayList<Movie> allMovies = new ArrayList<Movie>();
-        Connection conn = null;
-        try{
-            conn = MysqlDAO.getInstance().connect();
-            PreparedStatement getAllMovies = conn.prepareStatement("SELECT * FROM movie");
-            ResultSet resultSet = getAllMovies.executeQuery();
-
-            while(resultSet.next()) {
-                //Deze moeten nog aangepast worden voor de uiteindelijke column namen
-                int movieID = resultSet.getInt("movieID");
-                String movieTitle = resultSet.getString("movieTitle");
-                int movieDuration = resultSet.getInt("movieDuration");
-                String movieGenre = resultSet.getString("movieGenre");
-                String movieLanguage = resultSet.getString("movieLanguage");
-                int movieAge = resultSet.getInt("movieAge");
-
-                Movie m = new Movie(movieID, movieTitle, movieDuration, movieGenre, movieLanguage, movieAge);
-                allMovies.add(m);
-            }
-        }catch(SQLException e){
-            e.printStackTrace();
-        }finally {
-            MysqlDAO.getInstance().closeConnection(conn);
-        }
+//        Connection conn = null;
+//        try{
+//            conn = MysqlDAO.getInstance().connect();
+//            PreparedStatement getAllMovies = conn.prepareStatement("SELECT * FROM movie");
+//            ResultSet resultSet = getAllMovies.executeQuery();
+//
+//            while(resultSet.next()) {
+//                //Deze moeten nog aangepast worden voor de uiteindelijke column namen
+//                int movieID = resultSet.getInt("movieID");
+//                String movieTitle = resultSet.getString("movieTitle");
+//                int movieDuration = resultSet.getInt("movieDuration");
+//                String movieGenre = resultSet.getString("movieGenre");
+//                String movieLanguage = resultSet.getString("movieLanguage");
+//                int movieAge = resultSet.getInt("movieAge");
+//
+//                Movie m = new Movie(movieID, movieTitle, movieDuration, movieGenre, movieLanguage, movieAge);
+//                allMovies.add(m);
+//            }
+//        }catch(SQLException e){
+//            e.printStackTrace();
+//        }finally {
+//            MysqlDAO.getInstance().closeConnection(conn);
+       allMovies.add(new Movie("ss", 2, "ss","ss", 3)) ;
+       allMovies.add(new Movie("as", 3, "ass","sss",12));
         return allMovies;
     }
 
@@ -104,6 +105,33 @@ public class MovieDAO implements IMovie {
 
         return allMoviesWatched;
     }
+
+    public int getFullywatchedMovies(Movie movie){
+        int average;
+        Connection conn = null;
+        try{
+            conn = MysqlDAO.getInstance().connect();
+            //tabelnaam zal waarschijnlijk nog veranderd moeten worden. Voor nu is het "movie_profile"
+            PreparedStatement Getamountoffullywatched = conn.prepareStatement("select count (profileId)  as DoorHoeveelBekeken \n" +
+                    "from watched\n" +
+                    "\n" +
+                    "join Program on watched.programId = program.movieId\n" +
+                    "where program.movieId = 2 and program.duration = watched.watchedTime");
+            Getamountoffullywatched.setInt(1, movie.getProgramId());
+            ResultSet resultSet = Getamountoffullywatched.executeQuery();
+
+
+                int DoorHoeveelbekeken = resultSet.getInt("DoorHoeveelBekeken");
+                return DoorHoeveelbekeken;
+
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }finally {
+            MysqlDAO.getInstance().closeConnection(conn);
+        }
+   return 0 ; }
 
 
 

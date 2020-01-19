@@ -168,7 +168,7 @@ public class MainInterface extends Application {
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.getChildren().addAll(choiceBoxhbox,tableView,textgebieden);
-        MovieController filmcontroller = new MovieController(tableView);
+        MovieController filmcontroller = new MovieController(tableView, Bekekendoor);
         choiceBox.setOnAction(filmcontroller);
 
 
