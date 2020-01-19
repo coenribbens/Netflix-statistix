@@ -235,7 +235,7 @@ public class MainInterface extends Application {
         vbox.setSpacing(10);
         vbox.getChildren().addAll(choiceBoxhbox,tableView,gemiddeldbekeken);
 
-        SerieController SerieController = new SerieController(tableView, gemiddeldbekeken, choiceBox);
+        SerieController SerieController = new SerieController(tableView, gemiddeldbekeken);
 
 
 

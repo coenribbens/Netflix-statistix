@@ -18,7 +18,6 @@ public class SerieController implements  EventHandler<ActionEvent>{
 
     private TableView tableView;
     private TextArea GemiddeldekijktijdSerie;
-    private ChoiceBox choiceBox;
 
     public SerieController(TableView tableView, TextArea GemiddeldekijktijdSerie ){
         this.tableView = tableView; this.GemiddeldekijktijdSerie = GemiddeldekijktijdSerie; ChoiceBox choiceBox; }
@@ -27,7 +26,7 @@ public class SerieController implements  EventHandler<ActionEvent>{
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        choiceBox.getSelectionModel().getSelectedItem();
+
 
 //        Serie selectedserie = (Serie) .getSelectionModel().getSelectedItem();
 //        List<Episode> episodes = SerieDAO.getInstance().getAllEpisodesBySerie(selectedserie);
@@ -65,4 +64,5 @@ public class SerieController implements  EventHandler<ActionEvent>{
 //        int x = SerieDAO.getInstance().getAverageWatchTime(serie);
 //        GemiddeldekijktijdSerie.setText("Deze serie is gemiddeld " + x + " procent bekeken");
 //
-//    }};
+//
+    }}
