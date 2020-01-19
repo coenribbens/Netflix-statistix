@@ -41,6 +41,12 @@ public class MainInterface extends Application {
     public static VBox accountVbox(Stage stage){
 
         //Objecten toolBar
+        Label filterLabel = new Label("Filter:");
+        ChoiceBox<String> choiceBoxFilter = new ChoiceBox<>();
+            choiceBoxFilter.getItems().addAll("", "Accounts met 1 profiel");
+            choiceBoxFilter.getSelectionModel().selectFirst();
+        Button buttonZoek = new Button("Zoek");
+            buttonZoek.setTooltip(new Tooltip("Zoek voor accounts met de filter"));
         Button buttonToevoegen = new Button("Toevoegen");
         Button buttonBewerken = new Button("Bewerken");
         Button buttonVerwijderen = new Button("Verwijderen");
@@ -67,14 +73,15 @@ public class MainInterface extends Application {
 
 
         //Controller object aanmaken
-        AccountController controller = new AccountController(tableView);
+        AccountController controller = new AccountController(tableView, choiceBoxFilter);
+        buttonZoek.setOnAction(controller);
         buttonToevoegen.setOnAction(controller);
         buttonBewerken.setOnAction(controller);
         buttonVerwijderen.setOnAction(controller);
         buttonVernieuwen.setOnAction(controller);
 
         ToolBar toolBar = new ToolBar();
-            toolBar.getItems().addAll(buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonVernieuwen);
+            toolBar.getItems().addAll(filterLabel, choiceBoxFilter, buttonZoek, buttonToevoegen, buttonBewerken, buttonVerwijderen, buttonVernieuwen);
         HBox mainContent = new HBox();
             mainContent.getChildren().addAll(tableView);
         HBox detailBox = new HBox();
