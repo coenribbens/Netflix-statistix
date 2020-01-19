@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 public class Serie {
 
     private int serieId;
@@ -8,6 +10,7 @@ public class Serie {
     private String language;
     private String genre;
     private String suggestions;
+    private ArrayList<Episode> Episodes;
 
     public Serie() {
     }
@@ -18,6 +21,7 @@ public class Serie {
         this.language = language;
         this.genre = genre;
         this.suggestions = suggestions;
+        this.Episodes = Episodes;
     }
 
     public Serie(int serieId, String name, int ageRating, String language, String genre, String suggestions) {

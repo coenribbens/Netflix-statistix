@@ -46,4 +46,10 @@ public class Movie extends Program {
     public void setAgeRating(int ageRating) {
         this.ageRating = ageRating;
     }
+
+
+    @Override
+    public String toString() {
+        return this.getTitle();
+    }
 }

@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Netflix_Statistix" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="view.main" />
+    <module name="Netflix_Statistix" />
+    <option name="VM_PARAMETERS" value="-p &quot;D:\Java\javafx-sdk-11.0.2\lib_javaFX&quot; --add-modules javafx.controls" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
