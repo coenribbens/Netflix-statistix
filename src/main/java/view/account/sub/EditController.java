@@ -38,9 +38,12 @@ public class EditController implements EventHandler<ActionEvent> {
         Button btn = (Button)actionEvent.getTarget();
         if(btn.getText().equalsIgnoreCase("Bewerken")){
             if(!this.nameInput.getText().isEmpty() && !this.streetInput.getText().isEmpty() && !this.houseNumberInput.getText().isEmpty() && !this.zipCodeInput.getText().isEmpty()){
-                Account a = new Account(this.nameInput.getText(), this.streetInput.getText(), this.houseNumberInput.getText(), this.zipCodeInput.getText());
-                AccountDAO aDAO = new AccountDAO();
-                aDAO.updateAccount(a);
+                this.account.setAccountName(this.nameInput.getText());
+                this.account.setStreetName(this.streetInput.getText());
+                this.account.setHouseNumber(this.houseNumberInput.getText());
+                this.account.setZipcode(this.zipCodeInput.getText());
+                AccountDAO aDAO = AccountDAO.getInstance();
+                aDAO.updateAccount(this.account);
                 this.stage.close();
             }
             else {

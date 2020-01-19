@@ -119,8 +119,8 @@ public class AccountDAO implements IAccount {
         try {
             conn = MysqlDAO.getInstance().connect();
             PreparedStatement statement = conn.prepareStatement(""
-                    + "INSERT INTO `account` (`accountName`,`streetName`,`houseNumber`,  `zipCode`) "
-                    + "VALUES (?, ?, ?, ?,)");
+                    + "INSERT INTO account (accountName, streetName, houseNumber, zipCode) "
+                    + "VALUES (?, ?, ?, ?)");
             statement.setString(1, a.getAccountName());
             statement.setString(2, a.getStreetName());
             statement.setString(3, a.getHouseNumber());
@@ -140,11 +140,12 @@ public class AccountDAO implements IAccount {
         try {
             conn = MysqlDAO.getInstance().connect();
             PreparedStatement statement = conn.prepareStatement(""
-                    + "UPDATE `account` SET `accountName` = ?,`streetName` = ?,`houseNumber` = ?,  `zipCode` = ?, WHERE accountID = ?");
+                    + "UPDATE account SET accountName = ?, streetName = ?, houseNumber = ?, zipCode = ? WHERE accountID = ?;");
             statement.setString(1, a.getAccountName());
             statement.setString(2, a.getStreetName());
             statement.setString(3, a.getHouseNumber());
             statement.setString(4, a.getZipcode());
+            statement.setInt(5, a.getAccountId());
             statement.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

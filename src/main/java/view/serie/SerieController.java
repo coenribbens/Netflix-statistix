@@ -17,17 +17,16 @@ import java.util.List;
 public class SerieController implements  EventHandler<ActionEvent>{
 
     private TableView tableView;
-    private TextArea GemiddeldekijktijdSerie;
-
-    public SerieController(TableView tableView, TextArea GemiddeldekijktijdSerie ){
-        this.tableView = tableView; this.GemiddeldekijktijdSerie = GemiddeldekijktijdSerie; }
+    private TextArea gemiddeldeKijkTijdSerie;
+  
+    public SerieController(TableView tableView, TextArea gemiddeldekijktijdSerie ){
+        this.tableView = tableView;
+        this.gemiddeldeKijkTijdSerie = gemiddeldekijktijdSerie; }
 
 
 
     @Override
     public void handle(ActionEvent actionEvent) {
-
-
         ChoiceBox btn = (ChoiceBox) actionEvent.getTarget();
         Serie selectedserie = (Serie) btn.getSelectionModel().getSelectedItem();
         int i = 0;
@@ -48,7 +47,7 @@ public class SerieController implements  EventHandler<ActionEvent>{
             GemiddeldekijktijdSerie.setText("De gemiddelde kijtijd is:" + serie.getAverageWatchTime(selectedserie));
             i++;
 
+        this.gemiddeldeKijkTijdSerie.setText("Deze serie is gemiddeld " + serieDAO.getAverageWatchTime(selectedSerie) + " minuten bekeken.");
+    }
 
-        }
-
-    }}
+}

@@ -62,4 +62,9 @@ public class Profile {
     public void setAccountId(int accountId) {
         this.accountId = accountId;
     }
+
+    public String toString(){
+        return getProfileName();
+
+    }
 }
