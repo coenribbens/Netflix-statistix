@@ -20,13 +20,15 @@ public class MainInterface extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setScene(mainScene(stage));
-        stage.setMinHeight(400);
+        stage.setMinHeight(500);
+        stage.setHeight(500);
         stage.setMinWidth(700);
+        stage.setWidth(700);
         stage.show();
     }
 
     public static Scene mainScene(Stage stage){
-        stage.setTitle("Netflix Statistics");
+        stage.setTitle("Netflix Statistics - Marcello Haddeman 2152991, Thomas Meeusen 2151718, Coen Ribbens");
 
         Tab tabAccount = new Tab("account", accountVbox(stage));
             tabAccount.setClosable(false);
@@ -61,6 +63,7 @@ public class MainInterface extends Application {
 
         //Objecten voor Tableview
         TableView tableView = new TableView();
+            tableView.setMinWidth(650);
         TableColumn<String, Account> columnNaam = new TableColumn<>("Naam");
             columnNaam.setCellValueFactory(new PropertyValueFactory<String, Account>("accountName"));
         TableColumn<String, Account> columnStraat = new TableColumn<>("Straat");
@@ -107,6 +110,7 @@ public class MainInterface extends Application {
 
         //Objecten voor de tableView
         TableView tableView = new TableView();
+            tableView.setMinWidth(650);
         TableColumn<String, Profile> columnNaam = new TableColumn<>("Naam");
         columnNaam.setCellValueFactory(new PropertyValueFactory<String, Profile>("profileName"));
         TableColumn<Date, Profile> columnDateOfBirth = new TableColumn<>("Geboortedatum");
@@ -116,8 +120,10 @@ public class MainInterface extends Application {
         //Objecten detailBox
         TextArea detailFilmsBekeken = new TextArea("Bekeken films:\n\n");
         detailFilmsBekeken.setEditable(false);
+        detailFilmsBekeken.setPrefWidth(325);
         TextArea detailSeriesBekeken = new TextArea("Bekeken series:\n\n");
         detailSeriesBekeken.setEditable(false);
+        detailSeriesBekeken.setPrefWidth(325);
 
         //Controllers object aanmaken
         ProfielController controller = new ProfielController(tableView, choiceBoxNaam, detailFilmsBekeken, detailSeriesBekeken);
