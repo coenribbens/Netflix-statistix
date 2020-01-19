@@ -1,6 +1,7 @@
 package view;
 
 import datalayer.MovieDAO;
+import datalayer.SerieDAO;
 import javafx.application.Application;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
@@ -10,7 +11,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import models.Account;
+import models.Episode;
 import models.Movie;
+import models.Serie;
 import view.account.AccountController;
 import view.movie.MovieController;
 
@@ -179,6 +182,54 @@ public class MainInterface extends Application {
     }
 
     public static VBox serieVbox(Stage stage){
-        return null;
+        ChoiceBox<Serie> choiceBox = new ChoiceBox<Serie>();
+        choiceBox.setMinWidth(500);
+        SerieDAO SerieDAO = new SerieDAO();
+        List<Serie> Series = SerieDAO.getAllSeries();
+        for (Serie serie: Series
+        ) {choiceBox.getItems().add(serie);
+
+        }
+
+
+        TableView tableView = new TableView();
+        tableView.setMinWidth(1300);
+
+
+        TableColumn<String, Episode> kolumnEpisodetitel = new TableColumn<>("Episodetitel");
+        kolumnEpisodetitel.setCellValueFactory(new PropertyValueFactory<String,Episode>("title"));
+
+        TableColumn<Integer, Episode> kolumnEpisodeSeason = new TableColumn<>("Season");
+        kolumnEpisodeSeason.setCellValueFactory(new PropertyValueFactory<Integer, Episode>("season"));
+
+        TableColumn<Integer, Episode> kolumnEpisodeDuration = new TableColumn<>("duration");
+        kolumnEpisodeDuration.setCellValueFactory(new PropertyValueFactory<Integer, Episode>("duration"));
+
+        TableColumn<Integer, Episode> kolumnEpisodeGemiddeldekijktijd = new TableColumn<>("Gemiddelde kijktijd percentage (episode");
+        kolumnEpisodeDuration.setCellValueFactory(new PropertyValueFactory<Integer, Episode>("duration"));
+
+        tableView.getColumns().addAll(kolumnEpisodetitel,kolumnEpisodeSeason,kolumnEpisodeDuration);
+        tableView.setMaxSize(500,900);
+        tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
+        TextArea gemiddeldbekeken = new TextArea("Deze serie is gemiddeld");
+        gemiddeldbekeken.setEditable(false);
+        gemiddeldbekeken.setMinSize(600,50);
+
+
+
+        HBox choiceBoxhbox = new HBox();
+        choiceBoxhbox.getChildren().add(choiceBox);
+        VBox vbox = new VBox();
+        vbox.setSpacing(10);
+        vbox.getChildren().addAll(choiceBoxhbox,tableView,gemiddeldbekeken);
+
+//        TableColumn<String, Episode> kolumnEpisodeTaal = new TableColumn<>("FilmTaal");
+//        kolumnFilmTaal.setCellValueFactory(new PropertyValueFactory<String, Episode>("language"));
+//
+//        TableColumn<Integer, Episode> kolumnEpisodeAgerating = new TableColumn<>("FilmAgeRating");
+//        kolumnFilmAgerating.setCellValueFactory(new PropertyValueFactory<Integer, Episode>("ageRating"));
+
+        return vbox;
     }
 }
