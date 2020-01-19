@@ -30,7 +30,7 @@ public class MainInterface extends Application {
     }
 
     public static Scene mainScene(Stage stage){
-        stage.setTitle("Netflix Statistics, Gemaakt door : Coen Ribbens () ");
+        stage.setTitle("Netflix Statistics, Gemaakt door : Coen Ribbens (2151482) ");
 
         Tab tabAccount = new Tab("account", accountVbox(stage));
             tabAccount.setClosable(false);
@@ -185,7 +185,7 @@ public class MainInterface extends Application {
     public static VBox serieVbox(Stage stage){
         ChoiceBox<Serie> choiceBox = new ChoiceBox<Serie>();
         choiceBox.setMinWidth(500);
-        SerieDAO SerieDAO = new SerieDAO();
+        SerieDAO SerieDAO = null;
         List<Serie> Series = SerieDAO.getAllSeries();
         for (Serie serie: Series
         ) {choiceBox.getItems().add(serie);

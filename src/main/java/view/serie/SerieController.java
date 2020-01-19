@@ -32,7 +32,7 @@ public class SerieController implements  EventHandler<ActionEvent>{
         Serie selectedserie = (Serie) btn.getSelectionModel().getSelectedItem();
         int i = 0;
         if (!tableView.getItems().contains(selectedserie)) {
-            SerieDAO serie = new SerieDAO();
+            SerieDAO serie = null;
             List<Episode> Series = serie.getAllEpisodesBySerie(selectedserie);
             tableView.getItems().add(Series);
             GemiddeldekijktijdSerie.setText("De gemiddelde kijtijd is:" + serie.getAverageWatchTime(selectedserie));
@@ -42,7 +42,7 @@ public class SerieController implements  EventHandler<ActionEvent>{
         if (i == 2) {
             tableView.getItems().clear();
             i = 0;
-            SerieDAO serie = new SerieDAO();
+            SerieDAO serie = null;
             List<Episode> Series = serie.getAllEpisodesBySerie(selectedserie);
             tableView.getItems().add(Series);
             GemiddeldekijktijdSerie.setText("De gemiddelde kijtijd is:" + serie.getAverageWatchTime(selectedserie));
