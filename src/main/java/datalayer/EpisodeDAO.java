@@ -4,6 +4,7 @@ import datalayerinterface.IEpisode;
 import models.Account;
 import models.Episode;
 import models.Profile;
+import models.Serie;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,11 +17,6 @@ public class EpisodeDAO implements IEpisode {
     private static EpisodeDAO instance;
 
     public EpisodeDAO() {
-    }
-
-    @Override
-    public int getAverageWatchTimeForEpisode(Episode e) {
-        return 0;
     }
 
     public static EpisodeDAO getInstance() {
@@ -95,8 +91,8 @@ public class EpisodeDAO implements IEpisode {
         try {
             conn = MysqlDAO.getInstance().connect();
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM episode \n" +
-                    "INNER JOIN video ON episode.videoID = video.videoID \n" +
-                    "INNER JOIN watched ON watched.videoID = episode.videoID \n" +
+                    "INNER JOIN video ON episode.programId = program.programId \n" +
+                    "INNER JOIN watched ON watched.programId = episode.programId \n" +
                     "INNER JOIN profile ON profile.profileID = watched.profileID \n " +
                     "WHERE profile.profileID = ?");
             statement.setInt(1, ep.getProgramId());
@@ -120,13 +116,13 @@ public class EpisodeDAO implements IEpisode {
         return episodes;
     }
 
-    
+    @Override
     public int getAverageWatchTimeForEpisode(Episode e, Profile p) {
         int watchedTimeInMinutes = 0;
         Connection conn = null;
         try {
             conn = MysqlDAO.getInstance().connect();
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM watched WHERE videoID = ? AND profileID = ?");
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM watched WHERE programId = ? AND profileID = ?");
             statement.setInt(1, e.getProgramId());
             statement.setInt(2, p.getProfileId());
             ResultSet resultSet = statement.executeQuery();
@@ -146,7 +142,7 @@ public class EpisodeDAO implements IEpisode {
         Connection conn = null;
         try {
             conn = MysqlDAO.getInstance().connect();
-            PreparedStatement statement = conn.prepareStatement("INSERT INTO `watched`(profileID, videoID, percentage) VALUES(?, ?, ?)");
+            PreparedStatement statement = conn.prepareStatement("INSERT INTO `watched`(profileID, programId, percentage) VALUES(?, ?, ?)");
             statement.setInt(1, p.getProfileId());
             statement.setInt(2, e.getProgramId());
             statement.setInt(3, percentage);
@@ -192,5 +188,37 @@ public class EpisodeDAO implements IEpisode {
         }
     }
 
+    public List<Episode> getEpisodesWatchedPerProfilePerSerie(Profile p, Serie s) {
+        ArrayList<Episode> episodes = new ArrayList<>();
+        Episode ep = null;
+        Connection conn = null;
+        try {
+            conn = MysqlDAO.getInstance().connect();
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM episode\n" +
+                    "INNER JOIN Program ON episode.programId = program.programId\n" +
+                    "INNER JOIN watched ON watched.programId = episode.programId\n" +
+                    "INNER JOIN profile ON profile.profileID = watched.profileID\n" +
+                    "WHERE profile.profileID = ? AND serie.serieId = ?");
+            statement.setInt(1, p.getProfileId());
+            statement.setInt(2, s.getSerieId());
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int episodeId = resultSet.getInt("programId");
+                String title = resultSet.getString("title");
+                String duration = resultSet.getString("duration");
+                int season = resultSet.getInt("season");
+
+                ep = new Episode(episodeId, title, duration, season);
+                episodes.add(ep);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            MysqlDAO.getInstance().closeConnection(conn);
+        }
+
+        return episodes;
+    }
 }
 
