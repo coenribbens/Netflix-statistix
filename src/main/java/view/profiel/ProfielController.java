@@ -78,16 +78,24 @@ public class ProfielController implements EventHandler<ActionEvent> {
             Profile selectedItem = (Profile)this.tableView.getSelectionModel().getSelectedItem();
             MovieDAO movieDAO = MovieDAO.getInstance();
             SerieDAO serieDAO = SerieDAO.getInstance();
+            EpisodeDAO episodeDAO = EpisodeDAO.getInstance();
 
             List<Movie> moviesWatched = movieDAO.getMoviesWatchedByProfile(selectedItem);
             String movieText = "Bekeken films van " + selectedItem.getProfileName() + ":\n";
             List<Serie> seriesWatched = serieDAO.getWatchedSeriesByProfile(selectedItem);
             String serieText = "Bekeken series van " + selectedItem.getProfileName() + ":\n";
+            List<Episode> episodesWatched;
+
             for(Movie item : moviesWatched){
                 movieText += "\n" + item.getTitle();
             }
             for(Serie item : seriesWatched){
                 serieText += "\n" + item.getName();
+                episodesWatched = episodeDAO.getEpisodesWatchedPerProfilePerSerie(selectedItem, item);
+                for(Episode episode : episodesWatched){
+                    serieText += "\n" + episode.getTitle() + " " + (episodeDAO.getAverageWatchTimeForEpisode(episode, selectedItem) / Integer.parseInt(episode.getDuration()) * 100) + "%";
+                }
+                serieText += "\n";
             }
             this.detailFilmsBekeken.setText(movieText);
             this.detailSeriesBekeken.setText(serieText);
