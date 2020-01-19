@@ -1,6 +1,7 @@
 package models;
 
 import datalayer.MysqlDAO;
+import javafx.application.Application;
 import javafx.stage.Stage;
 import view.MainInterface;
 
@@ -11,13 +12,24 @@ import view.MainInterface;
 public class main {
     public static void main(String args[]) {
         Connection conn;
-        Stage stage = new Stage();
+
+
+        new Thread() {
+            @Override
+            public void run() {
+                Application.launch(MainInterface.class);
+            }
+        }.start();
 
         if (MysqlDAO.getInstance().connect() != null) {
-            MainInterface mainInterface = new MainInterface();
-            javafx.application.Application.launch(MainInterface.class);
+            new Thread() {
+                @Override
+                public void run() {
+                    Application.launch(MainInterface.class);
+                }
+            }.start();
         } else {
-            System.out.println("Geen database connection");
+            System.out.println("Unable to connect to the database");
         }
 
     }

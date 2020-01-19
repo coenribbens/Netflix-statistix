@@ -11,7 +11,7 @@ public class MysqlDAO {
     private static MysqlDAO instance;
     private String dbname = "NetfflixStatistics";
     private String user = "root";
-    private String pass = "root";
+    private String pass = "theblackarrow";
 
     private MysqlDAO() {
 
