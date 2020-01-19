@@ -17,52 +17,27 @@ import java.util.List;
 public class SerieController implements  EventHandler<ActionEvent>{
 
     private TableView tableView;
-    private TextArea GemiddeldekijktijdSerie;
-
-    public SerieController(TableView tableView, TextArea GemiddeldekijktijdSerie ){
-        this.tableView = tableView; this.GemiddeldekijktijdSerie = GemiddeldekijktijdSerie; ChoiceBox choiceBox; }
+    private TextArea gemiddeldeKijkTijdSerie;
+  
+    public SerieController(TableView tableView, TextArea gemiddeldekijktijdSerie ){
+        this.tableView = tableView;
+        this.gemiddeldeKijkTijdSerie = gemiddeldekijktijdSerie; }
 
 
 
     @Override
     public void handle(ActionEvent actionEvent) {
+        ChoiceBox btn = (ChoiceBox) actionEvent.getTarget();
+        Serie selectedSerie = (Serie) btn.getSelectionModel().getSelectedItem();
+        SerieDAO serieDAO = SerieDAO.getInstance();
 
+        this.tableView.getItems().clear();
+        List<Episode> episodes = serieDAO.getAllEpisodesBySerie(selectedSerie);
+        for(Episode item : episodes){
+            this.tableView.getItems().add(item);
+        }
 
-//        Serie selectedserie = (Serie) .getSelectionModel().getSelectedItem();
-//        List<Episode> episodes = SerieDAO.getInstance().getAllEpisodesBySerie(selectedserie);
-//        int i = 0;
-//
-//        if (!tableView.getItems().contains(episodes)) {
-//
-//            for (Episode episode : episodes
-//            ) {
-//                tableView.getItems().add(episode);
-//
-//            }
-//
-//            i++;
-//        }
-//
-//
-//        if (i == 2) {
-//            tableView.getItems().clear();
-//
-//
-//
-//            for (Episode episode : episodes
-//            ) {
-//                tableView.getItems().add(episode);
-//
-//
-//
-//        }
-//            i = 0;
-//            i++;
-//
-//    }
-//    Serie serie = (Serie) tableView.getSelectionModel().getSelectedItem();
-//        int x = SerieDAO.getInstance().getAverageWatchTime(serie);
-//        GemiddeldekijktijdSerie.setText("Deze serie is gemiddeld " + x + " procent bekeken");
-//
-//
-    }}
+        this.gemiddeldeKijkTijdSerie.setText("Deze serie is gemiddeld " + serieDAO.getAverageWatchTime(selectedSerie) + " minuten bekeken.");
+    }
+
+}
