@@ -1,5 +1,6 @@
 package view;
 
+import datalayer.MovieDAO;
 import javafx.application.Application;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
@@ -96,9 +97,17 @@ public class MainInterface extends Application {
     }
 
     public static VBox filmVbox(Stage stage){
-        ChoiceBox<String> choiceBox = new ChoiceBox<String>();
+
+        // Het toevoegen van Films aan de ChoiceBox!
+        ChoiceBox<Movie> choiceBox = new ChoiceBox<Movie>();
         choiceBox.setMinWidth(500);
-        List movies = new ArrayList();
+        MovieDAO movieDAO = new MovieDAO();
+        List<Movie> movies = movieDAO.getAllMovies();
+        for (Movie movie: movies
+             ) {choiceBox.getItems().add(movie);
+
+        }
+
 
 
 
@@ -159,9 +168,10 @@ public class MainInterface extends Application {
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.getChildren().addAll(choiceBoxhbox,tableView,textgebieden);
-
         MovieController filmcontroller = new MovieController(tableView);
         choiceBox.setOnAction(filmcontroller);
+
+
 
         return vbox;
     }
