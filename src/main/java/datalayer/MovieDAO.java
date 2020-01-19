@@ -116,8 +116,8 @@ public class MovieDAO implements IMovie {
             PreparedStatement Getamountoffullywatched = conn.prepareStatement("select count (profileId)  as DoorHoeveelBekeken \n" +
                     "from watched\n" +
                     "\n" +
-                    "join Program on watched.programId = program.movieId\n" +
-                    "where program.movieId = ? and program.duration = watched.watchedTime");
+                    "join Program on watched.programId = program.programId\n" +
+                    "where program.movieId = ?");
             Getamountoffullywatched.setInt(1, movie.getProgramId());
             ResultSet resultSet = Getamountoffullywatched.executeQuery();
 

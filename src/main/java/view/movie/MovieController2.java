@@ -21,7 +21,8 @@ public MovieController2(TableView tableview, TextArea Aantalkeergekeken){
         Movie h = (Movie) tableView.getSelectionModel().getSelectedItem();
        String x =  h.getTitle();
         MovieDAO movieDAO = new MovieDAO();
-        movieDAO.getFullywatchedMovies(h);
-        Aantalkeergekeken.setText("Aantal keer bekeken: ");
+      int xs =  movieDAO.getFullywatchedMovies(h);
+        Aantalkeergekeken.setText("Aantal keer bekeken: " + xs );
+
     }
 }

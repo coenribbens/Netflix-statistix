@@ -26,27 +26,34 @@ public class SerieController implements  EventHandler<ActionEvent>{
 
     @Override
     public void handle(ActionEvent actionEvent) {
-
-
         ChoiceBox btn = (ChoiceBox) actionEvent.getTarget();
         Serie selectedserie = (Serie) btn.getSelectionModel().getSelectedItem();
         int i = 0;
+
         if (!tableView.getItems().contains(selectedserie)) {
-            SerieDAO serie = new SerieDAO();
-            List<Episode> Series = serie.getAllEpisodesBySerie(selectedserie);
-            tableView.getItems().add(Series);
-            GemiddeldekijktijdSerie.setText("De gemiddelde kijtijd is:" + serie.getAverageWatchTime(selectedserie));
+
+
+            List<Serie> Series = SerieDAO.getInstance().getAllSeries();
+            for (Serie serie : Series
+            ) {
+                btn.getItems().add(serie);
+
+            }
+
             i++;
         }
-        // Verwijderd de data, zodat er enkel de episodes van het geselecteerde seizoen worden weergegeven
+
+
         if (i == 2) {
-            tableView.getItems().clear();
-            i = 0;
-            SerieDAO serie = new SerieDAO();
-            List<Episode> Series = serie.getAllEpisodesBySerie(selectedserie);
-            tableView.getItems().add(Series);
-            GemiddeldekijktijdSerie.setText("De gemiddelde kijtijd is:" + serie.getAverageWatchTime(selectedserie));
-            i++;
+
+
+//            tableView.getItems().clear();
+//            SerieDAO serie = new SerieDAO();
+//            Series = serie.getAllEpisodesBySerie(selectedserie);
+//            tableView.getItems().add(Series);
+//            GemiddeldekijktijdSerie.setText("De gemiddelde kijktijd is:" + serie.getAverageWatchTime(selectedserie));
+//            i = 0;
+//            i++;
 
 
         }

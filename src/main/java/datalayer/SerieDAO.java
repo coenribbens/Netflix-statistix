@@ -15,7 +15,7 @@ import java.util.List;
 public class SerieDAO implements ISerie {
     private static SerieDAO instance;
 
-    private SerieDAO() {
+    public SerieDAO() {
     }
 
     public static SerieDAO getInstance() {
@@ -38,11 +38,11 @@ public class SerieDAO implements ISerie {
                 int id = resultSet.getInt("serieId");
                 String name = resultSet.getString("name");
                 int ageRating = resultSet.getInt("ageRating");
-                String language = resultSet.getString("language");
-                String genre = resultSet.getString("genre");
-                String suggestion = resultSet.getString("suggestion");
 
-                Serie s = new Serie(id, name, ageRating, language, genre, suggestion);
+                String genre = resultSet.getString("genre");
+                String suggestion = resultSet.getString("suggestions");
+
+                Serie s = new Serie(id, name, ageRating,  genre, suggestion);
                 series.add(s);
             }
         } catch (SQLException e) {
@@ -72,7 +72,7 @@ public class SerieDAO implements ISerie {
                 String genre = resultSet.getString("genre");
                 String suggestion = resultSet.getString("suggestion");
 
-                serie = new Serie(id, name, ageRating, language, genre, suggestion);
+                serie = new Serie(id, name, ageRating,  genre, suggestion);
 
             }
 
@@ -160,7 +160,7 @@ public class SerieDAO implements ISerie {
                 String genre = resultSet.getString("genre");
                 String suggestion = resultSet.getString("suggestion");
 
-                Serie s = new Serie(id, name, ageRating, language, genre, suggestion);
+                Serie s = new Serie(id, name, ageRating,  genre, suggestion);
                 series.add(s);
             }
         } catch (SQLException e) {

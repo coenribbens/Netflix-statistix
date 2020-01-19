@@ -239,6 +239,8 @@ public class MainInterface extends Application {
 
 
 
+
+
 //        TableColumn<String, Episode> kolumnEpisodeTaal = new TableColumn<>("FilmTaal");
 //        kolumnFilmTaal.setCellValueFactory(new PropertyValueFactory<String, Episode>("language"));
 //
