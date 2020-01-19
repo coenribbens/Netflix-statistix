@@ -10,12 +10,12 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Netflix_Statistix" target="1.7" />
+      <module name="Netflix_Statistix" target="8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Netflix_Statistix" options="-endorseddirs &quot;C:\Avans\Period 2\Programmeren 2\NSTX\Netflix-statistix\target/endorsed&quot;" />
+      <module name="Netflix_Statistix" options="-endorseddirs C:\Users\marce\Documents\GitHub\Netflix-statistix\target/endorsed" />
     </option>
   </component>
 </project>
