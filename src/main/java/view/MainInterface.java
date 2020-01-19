@@ -21,11 +21,12 @@ public class MainInterface extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         stage.setScene(mainScene(stage));
+
         stage.show();
     }
 
     public static Scene mainScene(Stage stage){
-        stage.setTitle("Netflix Statistics");
+        stage.setTitle("Netflix Statistics, Gemaakt door : Coen Ribbens () ");
 
         Tab tabAccount = new Tab("account", accountVbox(stage));
             tabAccount.setClosable(false);
