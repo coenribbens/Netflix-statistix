@@ -17,38 +17,27 @@ import java.util.List;
 public class SerieController implements  EventHandler<ActionEvent>{
 
     private TableView tableView;
-    private TextArea GemiddeldekijktijdSerie;
-
-    public SerieController(TableView tableView, TextArea GemiddeldekijktijdSerie ){
-        this.tableView = tableView; this.GemiddeldekijktijdSerie = GemiddeldekijktijdSerie; }
+    private TextArea gemiddeldeKijkTijdSerie;
+  
+    public SerieController(TableView tableView, TextArea gemiddeldekijktijdSerie ){
+        this.tableView = tableView;
+        this.gemiddeldeKijkTijdSerie = gemiddeldekijktijdSerie; }
 
 
 
     @Override
     public void handle(ActionEvent actionEvent) {
-
-
         ChoiceBox btn = (ChoiceBox) actionEvent.getTarget();
-        Serie selectedserie = (Serie) btn.getSelectionModel().getSelectedItem();
-        int i = 0;
-        if (!tableView.getItems().contains(selectedserie)) {
-            SerieDAO serie = new SerieDAO();
-            List<Episode> Series = serie.getAllEpisodesBySerie(selectedserie);
-            tableView.getItems().add(Series);
-            GemiddeldekijktijdSerie.setText("De gemiddelde kijtijd is:" + serie.getAverageWatchTime(selectedserie));
-            i++;
-        }
-        // Verwijderd de data, zodat er enkel de episodes van het geselecteerde seizoen worden weergegeven
-        if (i == 2) {
-            tableView.getItems().clear();
-            i = 0;
-            SerieDAO serie = new SerieDAO();
-            List<Episode> Series = serie.getAllEpisodesBySerie(selectedserie);
-            tableView.getItems().add(Series);
-            GemiddeldekijktijdSerie.setText("De gemiddelde kijtijd is:" + serie.getAverageWatchTime(selectedserie));
-            i++;
+        Serie selectedSerie = (Serie) btn.getSelectionModel().getSelectedItem();
+        SerieDAO serieDAO = SerieDAO.getInstance();
 
-
+        this.tableView.getItems().clear();
+        List<Episode> episodes = serieDAO.getAllEpisodesBySerie(selectedSerie);
+        for(Episode item : episodes){
+            this.tableView.getItems().add(item);
         }
 
-    }}
+        this.gemiddeldeKijkTijdSerie.setText("Deze serie is gemiddeld " + serieDAO.getAverageWatchTime(selectedSerie) + " minuten bekeken.");
+    }
+
+}
