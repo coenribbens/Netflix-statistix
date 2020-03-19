@@ -162,28 +162,17 @@ public class MainInterface extends Application {
   
     public static VBox filmVbox(Stage stage){
 
-        // Het toevoegen van Films aan de ChoiceBox!
-        ChoiceBox<Movie> choiceBox = new ChoiceBox<Movie>();
+        Label choiceBoxLabel = new Label("Profiel:");
+
+        // Het toevoegen van Profiles aan de ChoiceBox!
+        ChoiceBox<Profile> choiceBox = new ChoiceBox<Profile>();
         choiceBox.setMinWidth(500);
-        List<Movie> movies = movieDAO.getAllMovies();
-        for (Movie movie: movies
-             ) {choiceBox.getItems().add(movie);
+        ProfileDAO profileDAO = ProfileDAO.getInstance();
+        List<Profile> profiles = profileDAO.getAllProfiles();
+        for (Profile profile: profiles) {
+            choiceBox.getItems().add(profile);
 
         }
-        MovieDAO movieDAO = MovieDAO.getInstance();
-
-
-
-
-
-//        ListView<String> filmTitel = new ListView<String>();
-//        filmTitel.getItems().add("titel");
-//        ListView<String> filmDuratie = new ListView<String>();
-//        filmDuratie.getItems().add("Duratie");
-//        ListView<String> filmTaal = new ListView<String>();
-//        filmTaal.getItems().add("taal");
-//        ListView<String> filmGenre = new ListView<String>();
-//        filmGenre.getItems().add("genre");
 
         TextArea langsteOnder16 = new TextArea("Langste film onder 16 jaar is:\n\n");
         langsteOnder16.setEditable(false);
@@ -194,12 +183,10 @@ public class MainInterface extends Application {
         langsteOnder16.setMinSize(600,50);
 
 
-//
         HBox textgebieden = new HBox();
         textgebieden.setSpacing(10);
         textgebieden.getChildren().addAll(langsteOnder16,Bekekendoor);
 
-//
         TableView tableView = new TableView();
         tableView.setMinWidth(1300);
 
@@ -232,6 +219,7 @@ public class MainInterface extends Application {
 
         HBox choiceBoxhbox = new HBox();
 
+        choiceBoxhbox.getChildren().add(choiceBoxLabel);
         choiceBoxhbox.getChildren().add(choiceBox);
         VBox vbox = new VBox();
         vbox.setSpacing(10);
@@ -241,6 +229,7 @@ public class MainInterface extends Application {
         choiceBox.setOnAction(filmcontroller);
         tableView.setOnMouseClicked(filmcontroller2);
 
+        MovieDAO movieDAO = MovieDAO.getInstance();
 
         try{
             String ax = movieDAO.getLongestMovieForAgeLowerThen16().getTitle();
