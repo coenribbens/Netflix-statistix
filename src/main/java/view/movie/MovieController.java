@@ -37,7 +37,7 @@ public class MovieController implements EventHandler<ActionEvent> {
             // Het aantal keer dat een film volledig bekeken is
 
         }
-        MovieDAO movieDAO = new MovieDAO();
+        MovieDAO movieDAO = MovieDAO.getInstance();
 
         // Geeft de film die het langst is voor < 16
         String ax = movieDAO.getLongestMovieForAgeLowerThen16().getTitle();

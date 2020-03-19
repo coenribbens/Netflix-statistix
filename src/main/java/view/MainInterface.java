@@ -165,12 +165,12 @@ public class MainInterface extends Application {
         // Het toevoegen van Films aan de ChoiceBox!
         ChoiceBox<Movie> choiceBox = new ChoiceBox<Movie>();
         choiceBox.setMinWidth(500);
-        MovieDAO movieDAO = new MovieDAO();
         List<Movie> movies = movieDAO.getAllMovies();
         for (Movie movie: movies
              ) {choiceBox.getItems().add(movie);
 
         }
+        MovieDAO movieDAO = MovieDAO.getInstance();
 
 
 
@@ -236,15 +236,14 @@ public class MainInterface extends Application {
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.getChildren().addAll(choiceBoxhbox,tableView,textgebieden);
-        MovieController filmcontroller = new MovieController(tableView,  langsteOnder16);
-        MovieController2 filmcontroller2 = new MovieController2(tableView,Bekekendoor);
+        MovieController filmcontroller = new MovieController(tableView, langsteOnder16);
+        MovieController2 filmcontroller2 = new MovieController2(tableView, Bekekendoor);
         choiceBox.setOnAction(filmcontroller);
         tableView.setOnMouseClicked(filmcontroller2);
 
-        MovieDAO movieDAO1 = new MovieDAO();
 
         try{
-            String ax = movieDAO1.getLongestMovieForAgeLowerThen16().getTitle();
+            String ax = movieDAO.getLongestMovieForAgeLowerThen16().getTitle();
             langsteOnder16.setText("De langste film voor onder de 16 is: " + ax );
         }
         catch (Exception e){
