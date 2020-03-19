@@ -43,8 +43,8 @@ public class MovieController implements EventHandler<ActionEvent> {
 
 
         // Geeft de film die het langst is voor < 16
-        String ax = movieDAO.getLongestMovieForAgeLowerThen16().getTitle();
-        Langstefilmonder16.setText("De langste film voor onder de 16 is: " + ax );
+//        String ax = movieDAO.getLongestMovieForAgeLowerThen16().getTitle();
+//        Langstefilmonder16.setText("De langste film voor onder de 16 is: " + ax );
 
 
 

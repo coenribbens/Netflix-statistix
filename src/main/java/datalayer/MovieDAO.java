@@ -54,19 +54,19 @@ public class MovieDAO implements IMovie {
 
         try {
             conn = MysqlDAO.getInstance().connect();
-            PreparedStatement getMovieById = conn.prepareStatement("SELECT * FROM movie WHERE movieId = ?");
+            PreparedStatement getMovieById = conn.prepareStatement("SELECT Movie.programId, title, ageRating, language, genre, duration FROM Movie JOIN Program ON Movie.programId = Program.programId WHERE Movie.programId = ?");
             getMovieById.setInt(1, id);
             ResultSet resultSet = getMovieById.executeQuery();
 
             while(resultSet.next()){
 
                 //Deze moeten nog aangepast worden voor de uiteindelijke column namen
-                int movieID = resultSet.getInt("movieID");
-                String movieTitle = resultSet.getString("movieTitle");
-                String movieDuration = resultSet.getString("movieDuration");
-                String movieGenre = resultSet.getString("movieGenre");
-                String movieLanguage = resultSet.getString("movieLanguage");
-                int movieAge = resultSet.getInt("movieAge");
+                int movieID = resultSet.getInt("programId");
+                String movieTitle = resultSet.getString("title");
+                String movieDuration = resultSet.getString("duration");
+                String movieGenre = resultSet.getString("genre");
+                String movieLanguage = resultSet.getString("language");
+                int movieAge = resultSet.getInt("ageRating");
 
                 m = new Movie(movieID, movieTitle, movieDuration, movieGenre, movieLanguage, movieAge);
 
@@ -87,12 +87,12 @@ public class MovieDAO implements IMovie {
         try{
             conn = MysqlDAO.getInstance().connect();
             //tabelnaam zal waarschijnlijk nog veranderd moeten worden. Voor nu is het "movie_profile"
-            PreparedStatement getMoviesWatchedByProfile = conn.prepareStatement("SELECT * FROM movie_profile WHERE profileId = ?");
+            PreparedStatement getMoviesWatchedByProfile = conn.prepareStatement("SELECT * FROM watched WHERE profileId = ?");
             getMoviesWatchedByProfile.setInt(1, p.getProfileId());
             ResultSet resultSet = getMoviesWatchedByProfile.executeQuery();
 
             while(resultSet.next()){
-                int movieID = resultSet.getInt("movieID");
+                int movieID = resultSet.getInt("programId");
 
                 allMoviesWatched.add(this.getMovieById(movieID));
             }
