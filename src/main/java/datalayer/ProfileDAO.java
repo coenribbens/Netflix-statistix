@@ -175,7 +175,7 @@ public class ProfileDAO implements IProfile {
             statement.setInt(1, programId);
             statement.setInt(2, profileId);
             statement.setString(3, watchedTime);
-            statement.executeQuery();
+            statement.execute();
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {

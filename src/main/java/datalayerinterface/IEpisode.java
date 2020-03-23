@@ -12,7 +12,7 @@ public interface IEpisode {
 
     List getEpisodesWatchedByProfile(Profile p);
 
-    int getAverageWatchTimeForEpisode(Episode e, Profile p);
+    int getAverageWatchTimeForEpisodePerProfile(Episode e, Profile p);
 
     void addWatchedPercentage(Episode e, Profile p, int percentage);
 

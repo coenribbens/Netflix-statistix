@@ -92,7 +92,7 @@ public class SerieDAO implements ISerie {
         Episode episode = null;
         try {
             conn = MysqlDAO.getInstance().connect();
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM serie\n" +
+            PreparedStatement statement = conn.prepareStatement("SELECT Program.programId, title, duration, season FROM serie\n" +
                     "INNER JOIN episode ON episode.serieID = serie.serieID\n" +
                     "INNER JOIN Program ON Program.episodeId = Episode.programId\n" +
                     "WHERE serie.serieId = ?");
@@ -101,7 +101,7 @@ public class SerieDAO implements ISerie {
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("programID");
-                String title = resultSet.getString("name");
+                String title = resultSet.getString("title");
                 String duration = resultSet.getString("duration");
                 int season = resultSet.getInt("season");
 
@@ -146,8 +146,9 @@ public class SerieDAO implements ISerie {
         try {
             conn = MysqlDAO.getInstance().connect();
             PreparedStatement statement = conn.prepareStatement("SELECT * FROM serie \n" +
-                    "INNER JOIN episode ON episode.programId = serie.serieId \n" +
-                    "INNER JOIN watched ON watched.programId = episode.programId \n" +
+                    "INNER JOIN episode ON episode.serieId = serie.serieId \n" +
+                    "INNER JOIN Program ON Program.episodeId = Episode.programId \n" +
+                    "INNER JOIN watched ON watched.programId = program.programId \n" +
                     "INNER JOIN profile ON profile.profileId = watched.profileId \n " +
                     "WHERE profile.profileId = ?");
             statement.setInt(1, p.getProfileId());
@@ -157,7 +158,6 @@ public class SerieDAO implements ISerie {
                 int id = resultSet.getInt("serieId");
                 String name = resultSet.getString("name");
                 int ageRating = resultSet.getInt("ageRating");
-                String language = resultSet.getString("language");
                 String genre = resultSet.getString("genre");
                 String suggestion = resultSet.getString("suggestions");
 

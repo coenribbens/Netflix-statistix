@@ -18,6 +18,7 @@ import view.movie.MovieController2;
 import view.serie.SerieController;
 import view.serie.SerieController2;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import models.Account;
@@ -25,6 +26,7 @@ import view.account.AccountController;
 import models.Profile;
 import view.account.AccountController;
 import view.profiel.ProfielController;
+import view.serie.SerieControllerTextArea;
 
 import java.sql.Date;
 
@@ -145,6 +147,7 @@ public class MainInterface extends Application {
             buttonVerwijderen.setOnAction(controller);
             buttonVernieuwen.setOnAction(controller);
             buttonZoek.setOnAction(controller);
+            buttonProfielInfo.setOnAction(controller);
 
 
         ToolBar toolBar = new ToolBar();
@@ -167,6 +170,7 @@ public class MainInterface extends Application {
         // Het toevoegen van Profiles aan de ChoiceBox!
         ChoiceBox<Profile> choiceBox = new ChoiceBox<Profile>();
         choiceBox.setMinWidth(500);
+        choiceBox.getItems().add(new Profile(-1, "Geen Profiel", new Date(1), -1));
         ProfileDAO profileDAO = ProfileDAO.getInstance();
         List<Profile> profiles = profileDAO.getAllProfiles();
         for (Profile profile: profiles) {
@@ -217,13 +221,13 @@ public class MainInterface extends Application {
         tableView.getItems().add(xx);
 
 
-        HBox choiceBoxhbox = new HBox();
+        ToolBar choiceBoxToolbar = new ToolBar();
 
-        choiceBoxhbox.getChildren().add(choiceBoxLabel);
-        choiceBoxhbox.getChildren().add(choiceBox);
+        choiceBoxToolbar.getItems().add(choiceBoxLabel);
+        choiceBoxToolbar.getItems().add(choiceBox);
         VBox vbox = new VBox();
         vbox.setSpacing(10);
-        vbox.getChildren().addAll(choiceBoxhbox,tableView,textgebieden);
+        vbox.getChildren().addAll(choiceBoxToolbar,tableView,textgebieden);
         MovieController filmcontroller = new MovieController(tableView, langsteOnder16);
         MovieController2 filmcontroller2 = new MovieController2(tableView, Bekekendoor);
         choiceBox.setOnAction(filmcontroller);
@@ -288,15 +292,17 @@ public class MainInterface extends Application {
 
 
 
-        HBox choiceBoxhbox = new HBox();
-        choiceBoxhbox.getChildren().addAll(choiceBox, profileChoiceBox, buttonWatched);
+        ToolBar choiceBoxToolbar = new ToolBar();
+        choiceBoxToolbar.getItems().addAll(choiceBox, profileChoiceBox, buttonWatched);
         VBox vbox = new VBox();
         vbox.setSpacing(10);
-        vbox.getChildren().addAll(choiceBoxhbox,tableView,gemiddeldbekeken);
+        vbox.getChildren().addAll(choiceBoxToolbar,tableView,gemiddeldbekeken);
         SerieController serieController = new SerieController(tableView, gemiddeldbekeken);
         choiceBox.setOnAction(serieController);
         SerieController2 serieController2 = new SerieController2(tableView, profileChoiceBox);
         buttonWatched.setOnAction(serieController2);
+        SerieControllerTextArea serieControllerTextArea = new SerieControllerTextArea(tableView, gemiddeldbekeken);
+        tableView.setOnMouseClicked(serieControllerTextArea);
 
 
 

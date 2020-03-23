@@ -35,7 +35,6 @@ public class SerieController2 implements  EventHandler<ActionEvent>{
         ProfileDAO profileDAO = ProfileDAO.getInstance();
         profileDAO.markSeriesAsWatched(episode.getProgramId(), this.profile.getSelectionModel().getSelectedItem().getProfileId(), episode.getDuration());
 
-
     }
 
 }

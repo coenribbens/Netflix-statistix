@@ -36,7 +36,13 @@ public class MovieController implements EventHandler<ActionEvent> {
 
         // Pak alle films bekeken door het geselecteerde profiel en zet deze in de tableview.
         this.tableView.getItems().clear();
-        List<Movie> movies = movieDAO.getMoviesWatchedByProfile(xx);
+        List<Movie> movies;
+        if (xx.getProfileId() == -1){
+            movies = movieDAO.getAllMovies();
+        }
+        else {
+            movies = movieDAO.getMoviesWatchedByProfile(xx);
+        }
         for(Movie item : movies){
             this.tableView.getItems().add(item);
         }
