@@ -145,7 +145,7 @@ public class SerieDAO implements ISerie {
         Connection conn = null;
         try {
             conn = MysqlDAO.getInstance().connect();
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM serie \n" +
+            PreparedStatement statement = conn.prepareStatement("SELECT DISTINCT serie.serieId, name, ageRating, genre, suggestions FROM serie \n" +
                     "INNER JOIN episode ON episode.serieId = serie.serieId \n" +
                     "INNER JOIN Program ON Program.episodeId = Episode.programId \n" +
                     "INNER JOIN watched ON watched.programId = program.programId \n" +

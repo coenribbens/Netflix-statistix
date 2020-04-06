@@ -166,7 +166,7 @@ public class ProfileDAO implements IProfile {
 
     public void markSeriesAsWatched(int programId, int profileId, String watchedTime) {
         Connection conn = null;
-
+        //TODO When trying to insert a duplicate value, an SQLException occurs. This happens when trying to watch an episode that has already been watched.
         try {
             conn = MysqlDAO.getInstance().connect();
             PreparedStatement statement = conn.prepareStatement(""
