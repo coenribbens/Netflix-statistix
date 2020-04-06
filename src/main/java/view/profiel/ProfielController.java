@@ -94,7 +94,7 @@ public class ProfielController implements EventHandler<ActionEvent> {
                 serieText += "\n Episodes bekeken:";
                 episodesWatched = episodeDAO.getEpisodesWatchedPerProfilePerSerie(selectedItem, item);
                 for(Episode episode : episodesWatched){
-                    serieText += "\n" + episode.getTitle() + " - " + (episodeDAO.getAverageWatchTimeForEpisodePerProfile(episode, selectedItem) / Integer.parseInt(episode.getDuration()) * 100) + "% bekeken.";
+                    serieText += "\n" + episode.getTitle() + " - " + (int)Math.round((double)episodeDAO.getAverageWatchTimeForEpisodePerProfile(episode, selectedItem) / (double)Integer.parseInt(episode.getDuration()) * 100.0) + "% bekeken.";
                 }
                 serieText += "\n";
             }

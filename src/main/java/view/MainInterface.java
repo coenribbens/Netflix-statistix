@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import models.*;
 import view.account.AccountController;
 import view.movie.MovieController;
@@ -28,6 +29,7 @@ import view.account.AccountController;
 import view.profiel.ProfielController;
 import view.serie.SerieControllerTextArea;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Date;
 
 public class MainInterface extends Application {
@@ -264,6 +266,29 @@ public class MainInterface extends Application {
             profileChoiceBox.getItems().add(item);
         }
             profileChoiceBox.getSelectionModel().selectFirst();
+
+        //Maak de spinner aan en zet de restricties in plek.
+        Spinner<Integer> percentageWatched = new Spinner<>();
+        percentageWatched.setEditable(true);
+        SpinnerValueFactory<Integer> percentageWatchedFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 100);
+        percentageWatchedFactory.setConverter(new StringConverter<Integer>() {
+            @Override
+            public String toString(Integer integer) {
+                return integer + "%";
+            }
+
+            @Override
+            public Integer fromString(String s) {
+                String valueWithoutUnits = s.replaceAll("%", "").trim();
+                if (valueWithoutUnits.isEmpty()) {
+                    return  100;
+                } else {
+                    return Integer.valueOf(valueWithoutUnits);
+                }
+            }
+        });
+        percentageWatched.setValueFactory(percentageWatchedFactory);
+
         Button buttonWatched = new Button("Watched");
 
 
@@ -293,13 +318,13 @@ public class MainInterface extends Application {
 
 
         ToolBar choiceBoxToolbar = new ToolBar();
-        choiceBoxToolbar.getItems().addAll(choiceBox, profileChoiceBox, buttonWatched);
+        choiceBoxToolbar.getItems().addAll(choiceBox, profileChoiceBox, percentageWatched, buttonWatched);
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.getChildren().addAll(choiceBoxToolbar,tableView,gemiddeldbekeken);
         SerieController serieController = new SerieController(tableView, gemiddeldbekeken);
         choiceBox.setOnAction(serieController);
-        SerieController2 serieController2 = new SerieController2(tableView, profileChoiceBox);
+        SerieController2 serieController2 = new SerieController2(tableView, profileChoiceBox, percentageWatched);
         buttonWatched.setOnAction(serieController2);
         SerieControllerTextArea serieControllerTextArea = new SerieControllerTextArea(tableView, gemiddeldbekeken);
         tableView.setOnMouseClicked(serieControllerTextArea);
