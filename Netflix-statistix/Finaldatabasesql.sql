@@ -3,11 +3,7 @@ GO
 /****** Object:  Database [NetfflixStatistics]    Script Date: 17-1-2020 22:37:13 ******/
 CREATE DATABASE [NetfflixStatistics]
  CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'NetfflixStatistics', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.MSSQLSERVER\MSSQL\DATA\NetfflixStatistics.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
- LOG ON 
-( NAME = N'NetfflixStatistics_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL14.MSSQLSERVER\MSSQL\DATA\NetfflixStatistics_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
-GO
+ 
 ALTER DATABASE [NetfflixStatistics] SET COMPATIBILITY_LEVEL = 140
 GO
 IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
