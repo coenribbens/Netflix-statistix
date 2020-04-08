@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -14,6 +15,7 @@ public class Account {
     }
 
     public Account(int accountId, String accountName, String streetName, String houseNumber, String zipcode) {
+        if (isHouseNumberValid(houseNumber)) // controleert eerst of huisnummer geldig is.
         this.accountId = accountId;
         this.accountName = accountName;
         this.streetName = streetName;
@@ -22,6 +24,7 @@ public class Account {
     }
 
     public Account(String accountName, String streetName, String houseNumber, String zipcode) {
+        if (isHouseNumberValid(houseNumber)) // controleert eerst of huisnummer geldig is.
         this.accountName = accountName;
         this.streetName = streetName;
         this.houseNumber = houseNumber;
@@ -65,7 +68,24 @@ public class Account {
     }
 
     public void setHouseNumber(String houseNumber) {
-        this.houseNumber = houseNumber;
+        if (isHouseNumberValid(houseNumber)){
+            this.houseNumber = houseNumber;
+        }}
+
+    public boolean isHouseNumberValid (String houseNumber){
+
+        if (Character.isDigit(houseNumber.charAt(0)))
+        {
+            return true;
+        }
+        else {
+            System.out.println("Invalid housenumber, first character should be a number.");
+            return false; // Kan hier helaas geen Exeption bij throwen.
+
+
+        }
+
+
     }
 
     public String toString(){
