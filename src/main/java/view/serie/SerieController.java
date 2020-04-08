@@ -37,7 +37,6 @@ public class SerieController implements  EventHandler<ActionEvent>{
             this.tableView.getItems().add(item);
         }
 
-        this.gemiddeldeKijkTijdSerie.setText("Deze serie is gemiddeld " + serieDAO.getAverageWatchTime(selectedSerie) + " minuten bekeken.");
     }
 
 }

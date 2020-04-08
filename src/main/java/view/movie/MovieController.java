@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import models.Account;
 import models.Movie;
+import models.Profile;
 import view.account.sub.AccountInterfaces;
 import javafx.scene.control.TextArea;
 
@@ -30,18 +31,26 @@ public class MovieController implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
         ChoiceBox btn = (ChoiceBox) actionEvent.getTarget();
-        Movie xx =  (Movie)btn.getSelectionModel().getSelectedItem();
+        Profile xx =  (Profile)btn.getSelectionModel().getSelectedItem();
+        MovieDAO movieDAO = MovieDAO.getInstance();
 
-        if (!tableView.getItems().contains(xx)) {
-            tableView.getItems().add(xx);
-            // Het aantal keer dat een film volledig bekeken is
-
+        // Pak alle films bekeken door het geselecteerde profiel en zet deze in de tableview.
+        this.tableView.getItems().clear();
+        List<Movie> movies;
+        if (xx.getProfileId() == -1){
+            movies = movieDAO.getAllMovies();
         }
-        MovieDAO movieDAO = new MovieDAO();
+        else {
+            movies = movieDAO.getMoviesWatchedByProfile(xx);
+        }
+        for(Movie item : movies){
+            this.tableView.getItems().add(item);
+        }
+
 
         // Geeft de film die het langst is voor < 16
-        String ax = movieDAO.getLongestMovieForAgeLowerThen16().getTitle();
-        Langstefilmonder16.setText("De langste film voor onder de 16 is: " + ax );
+//        String ax = movieDAO.getLongestMovieForAgeLowerThen16().getTitle();
+//        Langstefilmonder16.setText("De langste film voor onder de 16 is: " + ax );
 
 
 

@@ -11,6 +11,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import models.*;
 import view.account.AccountController;
 import view.movie.MovieController;
@@ -18,6 +19,7 @@ import view.movie.MovieController2;
 import view.serie.SerieController;
 import view.serie.SerieController2;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import models.Account;
@@ -25,7 +27,9 @@ import view.account.AccountController;
 import models.Profile;
 import view.account.AccountController;
 import view.profiel.ProfielController;
+import view.serie.SerieControllerTextArea;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.sql.Date;
 
 public class MainInterface extends Application {
@@ -145,6 +149,7 @@ public class MainInterface extends Application {
             buttonVerwijderen.setOnAction(controller);
             buttonVernieuwen.setOnAction(controller);
             buttonZoek.setOnAction(controller);
+            buttonProfielInfo.setOnAction(controller);
 
 
         ToolBar toolBar = new ToolBar();
@@ -162,28 +167,18 @@ public class MainInterface extends Application {
   
     public static VBox filmVbox(Stage stage){
 
-        // Het toevoegen van Films aan de ChoiceBox!
-        ChoiceBox<Movie> choiceBox = new ChoiceBox<Movie>();
+        Label choiceBoxLabel = new Label("Profiel:");
+
+        // Het toevoegen van Profiles aan de ChoiceBox!
+        ChoiceBox<Profile> choiceBox = new ChoiceBox<Profile>();
         choiceBox.setMinWidth(500);
-        MovieDAO movieDAO = new MovieDAO();
-        List<Movie> movies = movieDAO.getAllMovies();
-        for (Movie movie: movies
-             ) {choiceBox.getItems().add(movie);
+        choiceBox.getItems().add(new Profile(-1, "Geen Profiel", new Date(1), -1));
+        ProfileDAO profileDAO = ProfileDAO.getInstance();
+        List<Profile> profiles = profileDAO.getAllProfiles();
+        for (Profile profile: profiles) {
+            choiceBox.getItems().add(profile);
 
         }
-
-
-
-
-
-//        ListView<String> filmTitel = new ListView<String>();
-//        filmTitel.getItems().add("titel");
-//        ListView<String> filmDuratie = new ListView<String>();
-//        filmDuratie.getItems().add("Duratie");
-//        ListView<String> filmTaal = new ListView<String>();
-//        filmTaal.getItems().add("taal");
-//        ListView<String> filmGenre = new ListView<String>();
-//        filmGenre.getItems().add("genre");
 
         TextArea langsteOnder16 = new TextArea("Langste film onder 16 jaar is:\n\n");
         langsteOnder16.setEditable(false);
@@ -194,12 +189,10 @@ public class MainInterface extends Application {
         langsteOnder16.setMinSize(600,50);
 
 
-//
         HBox textgebieden = new HBox();
         textgebieden.setSpacing(10);
         textgebieden.getChildren().addAll(langsteOnder16,Bekekendoor);
 
-//
         TableView tableView = new TableView();
         tableView.setMinWidth(1300);
 
@@ -230,21 +223,22 @@ public class MainInterface extends Application {
         tableView.getItems().add(xx);
 
 
-        HBox choiceBoxhbox = new HBox();
+        ToolBar choiceBoxToolbar = new ToolBar();
 
-        choiceBoxhbox.getChildren().add(choiceBox);
+        choiceBoxToolbar.getItems().add(choiceBoxLabel);
+        choiceBoxToolbar.getItems().add(choiceBox);
         VBox vbox = new VBox();
         vbox.setSpacing(10);
-        vbox.getChildren().addAll(choiceBoxhbox,tableView,textgebieden);
-        MovieController filmcontroller = new MovieController(tableView,  langsteOnder16);
-        MovieController2 filmcontroller2 = new MovieController2(tableView,Bekekendoor);
+        vbox.getChildren().addAll(choiceBoxToolbar,tableView,textgebieden);
+        MovieController filmcontroller = new MovieController(tableView, langsteOnder16);
+        MovieController2 filmcontroller2 = new MovieController2(tableView, Bekekendoor);
         choiceBox.setOnAction(filmcontroller);
         tableView.setOnMouseClicked(filmcontroller2);
 
-        MovieDAO movieDAO1 = new MovieDAO();
+        MovieDAO movieDAO = MovieDAO.getInstance();
 
         try{
-            String ax = movieDAO1.getLongestMovieForAgeLowerThen16().getTitle();
+            String ax = movieDAO.getLongestMovieForAgeLowerThen16().getTitle();
             langsteOnder16.setText("De langste film voor onder de 16 is: " + ax );
         }
         catch (Exception e){
@@ -272,6 +266,29 @@ public class MainInterface extends Application {
             profileChoiceBox.getItems().add(item);
         }
             profileChoiceBox.getSelectionModel().selectFirst();
+
+        //Maak de spinner aan en zet de restricties in plek.
+        Spinner<Integer> percentageWatched = new Spinner<>();
+        percentageWatched.setEditable(true);
+        SpinnerValueFactory<Integer> percentageWatchedFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 100);
+        percentageWatchedFactory.setConverter(new StringConverter<Integer>() {
+            @Override
+            public String toString(Integer integer) {
+                return integer + "%";
+            }
+
+            @Override
+            public Integer fromString(String s) {
+                String valueWithoutUnits = s.replaceAll("%", "").trim();
+                if (valueWithoutUnits.isEmpty()) {
+                    return  100;
+                } else {
+                    return Integer.valueOf(valueWithoutUnits);
+                }
+            }
+        });
+        percentageWatched.setValueFactory(percentageWatchedFactory);
+
         Button buttonWatched = new Button("Watched");
 
 
@@ -300,15 +317,17 @@ public class MainInterface extends Application {
 
 
 
-        HBox choiceBoxhbox = new HBox();
-        choiceBoxhbox.getChildren().addAll(choiceBox, profileChoiceBox, buttonWatched);
+        ToolBar choiceBoxToolbar = new ToolBar();
+        choiceBoxToolbar.getItems().addAll(choiceBox, profileChoiceBox, percentageWatched, buttonWatched);
         VBox vbox = new VBox();
         vbox.setSpacing(10);
-        vbox.getChildren().addAll(choiceBoxhbox,tableView,gemiddeldbekeken);
+        vbox.getChildren().addAll(choiceBoxToolbar,tableView,gemiddeldbekeken);
         SerieController serieController = new SerieController(tableView, gemiddeldbekeken);
         choiceBox.setOnAction(serieController);
-        SerieController2 serieController2 = new SerieController2(tableView, profileChoiceBox);
+        SerieController2 serieController2 = new SerieController2(tableView, profileChoiceBox, percentageWatched);
         buttonWatched.setOnAction(serieController2);
+        SerieControllerTextArea serieControllerTextArea = new SerieControllerTextArea(tableView, gemiddeldbekeken);
+        tableView.setOnMouseClicked(serieControllerTextArea);
 
 
 
