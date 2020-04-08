@@ -29,7 +29,7 @@ import view.account.AccountController;
 import view.profiel.ProfielController;
 import view.serie.SerieControllerTextArea;
 
-import javax.persistence.criteria.CriteriaBuilder;
+
 import java.sql.Date;
 
 public class MainInterface extends Application {
@@ -68,7 +68,7 @@ public class MainInterface extends Application {
         //Objecten toolBar
         Label filterLabel = new Label("Filter:");
         ChoiceBox<String> choiceBoxFilter = new ChoiceBox<>();
-            choiceBoxFilter.getItems().addAll("", "Accounts met 1 profiel");
+            choiceBoxFilter.getItems().addAll("Alle accounts", "Accounts met 1 profiel");
             choiceBoxFilter.getSelectionModel().selectFirst();
         Button buttonZoek = new Button("Zoek");
             buttonZoek.setTooltip(new Tooltip("Zoek voor accounts met de filter"));

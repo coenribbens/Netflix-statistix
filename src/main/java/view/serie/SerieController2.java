@@ -11,7 +11,7 @@ import models.Episode;
 import models.Profile;
 import models.Serie;
 
-import javax.persistence.criteria.CriteriaBuilder;
+
 import java.awt.*;
 import java.util.List;
 

@@ -61,7 +61,7 @@ public class AccountController implements EventHandler<ActionEvent> {
                 }
 
             }
-            else if(this.choiceBox.getValue().equalsIgnoreCase("")){
+            else if(this.choiceBox.getValue().equalsIgnoreCase("Alle accounts")){
                 this.tableView.getItems().clear();
                 AccountDAO accountDAO = AccountDAO.getInstance();
                 List<Account> accounts = accountDAO.getAllAccounts();
