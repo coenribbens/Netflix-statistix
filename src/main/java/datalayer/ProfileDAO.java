@@ -167,19 +167,59 @@ public class ProfileDAO implements IProfile {
     public void markSeriesAsWatched(int programId, int profileId, String watchedTime) {
         Connection conn = null;
         //TODO When trying to insert a duplicate value, an SQLException occurs. This happens when trying to watch an episode that has already been watched.
+        if(hasMediaBeenWatched(programId, profileId)){
+
+            try {
+                conn = MysqlDAO.getInstance().connect();
+                PreparedStatement statement = conn.prepareStatement(""
+                        + "UPDATE watched SET watchedTime = ? "
+                        + "WHERE programId = ? AND profileId = ?");
+                statement.setString(1, watchedTime);
+                statement.setInt(2, programId);
+                statement.setInt(3, profileId);
+                statement.execute();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                MysqlDAO.getInstance().closeConnection(conn);
+            }
+        }
+        else {
+            try {
+                conn = MysqlDAO.getInstance().connect();
+                PreparedStatement statement = conn.prepareStatement(""
+                        + "INSERT INTO watched (programId, profileId, watchedTime) "
+                        + "VALUES (?, ?, ?)");
+                statement.setInt(1, programId);
+                statement.setInt(2, profileId);
+                statement.setString(3, watchedTime);
+                statement.execute();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                MysqlDAO.getInstance().closeConnection(conn);
+            }
+        }
+    }
+
+    public boolean hasMediaBeenWatched(int programId, int profileId){
+        Connection conn = null;
+        boolean hasBeenWatched = false;
         try {
             conn = MysqlDAO.getInstance().connect();
             PreparedStatement statement = conn.prepareStatement(""
-                    + "INSERT INTO watched (programId, profileId, watchedTime) "
-                    + "VALUES (?, ?, ?)");
+                    + "SELECT * "
+                    + "FROM watched "
+                    + "WHERE programId = ? AND profileId = ?");
             statement.setInt(1, programId);
             statement.setInt(2, profileId);
-            statement.setString(3, watchedTime);
-            statement.execute();
+            ResultSet resultSet = statement.executeQuery();
+            hasBeenWatched = resultSet.next();
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
             MysqlDAO.getInstance().closeConnection(conn);
         }
+        return hasBeenWatched;
     }
 }
