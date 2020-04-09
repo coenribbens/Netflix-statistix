@@ -37,9 +37,8 @@ public final class Toast
             toastStage.setY(primaryStage.getY() + primaryStage.getHeight() / 2 - stageHeight / 2);
         };
 
-//        toastStage.widthProperty().addListener(widthListener);
-//        toastStage.widthProperty().addListener(heightListener);
-//        Werkt helaas niet.
+        toastStage.widthProperty().addListener(widthListener);
+        toastStage.widthProperty().addListener(heightListener);
 
 
         toastStage.setOnShown(event -> {
