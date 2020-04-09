@@ -80,6 +80,7 @@ public class MainInterface extends Application {
         //Objecten voor Tableview
         TableView tableView = new TableView();
             tableView.setMinWidth(650);
+            tableView.setPlaceholder(new Label("Klik op 'Zoek' om de accountgegevens te zien."));
         TableColumn<String, Account> columnNaam = new TableColumn<>("Naam");
             columnNaam.setCellValueFactory(new PropertyValueFactory<String, Account>("accountName"));
         TableColumn<String, Account> columnStraat = new TableColumn<>("Straat");
@@ -127,6 +128,9 @@ public class MainInterface extends Application {
 
         //Objecten voor de tableView
         TableView tableView = new TableView();
+        tableView.setPlaceholder(new Label("Selecteer eerst een account uit het keuzemenu en klik op 'Zoek'. " +
+                "\nSelecteer dan op een profiel. " +
+                "\nKlik tot slot op de knop 'Profiel info' voor een overzicht van de bekeken films/series."));
             tableView.setMinWidth(650);
         TableColumn<String, Profile> columnNaam = new TableColumn<>("Naam");
         columnNaam.setCellValueFactory(new PropertyValueFactory<String, Profile>("profileName"));
@@ -143,7 +147,7 @@ public class MainInterface extends Application {
         detailSeriesBekeken.setPrefWidth(325);
 
         //Controllers object aanmaken
-        ProfielController controller = new ProfielController(tableView, choiceBoxNaam, detailFilmsBekeken, detailSeriesBekeken);
+        ProfielController controller = new ProfielController(tableView, choiceBoxNaam, detailFilmsBekeken, detailSeriesBekeken, stage);
             buttonToevoegen.setOnAction(controller);
             buttonBewerken.setOnAction(controller);
             buttonVerwijderen.setOnAction(controller);
@@ -172,7 +176,7 @@ public class MainInterface extends Application {
         // Het toevoegen van Profiles aan de ChoiceBox!
         ChoiceBox<Profile> choiceBox = new ChoiceBox<Profile>();
         choiceBox.setMinWidth(500);
-        choiceBox.getItems().add(new Profile(-1, "Geen Profiel", new Date(1), -1));
+        choiceBox.getItems().add(new Profile(-1, "Geen Profiel (alle films)", new Date(1), -1));
         ProfileDAO profileDAO = ProfileDAO.getInstance();
         List<Profile> profiles = profileDAO.getAllProfiles();
         for (Profile profile: profiles) {
@@ -218,9 +222,6 @@ public class MainInterface extends Application {
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
 
-
-        Movie xx = new Movie("De smurfen", "30", "horror", "Frans", 18);
-        tableView.getItems().add(xx);
 
 
         ToolBar choiceBoxToolbar = new ToolBar();
@@ -294,6 +295,8 @@ public class MainInterface extends Application {
 
         TableView tableView = new TableView();
         tableView.setMinWidth(1300);
+        tableView.setPlaceholder(new Label("Selecteer eerst een serie uit het keuzemenu \n " +
+                "Klik vervolgens op een episode om de gemiddelde kijktijd te zien"));
 
 
         TableColumn<String, Episode> kolumnEpisodetitel = new TableColumn<>("Episodetitel");
