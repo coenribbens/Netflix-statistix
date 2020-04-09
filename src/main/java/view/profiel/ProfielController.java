@@ -9,6 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import models.*;
+import view.Toast;
 import view.profiel.sub.ProfielInterfaces;
 
 import java.util.List;
@@ -18,12 +19,14 @@ public class ProfielController implements EventHandler<ActionEvent> {
     private ChoiceBox<Account> choiceBoxAccounts;
     private TextArea detailFilmsBekeken;
     private TextArea detailSeriesBekeken;
+    private Stage primarystage;
 
-    public ProfielController(TableView tableView, ChoiceBox choiceBoxAccounts, TextArea detailFilmsBekeken, TextArea detailSeriesBekeken){
+    public ProfielController( TableView tableView, ChoiceBox choiceBoxAccounts, TextArea detailFilmsBekeken, TextArea detailSeriesBekeken, Stage stage){
         this.tableView = tableView;
         this.choiceBoxAccounts = choiceBoxAccounts;
         this.detailFilmsBekeken = detailFilmsBekeken;
         this.detailSeriesBekeken = detailSeriesBekeken;
+        this.primarystage = stage;
         AccountDAO accountDAO = AccountDAO.getInstance();
         try{
             List<Account> accounts = accountDAO.getAllAccounts();
@@ -75,7 +78,12 @@ public class ProfielController implements EventHandler<ActionEvent> {
 
         }
         else if(btn.getText().equalsIgnoreCase("profiel info")){
+
             Profile selectedItem = (Profile)this.tableView.getSelectionModel().getSelectedItem();
+            if (tableView.getSelectionModel().isEmpty()){
+                Toast.makeText(this.primarystage,"Selecteer eerst een account/profiel.");
+            }
+            else{
             MovieDAO movieDAO = MovieDAO.getInstance();
             SerieDAO serieDAO = SerieDAO.getInstance();
             EpisodeDAO episodeDAO = EpisodeDAO.getInstance();
@@ -100,7 +108,7 @@ public class ProfielController implements EventHandler<ActionEvent> {
             }
             this.detailFilmsBekeken.setText(movieText);
             this.detailSeriesBekeken.setText(serieText);
-        }
+        }}
 
     }
 }
