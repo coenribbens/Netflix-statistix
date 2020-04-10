@@ -36,6 +36,7 @@ public class SerieController implements  EventHandler<ActionEvent>{
         for(Episode item : episodes){
             this.tableView.getItems().add(item);
         }
+        this.tableView.getSelectionModel().selectFirst();
 
     }
 
