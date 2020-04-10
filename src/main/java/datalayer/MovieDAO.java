@@ -24,7 +24,7 @@ public class MovieDAO implements IMovie {
         Connection conn = null;
         try{
             conn = MysqlDAO.getInstance().connect();
-            PreparedStatement getAllMovies = conn.prepareStatement("SELECT * FROM movie join program on movie.programId = program.movieId ");
+            PreparedStatement getAllMovies = conn.prepareStatement("SELECT program.programId, title, duration, genre, language, ageRating FROM movie join program on movie.programId = program.movieId ");
             ResultSet resultSet = getAllMovies.executeQuery();
 
             while(resultSet.next()) {
@@ -123,7 +123,7 @@ public class MovieDAO implements IMovie {
                     "from watched\n" +
                     "\n" +
                     "join Program on watched.programId = program.programId\n" +
-                    "where program.movieId = ?");
+                    "where program.programId = ?");
             Getamountoffullywatched.setInt(1, movie.getProgramId());
             ResultSet resultSet = Getamountoffullywatched.executeQuery();
 
