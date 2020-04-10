@@ -1,5 +1,6 @@
 package models;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Date;
 
 public abstract class Program {
@@ -12,15 +13,18 @@ public abstract class Program {
     }
 
     public Program(String title, String duration) {
+        isDurationValid(duration);{ // Controleert of de duration een getal is.
+
         this.title = title;
         this.duration = duration;
-    }
+    }}
 
     public Program(int programId, String title, String duration) {
+        isDurationValid(duration);{
         this.programId = programId;
         this.title = title;
         this.duration = duration;
-    }
+    }}
 
     public int getProgramId() {
         return programId;
@@ -43,6 +47,19 @@ public abstract class Program {
     }
 
     public void setDuration(String duration) {
+        if(isDurationValid(duration)){
         this.duration = duration;
-    }
+    } }
+
+    public boolean isDurationValid(String duration) { // Controleert of duration een getal is.
+        boolean isDurationValid = true;
+
+        try {
+           Integer.parseInt(duration);
+
+        } catch (NumberFormatException E){
+            isDurationValid = false;
+            System.out.println(duration + " is not a valid number");
+        }
+    return isDurationValid;}
 }
