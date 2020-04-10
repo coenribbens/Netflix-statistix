@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Account;
+import view.Toast;
 
 public class AddController implements EventHandler<ActionEvent> {
     private Stage stage;
@@ -30,8 +31,14 @@ public class AddController implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
         Button btn = (Button)actionEvent.getTarget();
         if(btn.getText().equalsIgnoreCase("Toevoegen")){
+
             if(!this.nameInput.getText().isEmpty() && !this.streetInput.getText().isEmpty() && !this.houseNumberInput.getText().isEmpty() && !this.zipCodeInput.getText().isEmpty()){
                 Account a = new Account(this.nameInput.getText(), this.streetInput.getText(), this.houseNumberInput.getText(), this.zipCodeInput.getText());
+                if (!a.isHouseNumberValid(houseNumberInput.toString())){
+                    this.infoLabel.setText("Ongeldig huisnummer"); // Controleert huisnummer op geldigheid.
+                    return;
+                }
+
                 AccountDAO aDAO = AccountDAO.getInstance();
                 aDAO.createAccount(a);
                 this.stage.close();

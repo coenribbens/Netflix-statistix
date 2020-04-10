@@ -19,14 +19,14 @@ public class ProfielController implements EventHandler<ActionEvent> {
     private ChoiceBox<Account> choiceBoxAccounts;
     private TextArea detailFilmsBekeken;
     private TextArea detailSeriesBekeken;
-    private Stage primarystage;
+    private Stage primaryStage;
 
     public ProfielController( TableView tableView, ChoiceBox choiceBoxAccounts, TextArea detailFilmsBekeken, TextArea detailSeriesBekeken, Stage stage){
         this.tableView = tableView;
         this.choiceBoxAccounts = choiceBoxAccounts;
         this.detailFilmsBekeken = detailFilmsBekeken;
         this.detailSeriesBekeken = detailSeriesBekeken;
-        this.primarystage = stage;
+        this.primaryStage = stage;
         AccountDAO accountDAO = AccountDAO.getInstance();
         try{
             List<Account> accounts = accountDAO.getAllAccounts();
@@ -43,17 +43,26 @@ public class ProfielController implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
         Button btn = (Button)actionEvent.getTarget();
         if(btn.getText().equalsIgnoreCase("toevoegen")){
+            if ( this.choiceBoxAccounts.getSelectionModel().isEmpty()){
+                Toast.createToast(primaryStage,"Selecteer eerst een account.");
+                return;}
             Stage addStage = new Stage();
             addStage.setScene(ProfielInterfaces.addInterface(addStage, this.choiceBoxAccounts.getValue()));
             addStage.show();
         }
         else if(btn.getText().equalsIgnoreCase("bewerken")){
+            if ( this.tableView.getSelectionModel().isEmpty()){
+                Toast.createToast(primaryStage,"Selecteer eerst een account en profiel.");
+                return;}
             Stage editStage = new Stage();
             editStage.setScene(ProfielInterfaces.editInterface(editStage, this.choiceBoxAccounts.getValue(), (Profile)this.tableView.getSelectionModel().getSelectedItem()));
             editStage.show();
 
         }
         else if(btn.getText().equalsIgnoreCase("verwijderen")){
+            if ( this.tableView.getSelectionModel().isEmpty()){
+                Toast.createToast(primaryStage,"Selecteer eerst een account en profiel.");
+                return;}
             Profile selectedItem = (Profile)this.tableView.getSelectionModel().getSelectedItem();
             ProfileDAO profileDAO = ProfileDAO.getInstance();
             profileDAO.deleteProfile(selectedItem);
@@ -81,7 +90,7 @@ public class ProfielController implements EventHandler<ActionEvent> {
 
             Profile selectedItem = (Profile)this.tableView.getSelectionModel().getSelectedItem();
             if (tableView.getSelectionModel().isEmpty()){
-                Toast.makeText(this.primarystage,"Selecteer eerst een account/profiel.");
+                Toast.createToast(this.primaryStage,"Selecteer eerst een account en profiel.");
             }
             else{
             MovieDAO movieDAO = MovieDAO.getInstance();

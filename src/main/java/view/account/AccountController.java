@@ -8,6 +8,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import models.Account;
+import view.Toast;
 import view.account.sub.AccountInterfaces;
 
 import java.util.List;
@@ -15,10 +16,12 @@ import java.util.List;
 public class AccountController implements EventHandler<ActionEvent> {
     private TableView tableView;
     private ChoiceBox<String> choiceBox;
+    private Stage primaryStage;
 
-    public AccountController(TableView tableView, ChoiceBox choiceBox){
+    public AccountController(TableView tableView, ChoiceBox choiceBox, Stage primarystage){
         this.tableView = tableView;
         this.choiceBox = choiceBox;
+        this.primaryStage = primarystage;
     }
 
     @Override
@@ -32,12 +35,20 @@ public class AccountController implements EventHandler<ActionEvent> {
 
         }
         else if(btn.getText().equalsIgnoreCase("bewerken")){
+            if ( this.tableView.getSelectionModel().isEmpty()){
+                Toast.createToast(primaryStage,"Selecteer eerst een account.");
+                return;
+            }
+
             Stage editStage = new Stage();
             editStage.setScene(AccountInterfaces.editInterface(editStage, (Account)this.tableView.getSelectionModel().getSelectedItem()));
             editStage.show();
 
         }
         else if(btn.getText().equalsIgnoreCase("verwijderen")){
+            if ( this.tableView.getSelectionModel().isEmpty()){
+                Toast.createToast(primaryStage,"Selecteer eerst een account.");
+                return;}
             Account selectedItem = (Account)this.tableView.getSelectionModel().getSelectedItem();
             AccountDAO accountDAO = AccountDAO.getInstance();
             accountDAO.deleteAccount(selectedItem);

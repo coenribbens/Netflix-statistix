@@ -92,7 +92,7 @@ public class MainInterface extends Application {
         tableView.getColumns().addAll(columnNaam, columnStraat, columnHuisNummer, columnPostcode);
 
         //Controller object aanmaken
-        AccountController controller = new AccountController(tableView, choiceBoxFilter);
+        AccountController controller = new AccountController(tableView, choiceBoxFilter, stage);
         buttonZoek.setOnAction(controller);
         buttonToevoegen.setOnAction(controller);
         buttonBewerken.setOnAction(controller);

@@ -17,7 +17,7 @@ import javafx.util.Duration;
 
 public final class Toast
 {
-    public static void makeText(Stage primaryStage, String toastMsg)
+    public static void createToast(Stage primaryStage, String toastMsg)
     {
         Stage toastStage=new Stage();
 
@@ -26,7 +26,7 @@ public final class Toast
         toastStage.initStyle(StageStyle.TRANSPARENT);
 
 
-
+        // Berekent het middenpunt van de Primarystage.
         ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
             double stageWidth = newValue.doubleValue();
             toastStage.setX(primaryStage.getX() + primaryStage.getWidth() / 2 - stageWidth / 2);
@@ -44,7 +44,6 @@ public final class Toast
         toastStage.setOnShown(event -> {
             toastStage.widthProperty().removeListener(widthListener);
             toastStage.heightProperty().removeListener(heightListener);
-
         });
 
 
@@ -87,8 +86,8 @@ public final class Toast
                     e.printStackTrace();
                 }
                 Timeline fadeOutTimeline = new Timeline();
-                KeyFrame fadeOutKey1 = new KeyFrame(Duration.millis(1000), new KeyValue (toastStage.getScene().getRoot().opacityProperty(), 0));
-                fadeOutTimeline.getKeyFrames().add(fadeOutKey1);
+                KeyFrame keyframe = new KeyFrame(Duration.millis(1000), new KeyValue (toastStage.getScene().getRoot().opacityProperty(), 0));
+                fadeOutTimeline.getKeyFrames().add(keyframe);
                 fadeOutTimeline.setOnFinished((aeb) -> toastStage.close());
                 fadeOutTimeline.play();
             }).start();

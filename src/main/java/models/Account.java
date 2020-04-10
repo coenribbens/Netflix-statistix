@@ -1,5 +1,7 @@
 package models;
 
+import view.Toast;
+
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -81,6 +83,7 @@ public class Account {
         else {
             System.out.println("Invalid housenumber, first character should be a number.");
             return false; // Kan hier helaas geen Exeption bij throwen.
+
 
 
         }
