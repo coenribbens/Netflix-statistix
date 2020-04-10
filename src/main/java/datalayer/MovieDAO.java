@@ -54,7 +54,7 @@ public class MovieDAO implements IMovie {
 
         try {
             conn = MysqlDAO.getInstance().connect();
-            PreparedStatement getMovieById = conn.prepareStatement("SELECT *\n" +
+            PreparedStatement getMovieById = conn.prepareStatement("SELECT Program.programId, title, duration, genre, language, ageRating\n" +
                     "FROM Program\n" +
                     "INNER JOIN Movie ON Movie.programId = Program.movieId\n" +
                     "WHERE Program.programId = ?");
