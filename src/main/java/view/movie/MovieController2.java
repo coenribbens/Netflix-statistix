@@ -19,7 +19,7 @@ public MovieController2(TableView tableview, TextArea Aantalkeergekeken){
     @Override
     public void handle(MouseEvent mouseEvent) {
         Movie h = (Movie) tableView.getSelectionModel().getSelectedItem();
-        MovieDAO movieDAO = new MovieDAO();
+        MovieDAO movieDAO = MovieDAO.getInstance();
         int xs =  movieDAO.getFullywatchedMovies(h);
         Aantalkeergekeken.setText("Aantal gebruikers die " + h.getTitle() + " volledig hebben bekeken: " + xs );
 
