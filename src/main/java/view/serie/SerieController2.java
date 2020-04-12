@@ -32,12 +32,17 @@ public class SerieController2 implements  EventHandler<ActionEvent>{
 
     @Override
     public void handle(ActionEvent actionEvent) {
-        //Het procent gekeken wordt hier uitgerekend waarna het naar via de DAO in de Tabel wordt geupdate.
         Button btn = (Button) actionEvent.getTarget();
         Episode episode = (Episode)this.tableView.getSelectionModel().getSelectedItem();
         ProfileDAO profileDAO = ProfileDAO.getInstance();
-        int procentGekeken = (int)Math.round(Integer.parseInt(episode.getDuration()) * (integerSpinner.getValue() / 100.0));
-        profileDAO.markSeriesAsWatched(episode.getProgramId(), this.profile.getSelectionModel().getSelectedItem().getProfileId(), "" + procentGekeken);
+        if(btn.getText().equalsIgnoreCase("watched")){
+            //Het procent gekeken wordt hier uitgerekend waarna het naar via de DAO in de Tabel wordt geupdate.
+            int procentGekeken = (int)Math.round(Integer.parseInt(episode.getDuration()) * (integerSpinner.getValue() / 100.0));
+            profileDAO.markSeriesAsWatched(episode.getProgramId(), this.profile.getSelectionModel().getSelectedItem().getProfileId(), "" + procentGekeken);
+        }
+        else if(btn.getText().equalsIgnoreCase("un-watch")){
+            profileDAO.markSeriesAsUnwatched(episode.getProgramId(), this.profile.getSelectionModel().getSelectedItem().getProfileId());
+        }
 
     }
 

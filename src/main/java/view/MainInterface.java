@@ -4,6 +4,7 @@ import datalayer.MovieDAO;
 import datalayer.ProfileDAO;
 import datalayer.SerieDAO;
 import javafx.application.Application;
+import javafx.geometry.Orientation;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,13 +17,13 @@ import models.*;
 import view.account.AccountController;
 import view.movie.MovieController;
 import view.movie.MovieController2;
+import view.movie.MovieControllerWatched;
 import view.serie.SerieController;
 import view.serie.SerieController2;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import models.Account;
 import view.account.AccountController;
 import models.Profile;
 import view.account.AccountController;
@@ -171,7 +172,7 @@ public class MainInterface extends Application {
   
     public static VBox filmVbox(Stage stage){
 
-        Label choiceBoxLabel = new Label("Profiel:");
+        Label choiceBoxLabel = new Label("Profiel filter:");
 
         // Het toevoegen van Profiles aan de ChoiceBox!
         ChoiceBox<Profile> choiceBox = new ChoiceBox<Profile>();
@@ -183,6 +184,39 @@ public class MainInterface extends Application {
             choiceBox.getItems().add(profile);
 
         }
+
+        Separator separator = new Separator(Orientation.VERTICAL);
+
+        ChoiceBox<Profile> watchedProfileChoiceBox = new ChoiceBox<Profile>();
+        for (Profile profile: profiles) {
+            watchedProfileChoiceBox.getItems().add(profile);
+        }
+        watchedProfileChoiceBox.getSelectionModel().selectFirst();
+
+        //Maak de spinner aan en zet de restricties in plek.
+        Spinner<Integer> percentageWatched = new Spinner<>();
+        percentageWatched.setEditable(true);
+        SpinnerValueFactory<Integer> percentageWatchedFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 100, 100);
+        percentageWatchedFactory.setConverter(new StringConverter<Integer>() {
+            @Override
+            public String toString(Integer integer) {
+                return integer + "%";
+            }
+
+            @Override
+            public Integer fromString(String s) {
+                String valueWithoutUnits = s.replaceAll("%", "").trim();
+                if (valueWithoutUnits.isEmpty()) {
+                    return  100;
+                } else {
+                    return Integer.valueOf(valueWithoutUnits);
+                }
+            }
+        });
+        percentageWatched.setValueFactory(percentageWatchedFactory);
+
+        Button buttonWatched = new Button("Watched");
+        Button buttonUnwatch = new Button("Un-watch");
 
         TextArea langsteOnder16 = new TextArea("Langste film onder 16 jaar is:\n\n");
         langsteOnder16.setEditable(false);
@@ -225,16 +259,21 @@ public class MainInterface extends Application {
 
 
         ToolBar choiceBoxToolbar = new ToolBar();
-
         choiceBoxToolbar.getItems().add(choiceBoxLabel);
         choiceBoxToolbar.getItems().add(choiceBox);
+        choiceBoxToolbar.getItems().add(separator);
+        choiceBoxToolbar.getItems().addAll(watchedProfileChoiceBox ,percentageWatched, buttonWatched, buttonUnwatch);
+
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.getChildren().addAll(choiceBoxToolbar,tableView,textgebieden);
         MovieController filmcontroller = new MovieController(tableView, langsteOnder16);
         MovieController2 filmcontroller2 = new MovieController2(tableView, Bekekendoor);
+        MovieControllerWatched movieControllerWatched = new MovieControllerWatched(tableView, watchedProfileChoiceBox, percentageWatched, stage);
         choiceBox.setOnAction(filmcontroller);
         tableView.setOnMouseClicked(filmcontroller2);
+        buttonWatched.setOnAction(movieControllerWatched);
+        buttonUnwatch.setOnAction(movieControllerWatched);
 
         MovieDAO movieDAO = MovieDAO.getInstance();
 
@@ -291,6 +330,7 @@ public class MainInterface extends Application {
         percentageWatched.setValueFactory(percentageWatchedFactory);
 
         Button buttonWatched = new Button("Watched");
+        Button buttonUnwatch = new Button("Un-watch");
 
 
         TableView tableView = new TableView();
@@ -321,7 +361,7 @@ public class MainInterface extends Application {
 
 
         ToolBar choiceBoxToolbar = new ToolBar();
-        choiceBoxToolbar.getItems().addAll(choiceBox, profileChoiceBox, percentageWatched, buttonWatched);
+        choiceBoxToolbar.getItems().addAll(choiceBox, profileChoiceBox, percentageWatched, buttonWatched, buttonUnwatch);
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.getChildren().addAll(choiceBoxToolbar,tableView,gemiddeldbekeken);
@@ -329,6 +369,7 @@ public class MainInterface extends Application {
         choiceBox.setOnAction(serieController);
         SerieController2 serieController2 = new SerieController2(tableView, profileChoiceBox, percentageWatched);
         buttonWatched.setOnAction(serieController2);
+        buttonUnwatch.setOnAction(serieController2);
         SerieControllerTextArea serieControllerTextArea = new SerieControllerTextArea(tableView, gemiddeldbekeken);
         tableView.setOnMouseClicked(serieControllerTextArea);
 
