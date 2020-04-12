@@ -22,7 +22,6 @@ import view.serie.SerieController2;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import models.Account;
 import view.account.AccountController;
 import models.Profile;
 import view.account.AccountController;
@@ -291,6 +290,7 @@ public class MainInterface extends Application {
         percentageWatched.setValueFactory(percentageWatchedFactory);
 
         Button buttonWatched = new Button("Watched");
+        Button buttonUnwatch = new Button("Un-watch");
 
 
         TableView tableView = new TableView();
@@ -321,7 +321,7 @@ public class MainInterface extends Application {
 
 
         ToolBar choiceBoxToolbar = new ToolBar();
-        choiceBoxToolbar.getItems().addAll(choiceBox, profileChoiceBox, percentageWatched, buttonWatched);
+        choiceBoxToolbar.getItems().addAll(choiceBox, profileChoiceBox, percentageWatched, buttonWatched, buttonUnwatch);
         VBox vbox = new VBox();
         vbox.setSpacing(10);
         vbox.getChildren().addAll(choiceBoxToolbar,tableView,gemiddeldbekeken);
@@ -329,6 +329,7 @@ public class MainInterface extends Application {
         choiceBox.setOnAction(serieController);
         SerieController2 serieController2 = new SerieController2(tableView, profileChoiceBox, percentageWatched);
         buttonWatched.setOnAction(serieController2);
+        buttonUnwatch.setOnAction(serieController2);
         SerieControllerTextArea serieControllerTextArea = new SerieControllerTextArea(tableView, gemiddeldbekeken);
         tableView.setOnMouseClicked(serieControllerTextArea);
 

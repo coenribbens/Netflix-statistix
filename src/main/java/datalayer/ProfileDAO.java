@@ -232,8 +232,8 @@ public class ProfileDAO implements IProfile {
                 PreparedStatement statement = conn.prepareStatement(""
                         + "DELETE FROM watched "
                         + "WHERE programId = ? AND profileId = ?");
-                statement.setInt(2, programId);
-                statement.setInt(3, profileId);
+                statement.setInt(1, programId);
+                statement.setInt(2, profileId);
                 statement.execute();
             } catch (SQLException ex) {
                 ex.printStackTrace();
