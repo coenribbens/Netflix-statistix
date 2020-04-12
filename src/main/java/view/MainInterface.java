@@ -217,6 +217,7 @@ public class MainInterface extends Application {
 
         //TableView objecten aanmaken
         TableView tableView = new TableView();
+        tableView.setPlaceholder(new Label("Selecteer eerst een film uit de filter."));
         tableView.setMinWidth(1300);
         TableColumn<String, Movie> kolumnFilmtitel = new TableColumn<>("Filmtitel");
         kolumnFilmtitel.setCellValueFactory(new PropertyValueFactory<String, Movie>("title"));
@@ -255,7 +256,7 @@ public class MainInterface extends Application {
             choiceBox.setOnAction(filmcontroller);
         MovieControllerTextArea filmcontroller2 = new MovieControllerTextArea(tableView, Bekekendoor);
             tableView.setOnMouseClicked(filmcontroller2);
-        MovieControllerWatched movieControllerWatched = new MovieControllerWatched(tableView, watchedProfileChoiceBox, percentageWatched, stage);
+        MovieControllerWatched movieControllerWatched = new MovieControllerWatched(tableView, watchedProfileChoiceBox, percentageWatched, stage, choiceBox);
             buttonWatched.setOnAction(movieControllerWatched);
             buttonUnwatch.setOnAction(movieControllerWatched);
 
@@ -333,7 +334,7 @@ public class MainInterface extends Application {
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         //TextArea code
-        TextArea gemiddeldbekeken = new TextArea("Deze serie is gemiddeld");
+        TextArea gemiddeldbekeken = new TextArea("Selecteer een episode voor de gemiddelde kijktijd");
         gemiddeldbekeken.setEditable(false);
         gemiddeldbekeken.setMinSize(600,50);
 
@@ -347,7 +348,7 @@ public class MainInterface extends Application {
         //Aanmaken van de controllers.
         SerieControllerTableView serieControllerTableView = new SerieControllerTableView(tableView, gemiddeldbekeken);
             choiceBox.setOnAction(serieControllerTableView);
-        SerieControllerWatched serieControllerWatched = new SerieControllerWatched(tableView, profileChoiceBox, percentageWatched);
+        SerieControllerWatched serieControllerWatched = new SerieControllerWatched(tableView, profileChoiceBox, percentageWatched, stage);
             buttonWatched.setOnAction(serieControllerWatched);
             buttonUnwatch.setOnAction(serieControllerWatched);
         SerieControllerTextArea serieControllerTextArea = new SerieControllerTextArea(tableView, gemiddeldbekeken);

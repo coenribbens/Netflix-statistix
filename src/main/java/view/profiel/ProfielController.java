@@ -78,6 +78,9 @@ public class ProfielController implements EventHandler<ActionEvent> {
             }
         }
         else if(btn.getText().equalsIgnoreCase("zoek")){
+            if ( this.choiceBoxAccounts.getSelectionModel().isEmpty()){
+                Toast.createToast(primaryStage,"Selecteer eerst een account.");
+                return;}
             this.tableView.getItems().clear();
             ProfileDAO profileDAO = ProfileDAO.getInstance();
             List<Profile> profiles = profileDAO.getProfilesOfAccount(this.choiceBoxAccounts.getValue());

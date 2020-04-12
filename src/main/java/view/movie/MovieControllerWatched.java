@@ -18,12 +18,13 @@ public class MovieControllerWatched implements EventHandler<ActionEvent> {
     private ChoiceBox<Profile> profile;
     private Spinner<Integer> integerSpinner;
     private Stage stage;
-
-    public MovieControllerWatched(TableView tableView, ChoiceBox<Profile> profile, Spinner<Integer> integerSpinner, Stage stage) {
+    private ChoiceBox profielfilterFilms;
+    public MovieControllerWatched(TableView tableView, ChoiceBox<Profile> profile, Spinner<Integer> integerSpinner, Stage stage, ChoiceBox profielfilterFilms) {
         this.tableView = tableView;
         this.profile = profile;
         this.integerSpinner = integerSpinner;
         this.stage = stage;
+        this.profielfilterFilms = profielfilterFilms;
     }
 
 
@@ -42,12 +43,23 @@ public class MovieControllerWatched implements EventHandler<ActionEvent> {
         Movie movie = (Movie)this.tableView.getSelectionModel().getSelectedItem();
         ProfileDAO profileDAO = ProfileDAO.getInstance();
         if(btn.getText().equalsIgnoreCase("watched")){
+            if (profielfilterFilms.getSelectionModel().isEmpty()){
+                Toast.createToast(stage, "Selecteer eerst een film. (profiel filter)");
+            }
+            else{
             //Het procent gekeken wordt hier uitgerekend waarna het naar via de DAO in de Tabel wordt geupdate.
             int procentGekeken = (int)Math.round(Integer.parseInt(movie.getDuration()) * (integerSpinner.getValue() / 100.0));
             profileDAO.markSeriesAsWatched(movie.getProgramId(), this.profile.getSelectionModel().getSelectedItem().getProfileId(), "" + procentGekeken);
-        }
+                Toast.createToast(stage, "Data toegevoegd/geupdated");
+        }}
         else if(btn.getText().equalsIgnoreCase("un-watch")){
-            profileDAO.markSeriesAsUnwatched(movie.getProgramId(), this.profile.getSelectionModel().getSelectedItem().getProfileId());
-        }
+            if (profielfilterFilms.getSelectionModel().isEmpty()){
+                Toast.createToast(stage, "Selecteer eerst een film. (profiel filter)");
+
+            }
+            else {profileDAO.markSeriesAsUnwatched(movie.getProgramId(), this.profile.getSelectionModel().getSelectedItem().getProfileId());
+                Toast.createToast(stage, "Data verwijderd");
+
+        }}
     }
 }
