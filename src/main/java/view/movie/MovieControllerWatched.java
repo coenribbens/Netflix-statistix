@@ -59,6 +59,7 @@ public class MovieControllerWatched implements EventHandler<ActionEvent> {
             }
             else {profileDAO.markSeriesAsUnwatched(movie.getProgramId(), this.profile.getSelectionModel().getSelectedItem().getProfileId());
                 Toast.createToast(stage, "Data verwijderd");
+                profileDAO.markSeriesAsUnwatched(movie.getProgramId(), this.profile.getSelectionModel().getSelectedItem().getProfileId());
 
         }}
     }
