@@ -7,16 +7,22 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MysqlDAO {
-
+    /**
+     * This class handles the connection with the database
+     */
     private static MysqlDAO instance;
     private String dbname = "NetfflixStatistics";
     private String user = "root";
-    private String pass = "theblackarrow";
+    private String pass = "root";
 
     private MysqlDAO() {
 
     }
 
+    /**
+     * Makes sure there can only be a single instance of this class
+     * @return
+     */
     public static MysqlDAO getInstance() {
         if (instance == null) {
             return new MysqlDAO();
@@ -25,6 +31,10 @@ public class MysqlDAO {
         }
     }
 
+    /**
+     * Makes a base connection to the database
+     * @return
+     */
     public Connection connect() {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");

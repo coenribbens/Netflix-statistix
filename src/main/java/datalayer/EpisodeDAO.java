@@ -14,11 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EpisodeDAO implements IEpisode {
+    //This class is responsible for the database interactions concerning episodes
     private static EpisodeDAO instance;
 
     public EpisodeDAO() {
     }
 
+    /**
+     * Takes care of the instancing so only one can exist
+     * @return
+     */
     public static EpisodeDAO getInstance() {
         if (instance == null) {
             instance = new EpisodeDAO();
@@ -26,6 +31,10 @@ public class EpisodeDAO implements IEpisode {
         return instance;
     }
 
+    /**
+     * Gets an array of all episodes of a series
+     * @return
+     */
     @Override
     public List getAllEpisodes() {
         ArrayList<Episode> allEpisodes = new ArrayList<Episode>();
@@ -54,6 +63,11 @@ public class EpisodeDAO implements IEpisode {
         return allEpisodes;
     }
 
+    /**
+     * Gets an episode by the given Id
+     * @param Id
+     * @return
+     */
     @Override
     public Episode getEpisodesById(int Id) {
         Connection conn = null;
@@ -83,6 +97,11 @@ public class EpisodeDAO implements IEpisode {
         return ep;
     }
 
+    /**
+     *Gets an array of episodes watched by a profile
+     * @param p
+     * @return
+     */
     @Override
     public List getEpisodesWatchedByProfile(Profile p) {
         ArrayList<Episode> episodes = new ArrayList<>();
@@ -116,6 +135,12 @@ public class EpisodeDAO implements IEpisode {
         return episodes;
     }
 
+    /**
+     * Gets an int of the average watch time per profile
+     * @param e
+     * @param p
+     * @return
+     */
     @Override
     public int getAverageWatchTimeForEpisodePerProfile(Episode e, Profile p) {
         int watchedTimeInMinutes = 0;
@@ -138,6 +163,11 @@ public class EpisodeDAO implements IEpisode {
         return watchedTimeInMinutes;
     }
 
+    /**
+     * Gets the average watchtime for an episode
+     * @param e
+     * @return
+     */
     public int getAverageWatchTimeForEpisode(Episode e){
         int watchedTimeInMinutes = 0;
         Connection conn = null;
@@ -160,6 +190,12 @@ public class EpisodeDAO implements IEpisode {
         return watchedTimeInMinutes;
     }
 
+    /**
+     * Adds the watched percentage to a program
+     * @param e
+     * @param p
+     * @param percentage
+     */
     public void addWatchedPercentage(Episode e, Profile p, int percentage) {
         Connection conn = null;
         try {
@@ -177,6 +213,12 @@ public class EpisodeDAO implements IEpisode {
         }
     }
 
+    /**
+     * Updates the watched percentage of a profile
+     * @param e
+     * @param p
+     * @param percentage
+     */
     public void updateWatchedPercentage(Episode e, Profile p, int percentage) {
         Connection conn = null;
         try {
@@ -194,6 +236,11 @@ public class EpisodeDAO implements IEpisode {
         }
     }
 
+    /**
+     * Removes the watched percentage of a profile
+     * @param e
+     * @param p
+     */
     public void deleteWatchedPercentage(Episode e, Profile p) {
         Connection conn = null;
         try {

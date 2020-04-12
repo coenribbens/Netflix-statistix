@@ -13,11 +13,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SerieDAO implements ISerie {
+    /**
+     * This class handles all database interactions for series
+     */
     private static SerieDAO instance;
 
     public SerieDAO() {
     }
 
+    /**
+     * Makes sure only one instance of this class can exist at any given time
+     * @return
+     */
     public static SerieDAO getInstance() {
         if (instance == null) {
             instance = new SerieDAO();
@@ -25,6 +32,10 @@ public class SerieDAO implements ISerie {
         return instance;
     }
 
+    /**
+     * Returns an array with all series
+     * @return ArrayList<Serie>
+     */
     @Override
     public List getAllSeries() {
         ArrayList<Serie> series = new ArrayList<>();
@@ -53,6 +64,11 @@ public class SerieDAO implements ISerie {
         return series;
     }
 
+    /**
+     * Returns a single series by given id
+     * @param Id
+     * @return Serie
+     */
     @Override
     public Serie getSerieById(int Id) {
         Connection conn = null;
@@ -84,6 +100,11 @@ public class SerieDAO implements ISerie {
         return serie;
     }
 
+    /**
+     * Returns an array of all episodes in a serie
+     * @param s
+     * @return
+     */
     @Override
     public List getAllEpisodesBySerie(Serie s) {
         ArrayList<Episode> episodes = new ArrayList<>();
@@ -114,6 +135,11 @@ public class SerieDAO implements ISerie {
         return episodes;
     }
 
+    /**
+     * Return the average watchtime for a serie
+     * @param s
+     * @return int
+     */
     @Override
     public int getAverageWatchTime(Serie s) {
         Connection conn = null;
@@ -139,6 +165,11 @@ public class SerieDAO implements ISerie {
         return averageWatchTime;
     }
 
+    /**
+     * Returns an array of all series by a single profile
+     * @param p
+     * @return ArrayList<Serie>
+     */
     @Override
     public List getWatchedSeriesByProfile(Profile p) {
         ArrayList<Serie> series = new ArrayList<>();
@@ -173,7 +204,10 @@ public class SerieDAO implements ISerie {
         return series;
     }
 
-
+    /**
+     * Updates a serie by the given serie
+     * @param s
+     */
     public void updateSerie(Serie s) {
         Connection conn = null;
         try {

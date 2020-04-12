@@ -14,6 +14,10 @@ public class ProfileDAO implements IProfile {
     public ProfileDAO() {
     }
 
+    /**
+     * Makes sure only one instance of this class can exist
+     * @return
+     */
     public static ProfileDAO getInstance() {
         if (instance == null) {
             instance = new ProfileDAO();
@@ -21,6 +25,10 @@ public class ProfileDAO implements IProfile {
         return instance;
     }
 
+    /**
+     * Returns an array with all profiles
+     * @return
+     */
     @Override
     public List getAllProfiles() {
         ArrayList<Profile> allProfiles = new ArrayList<Profile>();
@@ -48,6 +56,11 @@ public class ProfileDAO implements IProfile {
         return allProfiles;
     }
 
+    /**
+     * Gets a single profile based on the id given
+     * @param Id
+     * @return
+     */
     @Override
     public Profile getProfileById(int Id) {
         Connection conn = null;
@@ -79,6 +92,10 @@ public class ProfileDAO implements IProfile {
         return p;
     }
 
+    /**
+     * Creates a new profile
+     * @param p
+     */
     @Override
     public void createNewProfile(Profile p) {
         Connection conn = null;
@@ -99,6 +116,10 @@ public class ProfileDAO implements IProfile {
         }
     }
 
+    /**
+     * Updates an existing profile in the database
+     * @param p
+     */
     @Override
     public void updateProfile(Profile p) {
         Connection conn = null;
@@ -118,6 +139,10 @@ public class ProfileDAO implements IProfile {
         }
     }
 
+    /**
+     * Deletes a profile from the database and application
+     * @param p
+     */
     @Override
     public void deleteProfile(Profile p) {
         Connection conn = null;
@@ -135,6 +160,11 @@ public class ProfileDAO implements IProfile {
         }
     }
 
+    /**
+     * Returns an array with the profiles of an account
+     * @param a
+     * @return
+     */
     @Override
     public List getProfilesOfAccount(Account a) {
         ArrayList<Profile> allProfiles = new ArrayList<Profile>();
@@ -164,6 +194,12 @@ public class ProfileDAO implements IProfile {
         return allProfiles;
     }
 
+    /**
+     * Marks a series as watched if it exists
+     * @param programId
+     * @param profileId
+     * @param watchedTime
+     */
     public void markSeriesAsWatched(int programId, int profileId, String watchedTime) {
         Connection conn = null;
         //TODO When trying to insert a duplicate value, an SQLException occurs. This happens when trying to watch an episode that has already been watched.
@@ -202,6 +238,12 @@ public class ProfileDAO implements IProfile {
         }
     }
 
+    /**
+     * Marks an entry as watched for a profile
+     * @param programId
+     * @param profileId
+     * @return
+     */
     public boolean hasMediaBeenWatched(int programId, int profileId){
         Connection conn = null;
         boolean hasBeenWatched = false;
@@ -223,6 +265,11 @@ public class ProfileDAO implements IProfile {
         return hasBeenWatched;
     }
 
+    /**
+     * Marks a series as unwatched for a single profile
+     * @param programId
+     * @param profileId
+     */
     public void markSeriesAsUnwatched(int programId, int profileId) {
         Connection conn = null;
         if(hasMediaBeenWatched(programId, profileId)){

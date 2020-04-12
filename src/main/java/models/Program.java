@@ -51,6 +51,11 @@ public abstract class Program {
         this.duration = duration;
     } }
 
+    /**
+     * Checks if the watchtime duration is valid and if it is an actual number
+     * @param duration
+     * @return
+     */
     public boolean isDurationValid(String duration) { // Controleert of duration een getal is.
         boolean isDurationValid = true;
 
