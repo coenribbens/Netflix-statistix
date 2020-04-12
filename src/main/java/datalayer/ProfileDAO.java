@@ -222,4 +222,28 @@ public class ProfileDAO implements IProfile {
         }
         return hasBeenWatched;
     }
-}
+
+    public void markSeriesAsUnwatched(int programId, int profileId) {
+        Connection conn = null;
+        if(hasMediaBeenWatched(programId, profileId)){
+
+            try {
+                conn = MysqlDAO.getInstance().connect();
+                PreparedStatement statement = conn.prepareStatement(""
+                        + "DELETE FROM watched "
+                        + "WHERE programId = ? AND profileId = ?");
+                statement.setInt(2, programId);
+                statement.setInt(3, profileId);
+                statement.execute();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            } finally {
+                MysqlDAO.getInstance().closeConnection(conn);
+            }
+        }
+            else{
+                MysqlDAO.getInstance().closeConnection(conn);
+            }
+        }
+    }
+
