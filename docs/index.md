@@ -73,7 +73,7 @@ Hierna kan de applicatie opgezet worden
 (Nu zal de applicatie inladen in de IDE).
 10. Druk op de knop uitvouwmenu (links naast de groene pijl om het project te starten)
 ![VMOptions](img/VMOptions.PNG)
-11. Bij het invoerveld van "VM Options", vul het volgende in: "-p "{locatie_van_de_repo}\libs\javafx-sdk-11.0.2\lib" --add-modules javafx.controls"
+11. Bij het invoerveld van "VM Options", vul het volgende in: "-p "{locatie_van_de_repo}\libs\javafxlib" --add-modules javafx.controls"
 12. Druk rechtsonder op apply, en sluit dit scherm.
 13. Selecteer nu het map icoon met de drie vierkanten, op dezelfde taakbalk als de startknop
 14. Ga naar het tabblad voor "libraries"
