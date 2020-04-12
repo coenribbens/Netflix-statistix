@@ -37,17 +37,8 @@ public class SerieController implements  EventHandler<ActionEvent>{
             GemiddeldekijktijdSerie.setText("De gemiddelde kijtijd is:" + serie.getAverageWatchTime(selectedserie));
             i++;
         }
-        // Verwijderd de data, zodat er enkel de episodes van het geselecteerde seizoen worden weergegeven
-        if (i == 2) {
-            tableView.getItems().clear();
-            i = 0;
-            SerieDAO serie = null;
-            List<Episode> Series = serie.getAllEpisodesBySerie(selectedserie);
-            tableView.getItems().add(Series);
-            GemiddeldekijktijdSerie.setText("De gemiddelde kijtijd is:" + serie.getAverageWatchTime(selectedserie));
-            i++;
+        this.tableView.getSelectionModel().selectFirst();
 
-        this.gemiddeldeKijkTijdSerie.setText("Deze serie is gemiddeld " + serieDAO.getAverageWatchTime(selectedSerie) + " minuten bekeken.");
     }
 
 }

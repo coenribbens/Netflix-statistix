@@ -117,7 +117,7 @@ public class EpisodeDAO implements IEpisode {
     }
 
     @Override
-    public int getAverageWatchTimeForEpisode(Episode e, Profile p) {
+    public int getAverageWatchTimeForEpisodePerProfile(Episode e, Profile p) {
         int watchedTimeInMinutes = 0;
         Connection conn = null;
         try {
@@ -129,6 +129,28 @@ public class EpisodeDAO implements IEpisode {
 
             while (resultSet.next()) {
                 watchedTimeInMinutes = resultSet.getInt("watchedTime");
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            MysqlDAO.getInstance().closeConnection(conn);
+        }
+        return watchedTimeInMinutes;
+    }
+
+    public int getAverageWatchTimeForEpisode(Episode e){
+        int watchedTimeInMinutes = 0;
+        Connection conn = null;
+        try {
+            conn = MysqlDAO.getInstance().connect();
+            PreparedStatement statement = conn.prepareStatement("SELECT AVG(watchedTime) AS 'gemiddeldBekeken'\n" +
+                    "FROM watched\n" +
+                    "WHERE programId = ?");
+            statement.setInt(1, e.getProgramId());
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                watchedTimeInMinutes = resultSet.getInt("gemiddeldBekeken");
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -194,11 +216,12 @@ public class EpisodeDAO implements IEpisode {
         Connection conn = null;
         try {
             conn = MysqlDAO.getInstance().connect();
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM episode\n" +
-                    "INNER JOIN Program ON episode.programId = program.programId\n" +
-                    "INNER JOIN watched ON watched.programId = episode.programId\n" +
-                    "INNER JOIN profile ON profile.profileID = watched.profileID\n" +
-                    "WHERE profile.profileID = ? AND serie.serieId = ?");
+            PreparedStatement statement = conn.prepareStatement("SELECT Program.programId, title, duration, season\n" +
+                    "FROM Episode\n" +
+                    "INNER JOIN Program ON Episode.programId = Program.episodeId\n" +
+                    "INNER JOIN watched ON watched.programId = Program.programId\n" +
+                    "INNER JOIN Serie ON Serie.serieId = Episode.serieId\n" +
+                    "WHERE profileId = ? AND serie.serieId = ?");
             statement.setInt(1, p.getProfileId());
             statement.setInt(2, s.getSerieId());
             ResultSet resultSet = statement.executeQuery();
