@@ -171,7 +171,6 @@ public class MainInterface extends Application {
     }
   
     public static VBox filmVbox(Stage stage){
-
 //        Objecten toolbar.
         Label choiceBoxLabel = new Label("Profiel filter:");
 //        Het toevoegen van Profiles aan de ChoiceBox.
@@ -245,18 +244,16 @@ public class MainInterface extends Application {
             Bekekendoor.setEditable(false);
             Bekekendoor.setMinSize(600,50);
 
-
+        //Toevoegen van de elementen aan de containers.
         HBox textgebieden = new HBox();
             textgebieden.setSpacing(10);
             textgebieden.getChildren().addAll(langsteOnder16,Bekekendoor);
-
         ToolBar choiceBoxToolbar = new ToolBar();
             choiceBoxToolbar.getItems().addAll(choiceBoxLabel, choiceBox, separator, watchedProfileChoiceBox ,percentageWatched, buttonWatched, buttonUnwatch);
-
         VBox vbox = new VBox();
             vbox.setSpacing(10);
             vbox.getChildren().addAll(choiceBoxToolbar,tableView,textgebieden);
-
+        //Aanmaken van de controllers.
         MovieController filmcontroller = new MovieController(tableView, langsteOnder16);
             choiceBox.setOnAction(filmcontroller);
         MovieController2 filmcontroller2 = new MovieController2(tableView, Bekekendoor);
@@ -279,21 +276,22 @@ public class MainInterface extends Application {
     }
 
     public static VBox serieVbox(Stage stage){
+//        Objecten toolbar.
         ChoiceBox<Serie> choiceBox = new ChoiceBox<Serie>();
-        choiceBox.setMinWidth(500);
+            choiceBox.setMinWidth(500);
         SerieDAO serieDAO = SerieDAO.getInstance();
         List<Serie> Series = serieDAO.getAllSeries();
-        for (Serie serie: Series
-        ) {choiceBox.getItems().add(serie);
-
+        for (Serie serie: Series) {
+            choiceBox.getItems().add(serie);
         }
+        //Pak alle profiles en zet deze in de ChoiceBox.
         ChoiceBox<Profile> profileChoiceBox = new ChoiceBox<>();
         ProfileDAO profileDAO = ProfileDAO.getInstance();
         List<Profile> profiles = profileDAO.getAllProfiles();
         for(Profile item : profiles){
             profileChoiceBox.getItems().add(item);
         }
-            profileChoiceBox.getSelectionModel().selectFirst();
+        profileChoiceBox.getSelectionModel().selectFirst();
 
         //Maak de spinner aan en zet de restricties in plek.
         Spinner<Integer> percentageWatched = new Spinner<>();
@@ -316,50 +314,47 @@ public class MainInterface extends Application {
             }
         });
         percentageWatched.setValueFactory(percentageWatchedFactory);
-
+        //Einde spinner code
         Button buttonWatched = new Button("Watched");
         Button buttonUnwatch = new Button("Un-watch");
+        //Einde toolbar code
 
-
+        //Tableview code
         TableView tableView = new TableView();
-        tableView.setMinWidth(1300);
+            tableView.setMinWidth(1300);
         tableView.setPlaceholder(new Label("Selecteer eerst een serie uit het keuzemenu \n " +
                 "Klik vervolgens op een episode om de gemiddelde kijktijd te zien"));
-
-
         TableColumn<String, Episode> kolumnEpisodetitel = new TableColumn<>("Episodetitel");
         kolumnEpisodetitel.setCellValueFactory(new PropertyValueFactory<String,Episode>("title"));
-
         TableColumn<Integer, Episode> kolumnEpisodeSeason = new TableColumn<>("Season");
         kolumnEpisodeSeason.setCellValueFactory(new PropertyValueFactory<Integer, Episode>("season"));
-
         TableColumn<String, Episode> kolumnEpisodeDuration = new TableColumn<>("duration");
         kolumnEpisodeDuration.setCellValueFactory(new PropertyValueFactory<String, Episode>("duration"));
-
-
 
         tableView.getColumns().addAll(kolumnEpisodetitel,kolumnEpisodeSeason,kolumnEpisodeDuration);
         tableView.setMaxSize(500,900);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
+        //TextArea code
         TextArea gemiddeldbekeken = new TextArea("Deze serie is gemiddeld");
         gemiddeldbekeken.setEditable(false);
         gemiddeldbekeken.setMinSize(600,50);
 
 
-
+        //Toevoegen van de elementen aan de containers.
         ToolBar choiceBoxToolbar = new ToolBar();
-        choiceBoxToolbar.getItems().addAll(choiceBox, profileChoiceBox, percentageWatched, buttonWatched, buttonUnwatch);
+            choiceBoxToolbar.getItems().addAll(choiceBox, profileChoiceBox, percentageWatched, buttonWatched, buttonUnwatch);
         VBox vbox = new VBox();
-        vbox.setSpacing(10);
-        vbox.getChildren().addAll(choiceBoxToolbar,tableView,gemiddeldbekeken);
+            vbox.setSpacing(10);
+            vbox.getChildren().addAll(choiceBoxToolbar,tableView,gemiddeldbekeken);
+        //Aanmaken van de controllers.
         SerieController serieController = new SerieController(tableView, gemiddeldbekeken);
-        choiceBox.setOnAction(serieController);
+            choiceBox.setOnAction(serieController);
         SerieController2 serieController2 = new SerieController2(tableView, profileChoiceBox, percentageWatched);
-        buttonWatched.setOnAction(serieController2);
-        buttonUnwatch.setOnAction(serieController2);
+            buttonWatched.setOnAction(serieController2);
+            buttonUnwatch.setOnAction(serieController2);
         SerieControllerTextArea serieControllerTextArea = new SerieControllerTextArea(tableView, gemiddeldbekeken);
-        tableView.setOnMouseClicked(serieControllerTextArea);
+            tableView.setOnMouseClicked(serieControllerTextArea);
 
         return vbox;
     }
