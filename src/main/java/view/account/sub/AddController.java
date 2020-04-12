@@ -34,7 +34,7 @@ public class AddController implements EventHandler<ActionEvent> {
 
             if(!this.nameInput.getText().isEmpty() && !this.streetInput.getText().isEmpty() && !this.houseNumberInput.getText().isEmpty() && !this.zipCodeInput.getText().isEmpty()){
                 Account a = new Account(this.nameInput.getText(), this.streetInput.getText(), this.houseNumberInput.getText(), this.zipCodeInput.getText());
-                if (!a.isHouseNumberValid(houseNumberInput.toString())){
+                if (!a.isHouseNumberValid(houseNumberInput.getText())){
                     this.infoLabel.setText("Ongeldig huisnummer"); // Controleert huisnummer op geldigheid.
                     return;
                 }
