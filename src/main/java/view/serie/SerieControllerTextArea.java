@@ -22,6 +22,13 @@ public class SerieControllerTextArea implements EventHandler<MouseEvent> {
     public void handle(MouseEvent actionEvent) {
         Episode episode = (Episode)this.tableView.getSelectionModel().getSelectedItem();
         EpisodeDAO episodeDAO = EpisodeDAO.getInstance();
-        this.textArea.setText("Deze episode is gemiddeld " + (episodeDAO.getAverageWatchTimeForEpisode(episode) / Integer.parseInt(episode.getDuration()) * 100)+ "% bekeken.");
+
+
+        // Onderstaande formule vereist doubles voor comma getallen, integers werken niet. 0.9 is voor een int nog altijd een 0.
+       double avgwatchtime = (double)episodeDAO.getAverageWatchTimeForEpisode(episode) / Double.parseDouble(episode.getDuration()) * 100;
+
+       int y = (int) avgwatchtime; // casten de double terug naar een int, omdat we niet 10 decimalen in de output willen.
+        this.textArea.setText("Deze episode is gemiddeld " + y + "% bekeken.");
+
     }
 }
