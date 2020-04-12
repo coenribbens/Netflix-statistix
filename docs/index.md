@@ -115,3 +115,7 @@ Terwijl het werk origineel was afgekeurd was heel veel werk al gedaan en koste h
 
 #Samenwerkingscontract
 Het samenwerkingscontract is verder te vinden in de Docs map
+
+#Documentatiepagina
+De documentatiepagina is te vinden op dit webadres:
+https://coenribbens.github.io/Netflix-statistix/
