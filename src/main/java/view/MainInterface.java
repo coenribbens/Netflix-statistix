@@ -113,7 +113,7 @@ public class MainInterface extends Application {
     }
 
     public static VBox profielVbox(Stage stage){
-              //Objecten toolBar
+//        Objecten toolBar
         Label choiceBoxLabel = new Label("Account:");
         ChoiceBox<Account> choiceBoxNaam = new ChoiceBox<>();
             choiceBoxNaam.setTooltip(new Tooltip("Selecteer een account"));
@@ -127,7 +127,7 @@ public class MainInterface extends Application {
         Button buttonProfielInfo = new Button("Profiel Info");
             buttonProfielInfo.setTooltip(new Tooltip("Geeft info over de geselecteerde profiel"));
 
-        //Objecten voor de tableView
+//        Objecten voor de tableView
         TableView tableView = new TableView();
         tableView.setPlaceholder(new Label("Selecteer eerst een account uit het keuzemenu en klik op 'Zoek'. " +
                 "\nSelecteer dan op een profiel. " +
@@ -139,7 +139,7 @@ public class MainInterface extends Application {
         columnDateOfBirth.setCellValueFactory(new PropertyValueFactory<Date, Profile>("dateOfBirth"));
         tableView.getColumns().addAll(columnNaam, columnDateOfBirth);
 
-        //Objecten detailBox
+//        Objecten detailBox
         TextArea detailFilmsBekeken = new TextArea("Bekeken films:\n\n");
         detailFilmsBekeken.setEditable(false);
         detailFilmsBekeken.setPrefWidth(325);
@@ -147,7 +147,7 @@ public class MainInterface extends Application {
         detailSeriesBekeken.setEditable(false);
         detailSeriesBekeken.setPrefWidth(325);
 
-        //Controllers object aanmaken
+//        Controllers object aanmaken
         ProfielController controller = new ProfielController(tableView, choiceBoxNaam, detailFilmsBekeken, detailSeriesBekeken, stage);
             buttonToevoegen.setOnAction(controller);
             buttonBewerken.setOnAction(controller);
@@ -172,21 +172,21 @@ public class MainInterface extends Application {
   
     public static VBox filmVbox(Stage stage){
 
+//        Objecten toolbar.
         Label choiceBoxLabel = new Label("Profiel filter:");
-
-        // Het toevoegen van Profiles aan de ChoiceBox!
+//        Het toevoegen van Profiles aan de ChoiceBox.
         ChoiceBox<Profile> choiceBox = new ChoiceBox<Profile>();
-        choiceBox.setMinWidth(500);
-        choiceBox.getItems().add(new Profile(-1, "Geen Profiel (alle films)", new Date(1), -1));
+            choiceBox.setMinWidth(500);
+            choiceBox.getItems().add(new Profile(-1, "Geen Profiel (alle films)", new Date(1), -1));
         ProfileDAO profileDAO = ProfileDAO.getInstance();
         List<Profile> profiles = profileDAO.getAllProfiles();
         for (Profile profile: profiles) {
             choiceBox.getItems().add(profile);
 
         }
-
         Separator separator = new Separator(Orientation.VERTICAL);
 
+        //Het toevoegen van Profiles aan de andere ChoiceBox.
         ChoiceBox<Profile> watchedProfileChoiceBox = new ChoiceBox<Profile>();
         for (Profile profile: profiles) {
             watchedProfileChoiceBox.getItems().add(profile);
@@ -214,69 +214,59 @@ public class MainInterface extends Application {
             }
         });
         percentageWatched.setValueFactory(percentageWatchedFactory);
-
+        //Einde van de spinner code
         Button buttonWatched = new Button("Watched");
         Button buttonUnwatch = new Button("Un-watch");
+        //Einde van de ToolBar objecten.
 
-        TextArea langsteOnder16 = new TextArea("Langste film onder 16 jaar is:\n\n");
-        langsteOnder16.setEditable(false);
-
-        TextArea Bekekendoor = new TextArea("Klik op een film voor het aantal weergaven");
-        Bekekendoor.setEditable(false);
-        Bekekendoor.setMinSize(600,50);
-        langsteOnder16.setMinSize(600,50);
-
-
-        HBox textgebieden = new HBox();
-        textgebieden.setSpacing(10);
-        textgebieden.getChildren().addAll(langsteOnder16,Bekekendoor);
-
+        //TableView objecten aanmaken
         TableView tableView = new TableView();
         tableView.setMinWidth(1300);
-
-
         TableColumn<String, Movie> kolumnFilmtitel = new TableColumn<>("Filmtitel");
         kolumnFilmtitel.setCellValueFactory(new PropertyValueFactory<String, Movie>("title"));
-
         TableColumn<Integer, Movie> kolumnFilmDuratie = new TableColumn<>("FilmDuratie");
         kolumnFilmDuratie.setCellValueFactory(new PropertyValueFactory<Integer, Movie>("duration"));
-
         TableColumn<String, Movie> kolumnFilmGenre = new TableColumn<>("FilmGenre");
         kolumnFilmGenre.setCellValueFactory(new PropertyValueFactory<String, Movie>("Genre"));
-
         TableColumn<String, Movie> kolumnFilmTaal = new TableColumn<>("FilmTaal");
         kolumnFilmTaal.setCellValueFactory(new PropertyValueFactory<String, Movie>("language"));
-
         TableColumn<Integer, Movie> kolumnFilmAgerating = new TableColumn<>("FilmAgeRating");
         kolumnFilmAgerating.setCellValueFactory(new PropertyValueFactory<Integer, Movie>("ageRating"));
-
 
         tableView.getColumns().addAll(kolumnFilmtitel,kolumnFilmDuratie,kolumnFilmGenre, kolumnFilmTaal, kolumnFilmAgerating);
         tableView.setMaxSize(500,900);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
+        //Textareas aanmaken voor extra informatie over de films.
+        TextArea langsteOnder16 = new TextArea("Langste film onder 16 jaar is:\n\n");
+            langsteOnder16.setEditable(false);
+            langsteOnder16.setMinSize(600,50);
+        TextArea Bekekendoor = new TextArea("Klik op een film voor het aantal weergaven");
+            Bekekendoor.setEditable(false);
+            Bekekendoor.setMinSize(600,50);
 
 
+        HBox textgebieden = new HBox();
+            textgebieden.setSpacing(10);
+            textgebieden.getChildren().addAll(langsteOnder16,Bekekendoor);
 
         ToolBar choiceBoxToolbar = new ToolBar();
-        choiceBoxToolbar.getItems().add(choiceBoxLabel);
-        choiceBoxToolbar.getItems().add(choiceBox);
-        choiceBoxToolbar.getItems().add(separator);
-        choiceBoxToolbar.getItems().addAll(watchedProfileChoiceBox ,percentageWatched, buttonWatched, buttonUnwatch);
+            choiceBoxToolbar.getItems().addAll(choiceBoxLabel, choiceBox, separator, watchedProfileChoiceBox ,percentageWatched, buttonWatched, buttonUnwatch);
 
         VBox vbox = new VBox();
-        vbox.setSpacing(10);
-        vbox.getChildren().addAll(choiceBoxToolbar,tableView,textgebieden);
+            vbox.setSpacing(10);
+            vbox.getChildren().addAll(choiceBoxToolbar,tableView,textgebieden);
+
         MovieController filmcontroller = new MovieController(tableView, langsteOnder16);
+            choiceBox.setOnAction(filmcontroller);
         MovieController2 filmcontroller2 = new MovieController2(tableView, Bekekendoor);
+            tableView.setOnMouseClicked(filmcontroller2);
         MovieControllerWatched movieControllerWatched = new MovieControllerWatched(tableView, watchedProfileChoiceBox, percentageWatched, stage);
-        choiceBox.setOnAction(filmcontroller);
-        tableView.setOnMouseClicked(filmcontroller2);
-        buttonWatched.setOnAction(movieControllerWatched);
-        buttonUnwatch.setOnAction(movieControllerWatched);
+            buttonWatched.setOnAction(movieControllerWatched);
+            buttonUnwatch.setOnAction(movieControllerWatched);
 
+        //Pak de langste film voor onder de 16 jaar.
         MovieDAO movieDAO = MovieDAO.getInstance();
-
         try{
             String ax = movieDAO.getLongestMovieForAgeLowerThen16().getTitle();
             langsteOnder16.setText("De langste film voor onder de 16 is: " + ax );
@@ -284,8 +274,6 @@ public class MainInterface extends Application {
         catch (Exception e){
             e.printStackTrace();
         }
-
-
 
         return vbox;
     }
@@ -372,17 +360,6 @@ public class MainInterface extends Application {
         buttonUnwatch.setOnAction(serieController2);
         SerieControllerTextArea serieControllerTextArea = new SerieControllerTextArea(tableView, gemiddeldbekeken);
         tableView.setOnMouseClicked(serieControllerTextArea);
-
-
-
-
-
-
-//        TableColumn<String, Episode> kolumnEpisodeTaal = new TableColumn<>("FilmTaal");
-//        kolumnFilmTaal.setCellValueFactory(new PropertyValueFactory<String, Episode>("language"));
-//
-//        TableColumn<Integer, Episode> kolumnEpisodeAgerating = new TableColumn<>("FilmAgeRating");
-//        kolumnFilmAgerating.setCellValueFactory(new PropertyValueFactory<Integer, Episode>("ageRating"));
 
         return vbox;
     }
