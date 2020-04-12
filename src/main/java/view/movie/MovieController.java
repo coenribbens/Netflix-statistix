@@ -9,7 +9,6 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import models.Account;
 import models.Movie;
 import models.Profile;
 import view.account.sub.AccountInterfaces;
@@ -46,18 +45,6 @@ public class MovieController implements EventHandler<ActionEvent> {
         for(Movie item : movies){
             this.tableView.getItems().add(item);
         }
-
-
-        // Geeft de film die het langst is voor < 16
-//        String ax = movieDAO.getLongestMovieForAgeLowerThen16().getTitle();
-//        Langstefilmonder16.setText("De langste film voor onder de 16 is: " + ax );
-
-
-
-
-
-
-
-
+        this.tableView.getSelectionModel().selectFirst();
     }
 }
