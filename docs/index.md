@@ -71,7 +71,16 @@ Hierna kan de applicatie opgezet worden
 8. In IntelliJ, selecteer de "File" optie en druk vervolgens op "Open"
 9. Selecteer vervolgens de map waarin de applicatie zich bevindt.
 (Nu zal de applicatie inladen in de IDE).
-10. Druk op de groene pijl linksboven in de desbetreffende IDE
+10. Druk op de knop uitvouwmenu (links naast de groene pijl om het project te starten)
+![VMOptions](img/VMOptions.PNG)
+11. Bij het invoerveld van "VM Options", vul het volgende in: "-p "{locatie_van_de_repo}\libs\javafx-sdk-11.0.2\lib" --add-modules javafx.controls"
+12. Druk rechtsonder op apply, en sluit dit scherm.
+13. Selecteer nu het map icoon met de drie vierkanten, op dezelfde taakbalk als de startknop
+14. Ga naar het tabblad voor "libraries"
+15. Druk op de plus en selecteer de "Java" optie
+16. Navigeer naar de "lib" map in het project en selecteer beide bestanden
+17. Selecteer apply en voeg de bestanden toe, hieran kan dit scherm gesloten worden.
+18. Druk op de groene pijl linksboven in de desbetreffende IDE
 (Nu zal de applicatie de applicatie klaarmaken voor gebruik en deze openen wanneer gereed).
 
 
