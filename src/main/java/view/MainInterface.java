@@ -351,7 +351,7 @@ public class MainInterface extends Application {
         SerieControllerWatched serieControllerWatched = new SerieControllerWatched(tableView, profileChoiceBox, percentageWatched, stage);
             buttonWatched.setOnAction(serieControllerWatched);
             buttonUnwatch.setOnAction(serieControllerWatched);
-        SerieControllerTextArea serieControllerTextArea = new SerieControllerTextArea(tableView, gemiddeldbekeken);
+        SerieControllerTextArea serieControllerTextArea = new SerieControllerTextArea(tableView, gemiddeldbekeken, choiceBox);
             tableView.setOnMouseClicked(serieControllerTextArea);
 
         return vbox;
