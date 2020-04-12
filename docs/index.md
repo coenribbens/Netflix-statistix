@@ -50,7 +50,7 @@ De gebruiker heeft IntelliJ geinstalleerd en klaar gemaakt voor gebruik, indien 
 https://www.jetbrains.com/help/idea/installation-guide.html#
 
 Voor het opzetten van de database is een sql bestand aanwezig binnen het project genaamd
-[scripts.sql](https://github.com/coenribbens/Netflix-statistix/blob/master/script.sql).
+[NetflixDatabase.sql](https://github.com/coenribbens/Netflix-statistix/blob/master/NetflixDatabase.sql).
 1. Open Microsoft Server Management Studio
 2. Open een nieuw queryscherm
 3. Kopieer de bestanden van het script bestand naar het queryscherm binnen SMSS
