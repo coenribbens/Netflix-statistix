@@ -1,7 +1,7 @@
-#Netflix Statistix
-#Coen Ribbens(2151482)
-#Marcello Haddeman(2152991)
-#Thomas Meeusen(2151718)
+# Netflix Statistix
+### Coen Ribbens(2151482)
+### Marcello Haddeman(2152991)
+### Thomas Meeusen(2151718)
 
 
 # Class Diagram
