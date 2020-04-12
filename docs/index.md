@@ -63,7 +63,16 @@ Hierna kan de applicatie opgezet worden
 #Git repository
 [![Badge](https://img.shields.io/badge/Netflix%20Statistix-View%20Repo-blue?style=for-the-badge&logo=github)](https://github.com/coenribbens/netflix-statistix)
 
-#Reflectie
+#Reflectie Thomas Meeusen
+Netflix statistics was mijn eerste echte softwareproject. Er zijn daarom ook een aantal dingen verkeerd gegaan. Ik liep bijvoorbeeld enorm vast met Git: pushen en comitten ging niet lekker en ik wist niet precies hoe branches werkte. Mijn teamgenoot legde dit gelukkig stap voor stap uit, en introduceerde mij aan GitKraken, een programma wat de hetzelfde functies heeft als Git, maar met een grafische interface. Dit werkt erg fijn. Ik ben in het begin veel bezig geweest met het opzetten van de database inclusief de ontwerpen en constraints. Daarna heb ik o.a. geholpen met de interface van de film- en serie tabblad. Aan het eind ben ik bezig geweest met de toast berichten.
+
+Ik heb van deze opdracht het belang geleerd van een class diagram. Dit geeft voor jezelf een overzicht en eigenlijk is het een must als je in een team werkt. Anders ontstaat er een situatie van ‘meerdere kapiteins op één schip’. Waarbij de ontwikkelaars elkaar in de vingers snijden, omdat zij ieder een ander idee hebben van hoe de applicatie moet functioneren. Wat ik ook van deze opdracht heb geleerd is dat het samen veel makkelijker gaat. Met je drieën zie en kan je veel meer dan wanneer je het alleen zou moeten doen. 
+
+Tot slot is het erg jammer dat ik het begrip ‘business logica’ verkeerd geïnterpreteerd heb. In de rubric staat: voorzie de business logica van unit tests.  Ik heb hier een verkeerde link gelegd met de application logic layer. Daardoor heb ik in totaal een volledige dag besteed aan het creëren van unittests voor de controllers in de application logic layer met een aparte library genaamd ‘testFX’.
+Gelukkig kwam ik er op tijd achter dat er met logica een methode die gedrag heeft wordt bedoeld, en heb ik daar unittests voor geschreven. Ik heb hiervan geleerd dat ik eerst om duidelijkheid moet vragen voordat ik ergens van uit ga. Ondanks dat ik een dag bezig ben geweest met iets wat niet de opdracht was, zie ik het niet als verspilde tijd en moeite. testFX kan nog wel eens handig wezen voor in de toekomst.
+
+Tot slot wil ik zeggen dat ik van dit project enorm veel heb geleerd. Dit komt vooral omdat dit mijn eerste project was. 
+
 
 #Reflectie Coen Ribbens
 Ik had hiervoor al enige kennis over het bouwen van een applicatie en de processen die hierachten liepen.
