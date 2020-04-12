@@ -15,14 +15,14 @@ import models.Serie;
 import java.awt.*;
 import java.util.List;
 
-public class SerieController2 implements  EventHandler<ActionEvent>{
+public class SerieControllerWatched implements  EventHandler<ActionEvent>{
 
     private TableView tableView;
     private TextArea gemiddeldeKijkTijdSerie;
     private ChoiceBox<Profile> profile;
     private Spinner<Integer> integerSpinner;
 
-    public SerieController2(TableView tableView, ChoiceBox profile, Spinner<Integer> integerSpinner) {
+    public SerieControllerWatched(TableView tableView, ChoiceBox profile, Spinner<Integer> integerSpinner) {
         this.tableView = tableView;
         this.profile = profile;
         this.integerSpinner = integerSpinner;
@@ -30,6 +30,10 @@ public class SerieController2 implements  EventHandler<ActionEvent>{
 
 
 
+    /**
+     * Deze controller noteert films als bekeken of onbekeken voor een geselecteerde gebruiker die uit de choicebox wordt gehaald.
+     * @param actionEvent
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         Button btn = (Button) actionEvent.getTarget();

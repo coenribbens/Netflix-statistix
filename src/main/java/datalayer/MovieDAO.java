@@ -11,6 +11,10 @@ import java.util.List;
 public class MovieDAO implements IMovie {
     private static MovieDAO instance;
 
+    /**
+     * To make sure there is only one instance
+     * @return
+     */
     public static MovieDAO getInstance() {
         if(instance == null){
             instance = new MovieDAO();
@@ -18,6 +22,10 @@ public class MovieDAO implements IMovie {
         return instance;
     }
 
+    /**
+     * Gets an array of all movies
+     * @return
+     */
     @Override
     public List getAllMovies() {
         ArrayList<Movie> allMovies = new ArrayList<Movie>();
@@ -47,6 +55,11 @@ public class MovieDAO implements IMovie {
         return allMovies;
     }
 
+    /**
+     * Gets a single movie by id
+     * @param id
+     * @return
+     */
     @Override
     public Movie getMovieById(int id) {
         Connection conn = null;
@@ -83,6 +96,11 @@ public class MovieDAO implements IMovie {
         return m;
     }
 
+    /**
+     * Returns an array of all movies watched by a single profile
+     * @param p
+     * @return
+     */
     @Override
     public List getMoviesWatchedByProfile(Profile p) {
         ArrayList<Movie> allMoviesWatched = new ArrayList<Movie>();
@@ -111,6 +129,11 @@ public class MovieDAO implements IMovie {
         return allMoviesWatched;
     }
 
+    /**
+     * Gets the amount of people who watched a movie
+     * @param movie
+     * @return
+     */
     public int getFullywatchedMovies(Movie movie){
         int average;
         Connection conn = null;
@@ -140,6 +163,10 @@ public class MovieDAO implements IMovie {
         }
    return 0 ; }
 
+    /**
+     * Returns the longest movie with the age limit under 16
+     * @return
+     */
     public Movie getLongestMovieForAgeLowerThen16(){
         Movie Longestunder16 = null;
         Connection conn = null;
@@ -165,11 +192,6 @@ public class MovieDAO implements IMovie {
 
             Longestunder16 = new Movie(movieID, movieTitle, movieDuration, movieGenre, movieLanguage, movieAge);
             return Longestunder16;
-
-
-
-
-
 
 
         }}catch (SQLException e){

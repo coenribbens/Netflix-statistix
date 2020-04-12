@@ -77,7 +77,8 @@ lange tijd geen handleidingen had geschreven, en al zeker niet in markup.
 Een interessant project met een redelijk goede uitkomst.
 
 #Reflectie Marcello Haddeman
-Dit is de eerste keer dat ik mee heb gedaan aan een software project. Ik moet zeggen dat het samenwerken toch wel veel moeilijker is dan gedacht. Ervoor zorgen dat iedereen op de hetzelfde spoor zit van gedachtengang is toch wel een klus. Toch vind ik dat we er nog wat van hebben kunnen maken. Ik vind wel dat we voor de volgende keer wat eerder mogen beginnen. We hadden wel wat tijd tekort.
+Dit is de eerste keer dat ik mee heb gedaan aan een softwareproject. Ik moet zeggen dat het samenwerken toch wel veel moeilijker is dan gedacht. Ervoor zorgen dat iedereen op de hetzelfde spoor zit van gedachtegang is toch wel een klus. Anders dan dat ging het in het algemeen wel redelijk goed, de voorkennis van Coen heeft ook geholpen met het structureren van de applicatie. Ik heb vooral gefocust op de views van de applicatie, hierbij deed ik beide werken aan de front-end en de back-end. Dit is de eerste keer dat ik met JavaFX heb gewerkt en dus heb ik heel veel informatie online moeten opzoeken hoe je bepaalde dingen doet.
+Terwijl het werk origineel was afgekeurd was heel veel werk al gedaan en koste het niet al te veel tijd om het af te ronden. Dit kwam uiteindelijk goed uit sinds we hierdoor ons compleet konden concentreren op andere projecten. De rede waarom het origineel was afgekeurd wat omdat we veel te weinig tijd hadden om alles goed te implementeren, daarom wil ik voor toekomstige projecten eerder beginnen. Ook wil ik projecten waarbij databases bij komen eerst aan de database werken voordat er wordt gewerkt aan de applicatie, hierdoor hoeven we niet later SQL query’s aanpassen om het te laten werken met aanpassingen in de database, iets wat we met dit project wel moesten doen.
 
 #Samenwerkingscontract
 Het samenwerkingscontract is verder te vinden in de Docs map

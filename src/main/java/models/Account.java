@@ -74,6 +74,11 @@ public class Account {
             this.houseNumber = houseNumber;
         }}
 
+    /**
+     * Checks if the number given is actually valid and exists
+     * @param houseNumber
+     * @return
+     */
     public boolean isHouseNumberValid (String houseNumber){
 
         if (Character.isDigit(houseNumber.charAt(0)))

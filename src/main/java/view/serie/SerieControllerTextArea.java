@@ -18,6 +18,10 @@ public class SerieControllerTextArea implements EventHandler<MouseEvent> {
         this.textArea = textArea;
     }
 
+    /**
+     * Deze controller haalt op hoeveel % de episode is bekeken.
+     * @param actionEvent
+     */
     @Override
     public void handle(MouseEvent actionEvent) {
         Episode episode = (Episode)this.tableView.getSelectionModel().getSelectedItem();

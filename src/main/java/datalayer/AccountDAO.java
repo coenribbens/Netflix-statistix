@@ -8,11 +8,13 @@ import java.util.List;
 import java.sql.*;
 
 public class AccountDAO implements IAccount {
+    //This class is responsible for handling all databse interactions for accounts
     private static AccountDAO instance;
 
     public AccountDAO() {
     }
 
+    //To make sure only one instance is used
     public static AccountDAO getInstance() {
         if (instance == null) {
             instance = new AccountDAO();
@@ -20,6 +22,7 @@ public class AccountDAO implements IAccount {
         return instance;
     }
 
+    //Gets all accounts and returns them from a list
     @Override
     public List getAllAccounts() {
     ArrayList<Account> allAccounts = new ArrayList<Account>();
@@ -48,6 +51,7 @@ public class AccountDAO implements IAccount {
         return allAccounts;
     }
 
+    //Gets a single account on the basis of the given id
     @Override
     public Account getAccountById(int Id) {
         Connection conn = null;
@@ -79,6 +83,7 @@ public class AccountDAO implements IAccount {
         return a;
     }
 
+    //Gets a list of all profiles with only one account
     public List<Account> getAccountsWithOneProfile() {
         Connection conn = null;
         ArrayList<Account> accounts = new ArrayList<>();
@@ -112,6 +117,7 @@ public class AccountDAO implements IAccount {
         return accounts;
     }
 
+    //Creates a new account, requires accountname, streetname, housenumber and zipcode
     @Override
     public void createAccount(Account a) {
         Connection conn = null;
@@ -134,6 +140,7 @@ public class AccountDAO implements IAccount {
     }
 
 
+    //Updates an existing account, requires accountname, streetname, housenumber, zipcode and accountId
     @Override
     public void updateAccount(Account a) {
         Connection conn = null;
@@ -154,6 +161,7 @@ public class AccountDAO implements IAccount {
         }
     }
 
+    //Deletes an account on basis of the given id
     @Override
     public void deleteAccount(Account a) {
     Connection conn = null;
