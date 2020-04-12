@@ -28,14 +28,13 @@ public class SerieController implements  EventHandler<ActionEvent>{
     @Override
     public void handle(ActionEvent actionEvent) {
         ChoiceBox btn = (ChoiceBox) actionEvent.getTarget();
-        Serie selectedserie = (Serie) btn.getSelectionModel().getSelectedItem();
-        int i = 0;
-        if (!tableView.getItems().contains(selectedserie)) {
-            SerieDAO serie = null;
-            List<Episode> Series = serie.getAllEpisodesBySerie(selectedserie);
-            tableView.getItems().add(Series);
-            GemiddeldekijktijdSerie.setText("De gemiddelde kijtijd is:" + serie.getAverageWatchTime(selectedserie));
-            i++;
+        Serie selectedSerie = (Serie) btn.getSelectionModel().getSelectedItem();
+        SerieDAO serieDAO = SerieDAO.getInstance();
+
+        this.tableView.getItems().clear();
+        List<Episode> episodes = serieDAO.getAllEpisodesBySerie(selectedSerie);
+        for(Episode item : episodes){
+            this.tableView.getItems().add(item);
         }
         this.tableView.getSelectionModel().selectFirst();
 
