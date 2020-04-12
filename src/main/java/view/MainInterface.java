@@ -15,18 +15,15 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import models.*;
 import view.account.AccountController;
-import view.movie.MovieController;
-import view.movie.MovieController2;
+import view.movie.MovieControllerTableView;
+import view.movie.MovieControllerTextArea;
 import view.movie.MovieControllerWatched;
-import view.serie.SerieController;
-import view.serie.SerieController2;
+import view.serie.SerieControllerTableView;
+import view.serie.SerieControllerWatched;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import view.account.AccountController;
+
 import models.Profile;
-import view.account.AccountController;
 import view.profiel.ProfielController;
 import view.serie.SerieControllerTextArea;
 
@@ -254,9 +251,9 @@ public class MainInterface extends Application {
             vbox.setSpacing(10);
             vbox.getChildren().addAll(choiceBoxToolbar,tableView,textgebieden);
         //Aanmaken van de controllers.
-        MovieController filmcontroller = new MovieController(tableView, langsteOnder16);
+        MovieControllerTableView filmcontroller = new MovieControllerTableView(tableView, langsteOnder16);
             choiceBox.setOnAction(filmcontroller);
-        MovieController2 filmcontroller2 = new MovieController2(tableView, Bekekendoor);
+        MovieControllerTextArea filmcontroller2 = new MovieControllerTextArea(tableView, Bekekendoor);
             tableView.setOnMouseClicked(filmcontroller2);
         MovieControllerWatched movieControllerWatched = new MovieControllerWatched(tableView, watchedProfileChoiceBox, percentageWatched, stage);
             buttonWatched.setOnAction(movieControllerWatched);
@@ -348,11 +345,11 @@ public class MainInterface extends Application {
             vbox.setSpacing(10);
             vbox.getChildren().addAll(choiceBoxToolbar,tableView,gemiddeldbekeken);
         //Aanmaken van de controllers.
-        SerieController serieController = new SerieController(tableView, gemiddeldbekeken);
-            choiceBox.setOnAction(serieController);
-        SerieController2 serieController2 = new SerieController2(tableView, profileChoiceBox, percentageWatched);
-            buttonWatched.setOnAction(serieController2);
-            buttonUnwatch.setOnAction(serieController2);
+        SerieControllerTableView serieControllerTableView = new SerieControllerTableView(tableView, gemiddeldbekeken);
+            choiceBox.setOnAction(serieControllerTableView);
+        SerieControllerWatched serieControllerWatched = new SerieControllerWatched(tableView, profileChoiceBox, percentageWatched);
+            buttonWatched.setOnAction(serieControllerWatched);
+            buttonUnwatch.setOnAction(serieControllerWatched);
         SerieControllerTextArea serieControllerTextArea = new SerieControllerTextArea(tableView, gemiddeldbekeken);
             tableView.setOnMouseClicked(serieControllerTextArea);
 

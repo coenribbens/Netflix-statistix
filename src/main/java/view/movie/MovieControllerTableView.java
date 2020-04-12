@@ -17,14 +17,14 @@ import javafx.scene.control.TextArea;
 import java.awt.*;
 import java.util.List;
 
-public class MovieController implements EventHandler<ActionEvent> {
+public class MovieControllerTableView implements EventHandler<ActionEvent> {
     private TableView tableView;
     private TextArea Langstefilmonder16;
 
 
-    public MovieController(TableView tableView,  TextArea Langstefilmmonder16){
-        this.tableView = tableView;  this.Langstefilmonder16 = Langstefilmmonder16;
-
+    public MovieControllerTableView(TableView tableView, TextArea Langstefilmmonder16){
+        this.tableView = tableView;
+        this.Langstefilmonder16 = Langstefilmmonder16;
     }
 
     @Override

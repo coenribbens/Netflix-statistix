@@ -28,7 +28,7 @@ public class MovieControllerWatched implements EventHandler<ActionEvent> {
 
 
     /**
-     *
+     * Deze controller noteert films als bekeken of onbekeken voor een geselecteerde gebruiker die uit de choicebox wordt gehaald.
      * @param actionEvent
      */
     @Override

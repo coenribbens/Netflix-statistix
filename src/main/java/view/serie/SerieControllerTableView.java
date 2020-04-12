@@ -14,17 +14,20 @@ import models.Serie;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SerieController implements  EventHandler<ActionEvent>{
+public class SerieControllerTableView implements  EventHandler<ActionEvent>{
 
     private TableView tableView;
     private TextArea gemiddeldeKijkTijdSerie;
   
-    public SerieController(TableView tableView, TextArea gemiddeldekijktijdSerie ){
+    public SerieControllerTableView(TableView tableView, TextArea gemiddeldekijktijdSerie ){
         this.tableView = tableView;
         this.gemiddeldeKijkTijdSerie = gemiddeldekijktijdSerie; }
 
 
-
+    /**
+     * Deze controller pakt alle episodes van een serie geselecteerd in de choicebox.
+     * @param actionEvent
+     */
     @Override
     public void handle(ActionEvent actionEvent) {
         ChoiceBox btn = (ChoiceBox) actionEvent.getTarget();
